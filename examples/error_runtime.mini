@@ -1,0 +1,6 @@
+// Runtime Error Test Program
+// Division by zero at runtime
+
+int x = 42;
+int y = 0;
+print(x / y);

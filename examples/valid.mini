@@ -1,0 +1,19 @@
+// Valid MiniLang Test Program
+// Demonstrates variable declaration, assignment, arithmetic, while loop, if/else, nested scope, and print.
+
+int sum = 0;
+int i = 1;
+
+while (i <= 5) {
+    sum = sum + i;
+    i = i + 1;
+}
+
+print(sum);
+
+if (sum >= 15) {
+    int bonus = 100;
+    print(sum + bonus);
+} else {
+    print(0);
+}

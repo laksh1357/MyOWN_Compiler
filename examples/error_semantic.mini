@@ -1,0 +1,6 @@
+// Semantic Error Test Program
+// Attempting to assign to an undeclared variable
+
+int a = 5;
+b = a + 10;
+print(b);
