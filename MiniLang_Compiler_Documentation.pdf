@@ -1,0 +1,258 @@
+%PDF-1.4
+%����
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+3 0 obj
+<< /Type /Pages /Count 4 /Kids [8 0 R 10 0 R 12 0 R 14 0 R] >>
+endobj
+7 0 obj
+<< /Length 4652 >>
+stream
+0.2 0.2 0.2 RG 0.5 w
+40 807 m 555 807 l S
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
+BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (MiniLang Compiler Design Laboratory) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Comprehensive Technical Specification & Viva Examination Documentation) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Author: Compiler Design Laboratory Project | Repository:) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 722 Td (https://github.com/laksh1357/MyOWN_Compiler) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 695 Td (1. Project Overview & Architecture) Tj ET
+0.13 0.31 0.55 RG 1 w
+40 690 m 555 690 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 675 Td (MiniLang is a clean, modular imperative programming language implemented in Python 3. The compiler) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 662 Td (architecture strictly implements all 5 classic compiler pipeline phases: Lexical Analysis, Syntax) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 649 Td (Analysis \(AST\), Semantic Analysis \(Symbol Table\), Three-Address Code \(TAC\) Generation &) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 636 Td (Optimization, and Virtual Machine Execution.) Tj ET
+0.95 0.95 0.96 rg 40 482 515 142 re f
+0.8 0.8 0.85 RG 0.5 w 40 482 515 142 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 611 Td (Source Code \(.mini\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 599 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 587 Td (Phase 1: Lexer \(lexer.py\)              ──► Token Stream \(Line/Col info\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 575 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 563 Td (Phase 2: Parser \(parser.py & ast_nodes.py\) ──► Abstract Syntax Tree \(AST\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 551 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 539 Td (Phase 3: Semantic Analyzer \(semantic.py\)──► Scoped Symbol Table) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 527 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 515 Td (Phase 4: TAC Generator \(tac.py & tac_opt.py\)──► 3-Address Code Quadruples) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 503 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 491 Td (Phase 5: Virtual Machine \(interpreter.py\)──► Execution & Output) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 461 Td (2. End-to-End Program Transformation Walkthrough) Tj ET
+0.13 0.31 0.55 RG 1 w
+40 456 m 555 456 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 441 Td (Sample MiniLang Program:) Tj ET
+0.95 0.95 0.96 rg 40 359 515 70 re f
+0.8 0.8 0.85 RG 0.5 w 40 359 515 70 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 416 Td (int x = 5;) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 404 Td (while \(x < 10\) {) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 392 Td (    print\(x\);) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 380 Td (    x = x + 1;) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 368 Td (}) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 343 Td (Phase 1: Lexical Analysis \(lexer.py\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 327 Td (Scans source string character by character. Converts text into a stream of typed Token objects with) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 314 Td (precise line and column tracking.) Tj ET
+0.95 0.95 0.96 rg 40 196 515 106 re f
+0.8 0.8 0.85 RG 0.5 w 40 196 515 106 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 289 Td ([Token\(INT, 'int', L1:C1\), Token\(ID, 'x', L1:C5\), Token\(ASSIGN, '=', L1:C7\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 277 Td ( Token\(NUMBER, 5, L1:C9\), Token\(SEMICOLON, ';', L1:C10\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 265 Td ( Token\(WHILE, 'while', L2:C1\), Token\(LPAREN, '\(', L2:C7\), Token\(ID, 'x', L2:C8\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 253 Td ( Token\(LT, '<', L2:C10\), Token\(NUMBER, 10, L2:C12\), Token\(RPAREN, '\)', L2:C14\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 241 Td ( Token\(LBRACE, '{', L2:C16\), Token\(PRINT, 'print', L3:C5\), Token\(ID, 'x', L3:C11\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 229 Td ( Token\(SEMICOLON, ';', L3:C13\), Token\(ID, 'x', L4:C5\), Token\(ASSIGN, '=', L4:C7\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 217 Td ( Token\(ID, 'x', L4:C9\), Token\(PLUS, '+', L4:C11\), Token\(NUMBER, 1, L4:C13\),) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 205 Td ( Token\(SEMICOLON, ';', L4:C14\), Token\(RBRACE, '}', L5:C1\), Token\(EOF, 'EOF', L5:C2\)]) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 180 Td (Phase 2: Syntax Analysis \(parser.py\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 164 Td (LL\(1\) Recursive Descent parser enforcing mathematical operator precedence to construct the) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 151 Td (hierarchical Abstract Syntax Tree.) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 7 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
+endobj
+9 0 obj
+<< /Length 4136 >>
+stream
+0.2 0.2 0.2 RG 0.5 w
+40 807 m 555 807 l S
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 2) Tj ET
+0.95 0.95 0.96 rg 40 585 515 202 re f
+0.8 0.8 0.85 RG 0.5 w 40 585 515 202 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 774 Td (Program:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 762 Td (  VarDecl \(int x\):) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 750 Td (    IntegerLiteral\(5\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 738 Td (  WhileStmt:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 726 Td (    Condition:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 714 Td (      BinaryExpr \('<'\):) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 702 Td (        Variable\(x\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 690 Td (        IntegerLiteral\(10\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 678 Td (    Body:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 666 Td (      Block:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 654 Td (        PrintStmt:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 642 Td (          Variable\(x\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 630 Td (        Assignment \(x =\):) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 618 Td (          BinaryExpr \('+'\):) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 606 Td (            Variable\(x\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 594 Td (            IntegerLiteral\(1\)) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 569 Td (Phase 3: Semantic Analysis \(semantic.py & symbol_table.py\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 553 Td (Performs AST Visitor traversal to verify variable declaration before use, prevent duplicate) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 540 Td (declarations in the same scope, and manage lexical scope hierarchies.) Tj ET
+0.95 0.95 0.96 rg 40 494 515 34 re f
+0.8 0.8 0.85 RG 0.5 w 40 494 515 34 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 515 Td (=== Scope Level 0 ===) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 503 Td (  Symbol\(x: int, Scope 0 \(L1:C1\)\)) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 478 Td (Phase 4: Intermediate Code Generation \(tac.py\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 462 Td (Translates AST nodes into linear 3-Address Code quadruples \(op, arg1, arg2, result\) with unique) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 449 Td (temporary registers and jump labels.) Tj ET
+0.95 0.95 0.96 rg 40 283 515 154 re f
+0.8 0.8 0.85 RG 0.5 w 40 283 515 154 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 424 Td (1:   t1 = 5) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 412 Td ( 2:   x = t1) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 400 Td ( 3: L1:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 388 Td ( 4:   t2 = 10) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 376 Td ( 5:   t3 = x LT t2) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 364 Td ( 6:   IF_FALSE t3 GOTO L2) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 352 Td ( 7:   PRINT x) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 340 Td ( 8:   t4 = 1) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 328 Td ( 9:   t5 = x ADD t4) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 316 Td (10:   x = t5) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 304 Td (11:   GOTO L1) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 292 Td (12: L2:) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 267 Td (Phase 5: Code Execution / Virtual Machine \(interpreter.py\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 251 Td (Executes TAC quadruples on a virtual machine environment with a program counter and memory map.) Tj ET
+0.95 0.95 0.96 rg 40 133 515 106 re f
+0.8 0.8 0.85 RG 0.5 w 40 133 515 106 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 226 Td (Program Execution Output:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 214 Td (5) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 202 Td (6) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 190 Td (7) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 178 Td (8) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 166 Td (9) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 154 Td () Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 142 Td (Execution finished successfully.) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 112 Td (3. Viva Examination Questions & Answers \(20 Key Questions\)) Tj ET
+0.13 0.31 0.55 RG 1 w
+40 107 m 555 107 l S
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 87 Td (Q1: What is lexical analysis?) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 9 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
+endobj
+11 0 obj
+<< /Length 4661 >>
+stream
+0.2 0.2 0.2 RG 0.5 w
+40 807 m 555 807 l S
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 3) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 782 Td (Lexical analysis is the first compiler phase. It converts raw source characters into meaningful) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 769 Td (tokens while tracking line/column information and stripping comments/whitespace.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 747 Td (Q2: What is parsing?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 731 Td (Parsing \(syntax analysis\) takes the token stream from the lexer and verifies whether it conforms to) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (the formal BNF grammar, constructing an Abstract Syntax Tree \(AST\).) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 696 Td (Q3: Why recursive descent parsing?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 680 Td (Recursive descent parsing is a top-down technique where each non-terminal grammar rule is written) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 667 Td (as a clean, deterministic Python function. It requires zero external tools.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 645 Td (Q4: What is an AST?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 629 Td (An Abstract Syntax Tree \(AST\) is a hierarchical tree representation of source code logic, omitting) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 616 Td (syntactic noise like semicolons and parentheses.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 594 Td (Q5: What is semantic analysis?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 578 Td (Semantic analysis checks static rules that context-free grammars cannot capture, such as) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 565 Td (declaration before use, block scope visibility, and type consistency.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 543 Td (Q6: What is a symbol table?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 527 Td (A symbol table is a data structure storing identifier metadata \(name, type, scope level,) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 514 Td (declaration location\) during compilation.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 492 Td (Q7: What is lexical scope?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 476 Td (Lexical scope means variable visibility is determined by physical position in block structures \({) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 463 Td (... }\). Child blocks access parent variables, but not vice-versa.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 441 Td (Q8: What is variable shadowing?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 425 Td (Variable shadowing occurs when an inner block declares a variable with the same name as an outer) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 412 Td (variable, temporarily hiding the outer declaration.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 390 Td (Q9: What is Three-Address Code \(TAC\)?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 374 Td (TAC is an intermediate representation where each quadruple has at most 3 operands, breaking complex) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 361 Td (logic into flat, register-like hardware steps.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 339 Td (Q10: Why use temporary variables in TAC?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 323 Td (Temporary variables \(t1, t2, ...\) break down nested AST expressions into linear step-by-step) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 310 Td (instructions.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 288 Td (Q11: What is constant folding?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 272 Td (Constant folding evaluates constant expressions \(e.g. 2 + 3 * 4 -> 14\) at compile time to save) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 259 Td (runtime computation.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 237 Td (Q12: What is dead code elimination?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 221 Td (Dead code elimination removes unreachable instructions \(e.g. quadruples following an unconditional) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 208 Td (GOTO jump\).) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 186 Td (Q13: Why interpret TAC instead of AST directly?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 170 Td (Interpreting TAC proves that intermediate code generation works correctly and demonstrates a) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 157 Td (complete 5-phase compiler pipeline.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 135 Td (Q14: Difference between syntax and semantic errors?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 119 Td (Syntax errors violate grammar rules \(e.g. missing semicolon\). Semantic errors violate static logic) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 106 Td (rules \(e.g. using an undeclared variable\).) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 84 Td (Q15: Difference between compile-time and runtime errors?) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 11 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 2015 >>
+stream
+0.2 0.2 0.2 RG 0.5 w
+40 807 m 555 807 l S
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 4) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 782 Td (Compile-time errors \(lexical, syntax, semantic\) are caught before execution. Runtime errors \(e.g.) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 769 Td (division by zero\) occur during VM execution.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 747 Td (Q16: How are while loops represented in TAC?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 731 Td (Using two labels and jumps: a start label L1, condition evaluation, IF_FALSE GOTO L2, body) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (quadruples, GOTO L1, and end label L2.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 696 Td (Q17: How is if/else represented in TAC?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 680 Td (Condition evaluation, IF_FALSE GOTO L1 \(else\), then-branch quadruples, GOTO L2 \(end\), label L1,) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 667 Td (else-branch quadruples, label L2.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 645 Td (Q18: How is division by zero handled?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 629 Td (Skipped during compile-time constant folding to avoid compiler crashes; caught during VM execution) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 616 Td (by raising a clean RuntimeError.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 594 Td (Q19: How is operator precedence implemented?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 578 Td (Through grammar method hierarchy: comparison -> addExpr \(+/-\) -> term \(*//\) -> factor, ensuring) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 565 Td (higher precedence operators bind deeper in AST.) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 543 Td (Q20: What are the main limitations of MiniLang?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 527 Td (MiniLang supports only integer variables and single-file programs without functions, arrays,) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 514 Td (floats, or target assembly code generation.) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 13 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000323 00000 n 
+0000000110 00000 n 
+0000000180 00000 n 
+0000000255 00000 n 
+0000000401 00000 n 
+0000005105 00000 n 
+0000005251 00000 n 
+0000009439 00000 n 
+0000009586 00000 n 
+0000014300 00000 n 
+0000014448 00000 n 
+0000016516 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+16664
+%%EOF
