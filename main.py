@@ -1,41 +1,48 @@
 """
-MiniLang Driver Program (CLI).
-Integrates Lexer, Parser, Semantic Analyzer, TAC Generator, Optimizer, and Interpreter.
+Main Command-Line Driver for MiniLang Compiler.
+
+Integrates Lexer, Parser, Semantic Analyzer, TAC Generator, TAC Optimizer, and Interpreter.
+Supports phase flags: --tokens, --ast, --symtab, --tac, --opt, --all.
+Handles compiler errors cleanly without Python tracebacks.
 """
 
 import argparse
-import sys
 import os
+import sys
 
-from lexer import Lexer, LexicalError
-from parser import Parser, SyntaxError
-from semantic import SemanticAnalyzer, SemanticError
+from errors import LexerError, ParserError, SemanticError, RuntimeError, MiniLangError
+from lexer import Lexer
+from parser import Parser
+from ast_nodes import dump_ast
+from semantic import SemanticAnalyzer
 from tac import TACGenerator, dump_tac
-from tac_opt import TACOptimizer
-from interpreter import Interpreter, RuntimeError
+from tac_opt import optimize_tac, compare_optimization
+from interpreter import Interpreter
 
 
 def main():
     cli_parser = argparse.ArgumentParser(
-        description="MiniLang Compiler & Interpreter Driver",
+        description="MiniLang Compiler & Interpreter CLI Driver",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
+  python3 main.py examples/valid.mini
   python3 main.py examples/valid.mini --all
   python3 main.py examples/valid.mini --tokens --ast
   python3 main.py examples/error_syntax.mini
 """
     )
-    cli_parser.add_argument("filename", help="Path to the .mini source file")
-    cli_parser.add_argument("--tokens", action="store_true", help="Print lexer token stream")
-    cli_parser.add_argument("--ast", action="store_true", help="Print parsed Abstract Syntax Tree (AST)")
-    cli_parser.add_argument("--symtab", action="store_true", help="Print symbol table")
-    cli_parser.add_argument("--tac", action="store_true", help="Print generated Three-Address Code (TAC)")
-    cli_parser.add_argument("--opt", action="store_true", help="Print optimized Three-Address Code")
-    cli_parser.add_argument("--all", action="store_true", help="Show output of all compiler phases")
+    cli_parser.add_argument("filename", help="Path to the .mini source code file")
+    cli_parser.add_argument("--tokens", action="store_true", help="Display token stream from Lexer")
+    cli_parser.add_argument("--ast", action="store_true", help="Display Abstract Syntax Tree (AST)")
+    cli_parser.add_argument("--symtab", action="store_true", help="Display Symbol Table and scopes")
+    cli_parser.add_argument("--tac", action="store_true", help="Display generated Three-Address Code (TAC)")
+    cli_parser.add_argument("--opt", action="store_true", help="Display optimized Three-Address Code")
+    cli_parser.add_argument("--all", action="store_true", help="Display all compiler pipeline phases and execution output")
 
     args = cli_parser.parse_args()
 
+    # If --all is passed, enable all phase flags
     if args.all:
         args.tokens = True
         args.ast = True
@@ -43,71 +50,93 @@ Examples:
         args.tac = True
         args.opt = True
 
+    # If no phase flags are set, run standard execution mode
+    run_execution_only = not (args.tokens or args.ast or args.symtab or args.tac or args.opt)
+
     if not os.path.exists(args.filename):
-        print(f"Error: File '{args.filename}' not found.", file=sys.stderr)
+        print(f"Error: Source file '{args.filename}' not found.", file=sys.stderr)
         sys.exit(1)
 
     with open(args.filename, "r", encoding="utf-8") as f:
         source_code = f.read()
 
-    print(f"=== [Phase 1] Lexical Analysis: {args.filename} ===")
+    # --- Phase 1: Lexical Analysis ---
     try:
         lexer = Lexer(source_code)
         tokens = lexer.tokenize()
         if args.tokens:
-            print("Tokens:")
+            print("==================================================")
+            print("         PHASE 1: LEXICAL ANALYSIS (TOKENS)       ")
+            print("==================================================")
             for tok in tokens:
                 print(f"  {tok}")
             print()
-    except LexicalError as e:
-        print(f"\n❌ {e}", file=sys.stderr)
+    except LexerError as err:
+        print(f"\n❌ LEXICAL ERROR: {err}", file=sys.stderr)
         sys.exit(1)
 
-    print("=== [Phase 2] Syntax Analysis ===")
+    # --- Phase 2: Syntax Analysis ---
     try:
         parser = Parser(tokens)
         ast = parser.parse()
         if args.ast:
-            print("Abstract Syntax Tree (AST):")
-            print(ast.dump())
-    except SyntaxError as e:
-        print(f"\n❌ {e}", file=sys.stderr)
+            print("==================================================")
+            print("        PHASE 2: SYNTAX ANALYSIS (AST TREE)       ")
+            print("==================================================")
+            print(dump_ast(ast))
+            print()
+    except ParserError as err:
+        print(f"\n❌ SYNTAX ERROR: {err}", file=sys.stderr)
         sys.exit(1)
 
-    print("=== [Phase 3] Semantic Analysis ===")
+    # --- Phase 3: Semantic Analysis ---
     try:
         semantic = SemanticAnalyzer()
         symtab = semantic.analyze(ast)
         if args.symtab:
-            print("Symbol Table:")
+            print("==================================================")
+            print("       PHASE 3: SEMANTIC ANALYSIS (SYMBOL TABLE)  ")
+            print("==================================================")
             print(symtab.dump())
-    except SemanticError as e:
-        print(f"\n❌ {e}", file=sys.stderr)
+            print()
+    except SemanticError as err:
+        print(f"\n❌ SEMANTIC ERROR: {err}", file=sys.stderr)
         sys.exit(1)
 
-    print("=== [Phase 4] Intermediate Code Generation (TAC) ===")
+    # --- Phase 4: Intermediate Code Generation (TAC) ---
     tac_gen = TACGenerator()
-    tac_instructions = tac_gen.generate(ast)
+    raw_tac = tac_gen.generate(ast)
     if args.tac:
-        print("Generated Three-Address Code (TAC):")
-        print(dump_tac(tac_instructions))
+        print("==================================================")
+        print("     PHASE 4: THREE-ADDRESS CODE (UNOPTIMIZED)    ")
+        print("==================================================")
+        print(dump_tac(raw_tac))
         print()
 
-    tac_opt = TACOptimizer(tac_instructions)
-    opt_instructions = tac_opt.optimize()
+    # --- Phase 4b: TAC Optimization ---
+    opt_tac = optimize_tac(raw_tac)
     if args.opt:
-        print("Optimized Three-Address Code (TAC):")
-        print(dump_tac(opt_instructions))
+        print("==================================================")
+        print("     PHASE 4b: THREE-ADDRESS CODE (OPTIMIZED)     ")
+        print("==================================================")
+        print(dump_tac(opt_tac))
         print()
 
-    print("=== [Phase 5] Execution / Interpretation ===")
+    # --- Phase 5: Virtual Machine Execution / Interpretation ---
     try:
-        interpreter = Interpreter(opt_instructions)
-        print("Program Output:")
-        interpreter.execute()
-        print("\n✅ Execution completed successfully.")
-    except RuntimeError as e:
-        print(f"\n❌ {e}", file=sys.stderr)
+        if args.all or run_execution_only:
+            print("==================================================")
+            print("         PHASE 5: VIRTUAL MACHINE EXECUTION       ")
+            print("==================================================")
+            print("Program Output:")
+            vm = Interpreter(opt_tac)
+            vm.run()
+            print("\n✅ Execution finished successfully.")
+    except RuntimeError as err:
+        print(f"\n❌ RUNTIME ERROR: {err}", file=sys.stderr)
+        sys.exit(1)
+    except MiniLangError as err:
+        print(f"\n❌ COMPILER ERROR: {err}", file=sys.stderr)
         sys.exit(1)
 
 
