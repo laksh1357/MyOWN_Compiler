@@ -44,9 +44,6 @@ class Interpreter:
 
         raise RuntimeError(f"Invalid operand type '{type(operand).__name__}'.")
 
-    def run() -> List[int]:
-        pass
-
     def run(self) -> List[int]:
         """
         Runs the TAC instruction execution loop.
