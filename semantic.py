@@ -1,95 +1,176 @@
 """
-Semantic Analyzer for MiniLang.
-Performs symbol resolution, scope checking, and type checking across the AST.
+Semantic Analyzer Module for MiniLang Compiler.
+
+Performs static semantics validation on the AST including:
+- Declaration before use validation
+- Duplicate declaration checking in the same scope
+- Scope entry/exit management for nested blocks
+- Shadowing support
+- Type validation for arithmetic and comparison expressions
+Raises SemanticError from errors.py with line and column tracking.
 """
 
-from ast_nodes import (
-    ASTNode, ProgramNode, VarDeclNode, AssignNode, PrintNode, IfNode,
-    WhileNode, BlockNode, BinaryOpNode, UnaryOpNode, NumNode, VarNode
-)
+from errors import SemanticError
 from symbol_table import SymbolTable
-
-
-class SemanticError(Exception):
-    def __init__(self, message: str, line: int, column: int):
-        super().__init__(f"Semantic Error [Line {line}, Column {column}]: {message}")
-        self.line = line
-        self.column = column
+from ast_nodes import (
+    ASTNode, Program, VarDecl, Assignment, PrintStmt, IfStmt,
+    WhileStmt, Block, BinaryExpr, UnaryExpr, IntegerLiteral, Variable
+)
 
 
 class SemanticAnalyzer:
+    """
+    AST Visitor that performs type checking, symbol resolution,
+    and lexical scope verification.
+    """
+
     def __init__(self):
-        self.global_symtab = SymbolTable(scope_level=0)
-        self.current_symtab = self.global_symtab
+        self.symbol_table = SymbolTable()
 
-    def analyze(self, node: ASTNode) -> SymbolTable:
-        self._visit(node)
-        return self.global_symtab
+    def analyze(self, program: Program) -> SymbolTable:
+        """Analyzes the given AST Program root node and returns the symbol table."""
+        self._visit(program)
+        return self.symbol_table
 
-    def _enter_scope(self) -> SymbolTable:
-        new_scope = SymbolTable(scope_level=self.current_symtab.scope_level + 1, parent=self.current_symtab)
-        self.current_symtab = new_scope
-        return new_scope
-
-    def _exit_scope(self):
-        if self.current_symtab.parent:
-            self.current_symtab = self.current_symtab.parent
-
-    def _visit(self, node: ASTNode):
+    def _visit(self, node: ASTNode) -> str:
+        """
+        Dispatches node visit to appropriate handler based on node class name.
+        Returns the type name of the evaluated expression (e.g. "int").
+        """
         method_name = f"_visit_{type(node).__name__}"
         visitor = getattr(self, method_name, self._generic_visit)
         return visitor(node)
 
     def _generic_visit(self, node: ASTNode):
-        raise NotImplementedError(f"No visitor defined for {type(node).__name__}")
+        raise NotImplementedError(f"No visitor method defined for AST node '{type(node).__name__}'")
 
-    def _visit_ProgramNode(self, node: ProgramNode):
+    def _visit_Program(self, node: Program) -> str:
         for stmt in node.statements:
             self._visit(stmt)
+        return "void"
 
-    def _visit_VarDeclNode(self, node: VarDeclNode):
-        self._visit(node.expr)
-        try:
-            self.current_symtab.define(node.name, node.var_type)
-        except ValueError as err:
-            raise SemanticError(str(err), node.line, node.column)
+    def _visit_VarDecl(self, node: VarDecl) -> str:
+        # Evaluate initializer expression first
+        expr_type = self._visit(node.initializer)
+        if expr_type != "int":
+            raise SemanticError(
+                f"Cannot initialize variable '{node.name}' of type '{node.var_type}' with expression of type '{expr_type}'.",
+                node.line,
+                node.column
+            )
 
-    def _visit_AssignNode(self, node: AssignNode):
-        sym = self.current_symtab.lookup(node.name)
-        if not sym:
-            raise SemanticError(f"Variable '{node.name}' is not declared before assignment.", node.line, node.column)
-        self._visit(node.expr)
+        # Check for duplicate declaration in the current active scope
+        if self.symbol_table.lookup_current_scope(node.name) is not None:
+            raise SemanticError(
+                f"Variable '{node.name}' is already declared in this scope.",
+                node.line,
+                node.column
+            )
 
-    def _visit_PrintNode(self, node: PrintNode):
-        self._visit(node.expr)
+        # Register variable in current scope
+        self.symbol_table.declare(
+            name=node.name,
+            type_name=node.var_type,
+            line=node.line,
+            column=node.column
+        )
+        return "void"
 
-    def _visit_IfNode(self, node: IfNode):
-        self._visit(node.condition)
-        self._visit(node.then_block)
-        if node.else_block:
-            self._visit(node.else_block)
+    def _visit_Assignment(self, node: Assignment) -> str:
+        # Check variable is declared
+        sym = self.symbol_table.lookup(node.name)
+        if sym is None:
+            raise SemanticError(
+                f"Cannot assign to undeclared variable '{node.name}'.",
+                node.line,
+                node.column
+            )
 
-    def _visit_WhileNode(self, node: WhileNode):
-        self._visit(node.condition)
+        expr_type = self._visit(node.value)
+        if expr_type != sym.type_name:
+            raise SemanticError(
+                f"Cannot assign expression of type '{expr_type}' to variable '{node.name}' of type '{sym.type_name}'.",
+                node.line,
+                node.column
+            )
+        return "void"
+
+    def _visit_PrintStmt(self, node: PrintStmt) -> str:
+        expr_type = self._visit(node.expression)
+        if expr_type != "int":
+            raise SemanticError(
+                f"Print statement requires integer expression, got '{expr_type}'.",
+                node.line,
+                node.column
+            )
+        return "void"
+
+    def _visit_IfStmt(self, node: IfStmt) -> str:
+        cond_type = self._visit(node.condition)
+        if cond_type != "int":
+            raise SemanticError(
+                f"If condition must evaluate to integer/boolean expression, got '{cond_type}'.",
+                node.line,
+                node.column
+            )
+        self._visit(node.then_branch)
+        if node.else_branch:
+            self._visit(node.else_branch)
+        return "void"
+
+    def _visit_WhileStmt(self, node: WhileStmt) -> str:
+        cond_type = self._visit(node.condition)
+        if cond_type != "int":
+            raise SemanticError(
+                f"While condition must evaluate to integer/boolean expression, got '{cond_type}'.",
+                node.line,
+                node.column
+            )
         self._visit(node.body)
+        return "void"
 
-    def _visit_BlockNode(self, node: BlockNode):
-        self._enter_scope()
+    def _visit_Block(self, node: Block) -> str:
+        # Enter nested scope on block start
+        self.symbol_table.enter_scope()
         for stmt in node.statements:
             self._visit(stmt)
-        self._exit_scope()
+        # Exit scope on block end
+        self.symbol_table.exit_scope()
+        return "void"
 
-    def _visit_BinaryOpNode(self, node: BinaryOpNode):
-        self._visit(node.left)
-        self._visit(node.right)
+    def _visit_BinaryExpr(self, node: BinaryExpr) -> str:
+        left_type = self._visit(node.left)
+        right_type = self._visit(node.right)
 
-    def _visit_UnaryOpNode(self, node: UnaryOpNode):
-        self._visit(node.operand)
+        if left_type != "int" or right_type != "int":
+            raise SemanticError(
+                f"Binary operator '{node.operator}' requires integer operands, got '{left_type}' and '{right_type}'.",
+                node.line,
+                node.column
+            )
 
-    def _visit_NumNode(self, node: NumNode):
-        pass
+        # In MiniLang, both arithmetic (+, -, *, /) and comparison (==, !=, <, >, <=, >=) return int (0 or 1 for bool)
+        return "int"
 
-    def _visit_VarNode(self, node: VarNode):
-        sym = self.current_symtab.lookup(node.name)
-        if not sym:
-            raise SemanticError(f"Variable '{node.name}' is not declared.", node.line, node.column)
+    def _visit_UnaryExpr(self, node: UnaryExpr) -> str:
+        operand_type = self._visit(node.operand)
+        if operand_type != "int":
+            raise SemanticError(
+                f"Unary operator '{node.operator}' requires integer operand, got '{operand_type}'.",
+                node.line,
+                node.column
+            )
+        return "int"
+
+    def _visit_IntegerLiteral(self, node: IntegerLiteral) -> str:
+        return "int"
+
+    def _visit_Variable(self, node: Variable) -> str:
+        sym = self.symbol_table.lookup(node.name)
+        if sym is None:
+            raise SemanticError(
+                f"Undeclared variable '{node.name}'.",
+                node.line,
+                node.column
+            )
+        return sym.type_name
