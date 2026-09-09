@@ -1,5 +1,6 @@
 // Syntax Error Test Program
-// Missing semicolon after variable declaration
+// Demonstrates: missing semicolon after variable declaration
+// Expected Result: ParserError at line 5, column 1
 
 int x = 10
 print(x);

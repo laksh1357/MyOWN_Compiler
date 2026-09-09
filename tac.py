@@ -3,9 +3,11 @@ Three-Address Code (TAC) Generator Module for MiniLang Compiler.
 
 Translates MiniLang AST nodes into a linear sequence of 3-Address Code quadruples
 with temporary variable (t1, t2, ...) and jump label (L1, L2, ...) generation.
+Integrates lexical scope variable mangling for accurate variable shadowing.
 """
 
 from typing import Any, List, Optional
+from symbol_table import SymbolTable
 from ast_nodes import (
     ASTNode, Program, VarDecl, Assignment, PrintStmt, IfStmt,
     WhileStmt, Block, BinaryExpr, UnaryExpr, IntegerLiteral, Variable
@@ -60,12 +62,14 @@ OPCODE_MAP = {
 class TACGenerator:
     """
     AST Visitor that translates MiniLang AST nodes into linear TAC instructions.
+    Uses SymbolTable to handle scope-based variable name mangling for shadowing.
     """
 
     def __init__(self):
         self.instructions: List[TACInstruction] = []
         self.temp_counter = 1
         self.label_counter = 1
+        self.symbol_table = SymbolTable()
 
     def new_temp(self) -> str:
         """Allocates a unique temporary variable name (t1, t2, ...)."""
@@ -78,6 +82,13 @@ class TACGenerator:
         label = f"L{self.label_counter}"
         self.label_counter += 1
         return label
+
+    def _get_var_tac_name(self, name: str) -> str:
+        """Returns the scope-mangled variable name for TAC execution (e.g. x vs x_s1)."""
+        sym = self.symbol_table.lookup(name)
+        if sym and sym.scope_level > 0:
+            return f"{name}_s{sym.scope_level}"
+        return name
 
     def generate(self, program: Program) -> List[TACInstruction]:
         """Translates the AST Program root node into a list of TAC instructions."""
@@ -98,11 +109,18 @@ class TACGenerator:
 
     def _visit_VarDecl(self, node: VarDecl):
         expr_res = self._visit(node.initializer)
-        self.instructions.append(TACInstruction("ASSIGN", expr_res, None, node.name))
+        try:
+            sym = self.symbol_table.declare(node.name, node.var_type, node.line, node.column)
+            tac_name = f"{node.name}_s{sym.scope_level}" if sym.scope_level > 0 else node.name
+        except ValueError:
+            tac_name = self._get_var_tac_name(node.name)
+
+        self.instructions.append(TACInstruction("ASSIGN", expr_res, None, tac_name))
 
     def _visit_Assignment(self, node: Assignment):
         expr_res = self._visit(node.value)
-        self.instructions.append(TACInstruction("ASSIGN", expr_res, None, node.name))
+        tac_name = self._get_var_tac_name(node.name)
+        self.instructions.append(TACInstruction("ASSIGN", expr_res, None, tac_name))
 
     def _visit_PrintStmt(self, node: PrintStmt):
         expr_res = self._visit(node.expression)
@@ -137,8 +155,10 @@ class TACGenerator:
         self.instructions.append(TACInstruction("LABEL", None, None, end_label))
 
     def _visit_Block(self, node: Block):
+        self.symbol_table.enter_scope()
         for stmt in node.statements:
             self._visit(stmt)
+        self.symbol_table.exit_scope()
 
     def _visit_BinaryExpr(self, node: BinaryExpr) -> str:
         left_res = self._visit(node.left)
@@ -160,7 +180,7 @@ class TACGenerator:
         return temp
 
     def _visit_Variable(self, node: Variable) -> str:
-        return node.name
+        return self._get_var_tac_name(node.name)
 
 
 def dump_tac(instructions: List[TACInstruction]) -> str:

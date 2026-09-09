@@ -1,5 +1,6 @@
 // Runtime Error Test Program
-// Division by zero at runtime
+// Demonstrates: division by zero at runtime
+// Expected Result: RuntimeError: Division by zero
 
 int x = 42;
 int y = 0;

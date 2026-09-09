@@ -1,3 +1,10 @@
-// Optimization test case: Constant folding (10 + 20 * 3) -> 70
-int a = 10 + 20 * 3;
-print(a);
+// TAC Optimization Test Program
+// Demonstrates: constant folding (2 + 3 * 4 -> 14, (10 - 2) * 5 -> 40)
+// Expected Output:
+// 14
+// 40
+
+int x = 2 + 3 * 4;
+int y = (10 - 2) * 5;
+print(x);
+print(y);

@@ -1,0 +1,20 @@
+// Nested Lexical Scope Test Program
+// Demonstrates: nested blocks, parent scope access, variable shadowing, and scope exit.
+// Expected Output:
+// 30
+// 200
+// 10
+
+int x = 10;
+
+{
+    int y = 20;
+    print(x + y);
+}
+
+{
+    int x = 200;
+    print(x);
+}
+
+print(x);
