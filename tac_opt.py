@@ -1,70 +1,110 @@
 """
-TAC Optimizer for MiniLang.
-Performs Constant Folding and Dead Code Elimination on TAC instructions.
+Three-Address Code (TAC) Optimizer Module for MiniLang Compiler.
+
+Implements optimization passes over linear TAC instructions:
+1. Constant Folding (evaluating constant expressions at compile time)
+2. Constant Propagation (substituting known constant values into variables)
+3. Dead Code Elimination (removing unreachable instructions after unconditional GOTOs)
 """
 
-from tac import TACInstruction
+from typing import List, Dict, Any, Tuple
+from tac import TACInstruction, dump_tac
 
 
 class TACOptimizer:
-    def __init__(self, instructions: list[TACInstruction]):
+    """
+    Performs deterministic optimization passes on TAC instructions.
+    """
+
+    def __init__(self, instructions: List[TACInstruction]):
         self.instructions = instructions
 
-    def optimize(self) -> list[TACInstruction]:
-        optimized = self._constant_folding(self.instructions)
-        optimized = self._dead_code_elimination(optimized)
-        return optimized
+    def optimize(self) -> List[TACInstruction]:
+        """Runs optimization passes iteratively until no further instructions change."""
+        current_insts = self.instructions
+        while True:
+            folded_insts = self._constant_folding_and_propagation(current_insts)
+            dce_insts = self._dead_code_elimination(folded_insts)
+            if len(dce_insts) == len(current_insts) and all(
+                i1.op == i2.op and i1.arg1 == i2.arg1 and i1.arg2 == i2.arg2 and i1.result == i2.result
+                for i1, i2 in zip(dce_insts, current_insts)
+            ):
+                break
+            current_insts = dce_insts
+        return current_insts
 
-    def _constant_folding(self, insts: list[TACInstruction]) -> list[TACInstruction]:
-        res: list[TACInstruction] = []
+    def _constant_folding_and_propagation(self, insts: List[TACInstruction]) -> List[TACInstruction]:
+        """Performs Constant Propagation and Constant Folding."""
+        res: List[TACInstruction] = []
+        constants: Dict[str, Any] = {}
+
         for inst in insts:
-            if inst.op in ("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">="):
-                arg1_is_num = isinstance(inst.arg1, (int, float))
-                arg2_is_num = isinstance(inst.arg2, (int, float))
-
-                if arg1_is_num and arg2_is_num:
-                    val1 = inst.arg1
-                    val2 = inst.arg2
-                    folded_val = None
-                    try:
-                        if inst.op == "+":
-                            folded_val = val1 + val2
-                        elif inst.op == "-":
-                            folded_val = val1 - val2
-                        elif inst.op == "*":
-                            folded_val = val1 * val2
-                        elif inst.op == "/":
-                            if val2 != 0:
-                                folded_val = int(val1 // val2) if isinstance(val1, int) and isinstance(val2, int) else val1 / val2
-                        elif inst.op == "==":
-                            folded_val = 1 if val1 == val2 else 0
-                        elif inst.op == "!=":
-                            folded_val = 1 if val1 != val2 else 0
-                        elif inst.op == "<":
-                            folded_val = 1 if val1 < val2 else 0
-                        elif inst.op == ">":
-                            folded_val = 1 if val1 > val2 else 0
-                        elif inst.op == "<=":
-                            folded_val = 1 if val1 <= val2 else 0
-                        elif inst.op == ">=":
-                            folded_val = 1 if val1 >= val2 else 0
-                    except ZeroDivisionError:
-                        pass
-
-                    if folded_val is not None:
-                        # Replace binary op with constant assignment
-                        res.append(TACInstruction("ASSIGN", folded_val, None, inst.result))
-                        continue
-
-            elif inst.op == "NEG" and isinstance(inst.arg1, (int, float)):
-                res.append(TACInstruction("ASSIGN", -inst.arg1, None, inst.result))
+            # Clear known constant map across control flow boundaries (labels, jumps) for safety
+            if inst.op in ("LABEL", "JUMP", "JUMP_IF_FALSE"):
+                constants.clear()
+                res.append(inst)
                 continue
 
-            res.append(inst)
+            # Substitute known constants into arg1 and arg2 (Propagation)
+            arg1 = constants.get(inst.arg1, inst.arg1) if isinstance(inst.arg1, str) else inst.arg1
+            arg2 = constants.get(inst.arg2, inst.arg2) if isinstance(inst.arg2, str) else inst.arg2
+
+            # Constant Folding for binary opcodes (ADD, SUB, MUL, DIV, EQ, NE, LT, GT, LE, GE)
+            if inst.op in ("ADD", "SUB", "MUL", "DIV", "EQ", "NE", "LT", "GT", "LE", "GE"):
+                if isinstance(arg1, (int, float)) and isinstance(arg2, (int, float)):
+                    folded_val: Any = None
+                    try:
+                        if inst.op == "ADD":
+                            folded_val = arg1 + arg2
+                        elif inst.op == "SUB":
+                            folded_val = arg1 - arg2
+                        elif inst.op == "MUL":
+                            folded_val = arg1 * arg2
+                        elif inst.op == "DIV":
+                            if arg2 != 0:
+                                folded_val = int(arg1 // arg2) if isinstance(arg1, int) and isinstance(arg2, int) else arg1 / arg2
+                        elif inst.op == "EQ":
+                            folded_val = 1 if arg1 == arg2 else 0
+                        elif inst.op == "NE":
+                            folded_val = 1 if arg1 != arg2 else 0
+                        elif inst.op == "LT":
+                            folded_val = 1 if arg1 < arg2 else 0
+                        elif inst.op == "GT":
+                            folded_val = 1 if arg1 > arg2 else 0
+                        elif inst.op == "LE":
+                            folded_val = 1 if arg1 <= arg2 else 0
+                        elif inst.op == "GE":
+                            folded_val = 1 if arg1 >= arg2 else 0
+                    except ZeroDivisionError:
+                        folded_val = None
+
+                    if folded_val is not None:
+                        new_inst = TACInstruction("CONST", folded_val, None, inst.result)
+                        res.append(new_inst)
+                        if inst.result:
+                            constants[inst.result] = folded_val
+                        continue
+
+            elif inst.op == "NEG" and isinstance(arg1, (int, float)):
+                folded_val = -arg1
+                new_inst = TACInstruction("CONST", folded_val, None, inst.result)
+                res.append(new_inst)
+                if inst.result:
+                    constants[inst.result] = folded_val
+                continue
+
+            elif inst.op in ("CONST", "ASSIGN"):
+                if isinstance(arg1, (int, float)):
+                    if inst.result:
+                        constants[inst.result] = arg1
+
+            res.append(TACInstruction(inst.op, arg1, arg2, inst.result))
+
         return res
 
-    def _dead_code_elimination(self, insts: list[TACInstruction]) -> list[TACInstruction]:
-        res: list[TACInstruction] = []
+    def _dead_code_elimination(self, insts: List[TACInstruction]) -> List[TACInstruction]:
+        """Removes unreachable instructions after unconditional GOTOs and redundant constant jumps."""
+        res: List[TACInstruction] = []
         unreachable = False
 
         for inst in insts:
@@ -72,10 +112,37 @@ class TACOptimizer:
                 unreachable = False
                 res.append(inst)
             elif unreachable:
+                # Skip unreachable instructions following unconditional GOTO
                 continue
+            elif inst.op == "JUMP_IF_FALSE":
+                # If condition is constant 0 (false), IF_FALSE 0 GOTO L1 becomes unconditional GOTO L1
+                if inst.arg1 == 0:
+                    res.append(TACInstruction("JUMP", None, None, inst.result))
+                    unreachable = True
+                # If condition is constant non-zero (true), IF_FALSE 1 GOTO L1 is never taken -> omit
+                elif isinstance(inst.arg1, (int, float)) and inst.arg1 != 0:
+                    continue
+                else:
+                    res.append(inst)
+            elif inst.op == "JUMP":
+                res.append(inst)
+                unreachable = True
             else:
                 res.append(inst)
-                if inst.op == "JUMP":
-                    unreachable = True
 
         return res
+
+
+def optimize_tac(instructions: List[TACInstruction]) -> List[TACInstruction]:
+    """Convenience function to optimize a list of TAC instructions."""
+    optimizer = TACOptimizer(instructions)
+    return optimizer.optimize()
+
+
+def compare_optimization(before: List[TACInstruction], after: List[TACInstruction]) -> str:
+    """Returns a formatted comparison string showing BEFORE and AFTER optimization."""
+    res = "=== BEFORE OPTIMIZATION ===\n"
+    res += dump_tac(before) + "\n\n"
+    res += "=== AFTER OPTIMIZATION ===\n"
+    res += dump_tac(after)
+    return res
