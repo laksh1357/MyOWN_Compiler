@@ -1,118 +1,133 @@
 """
-Interpreter / Execution Engine for MiniLang.
-Executes Three-Address Code (TAC) instructions on a virtual machine model.
-Catches runtime errors such as division by zero.
+Interpreter / Virtual Machine Module for MiniLang Compiler.
+
+Executes linear Three-Address Code (TAC) instructions sequentially,
+maintaining variable memory, temporary memory, label map, and program counter (PC).
+Raises RuntimeError from errors.py for runtime errors such as division by zero.
 """
 
+from typing import Any, Dict, List
+from errors import RuntimeError
 from tac import TACInstruction
 
 
-class RuntimeError(Exception):
-    def __init__(self, message: str):
-        super().__init__(f"Runtime Error: {message}")
-
-
 class Interpreter:
-    def __init__(self, instructions: list[TACInstruction]):
-        self.instructions = instructions
-        self.env: dict[str, int | float] = {}
-        self.labels: dict[str, int] = {}
-        self.output_buffer: list[str] = []
+    """
+    Virtual Machine that executes TAC quadruples.
+    Demonstrates the final execution phase of the compiler pipeline.
+    """
 
-        # Index labels for fast GOTO
+    def __init__(self, instructions: List[TACInstruction]):
+        self.instructions = instructions
+        self.memory: Dict[str, int] = {}
+        self.label_map: Dict[str, int] = {}
+        self.output: List[int] = []
+        self.pc = 0
+
+        # Pre-pass: Index label locations for O(1) GOTO jumps
         for idx, inst in enumerate(self.instructions):
             if inst.op == "LABEL" and inst.result:
-                self.labels[inst.result] = idx
+                self.label_map[inst.result] = idx
 
-    def _eval_val(self, val: str | int | float | None) -> int | float:
-        if val is None:
-            raise RuntimeError("Attempted to evaluate None value.")
-        if isinstance(val, (int, float)):
-            return val
-        if isinstance(val, str):
-            if val in self.env:
-                return self.env[val]
-            raise RuntimeError(f"Variable or temporary '{val}' accessed before assignment.")
-        raise RuntimeError(f"Unknown value type '{type(val)}'")
+    def _eval_operand(self, operand: Any) -> int:
+        """Evaluates an operand which can be an integer literal, variable, or temporary."""
+        if operand is None:
+            raise RuntimeError("Attempted to evaluate None operand.")
 
-    def execute(self) -> list[str]:
-        pc = 0
+        if isinstance(operand, int):
+            return operand
+
+        if isinstance(operand, str):
+            if operand in self.memory:
+                return self.memory[operand]
+            raise RuntimeError(f"Undefined variable or temporary '{operand}' accessed before initialization.")
+
+        raise RuntimeError(f"Invalid operand type '{type(operand).__name__}'.")
+
+    def run() -> List[int]:
+        pass
+
+    def run(self) -> List[int]:
+        """
+        Runs the TAC instruction execution loop.
+        Returns a list of values printed during execution.
+        """
+        self.pc = 0
         n = len(self.instructions)
 
-        while pc < n:
-            inst = self.instructions[pc]
+        while self.pc < n:
+            inst = self.instructions[self.pc]
             op = inst.op
 
-            if op == "ASSIGN":
-                val = self._eval_val(inst.arg1)
-                self.env[inst.result] = val
-                pc += 1
+            if op in ("CONST", "ASSIGN"):
+                val = self._eval_operand(inst.arg1)
+                self.memory[inst.result] = val
+                self.pc += 1
 
-            elif op in ("+", "-", "*", "/", "==", "!=", "<", ">", "<=", ">="):
-                v1 = self._eval_val(inst.arg1)
-                v2 = self._eval_val(inst.arg2)
-                res = None
+            elif op in ("ADD", "SUB", "MUL", "DIV", "EQ", "NE", "LT", "GT", "LE", "GE"):
+                val1 = self._eval_operand(inst.arg1)
+                val2 = self._eval_operand(inst.arg2)
+                res = 0
 
-                if op == "+":
-                    res = v1 + v2
-                elif op == "-":
-                    res = v1 - v2
-                elif op == "*":
-                    res = v1 * v2
-                elif op == "/":
-                    if v2 == 0:
+                if op == "ADD":
+                    res = val1 + val2
+                elif op == "SUB":
+                    res = val1 - val2
+                elif op == "MUL":
+                    res = val1 * val2
+                elif op == "DIV":
+                    if val2 == 0:
                         raise RuntimeError("Division by zero.")
-                    res = int(v1 // v2) if isinstance(v1, int) and isinstance(v2, int) else v1 / v2
-                elif op == "==":
-                    res = 1 if v1 == v2 else 0
-                elif op == "!=":
-                    res = 1 if v1 != v2 else 0
-                elif op == "<":
-                    res = 1 if v1 < v2 else 0
-                elif op == ">":
-                    res = 1 if v1 > v2 else 0
-                elif op == "<=":
-                    res = 1 if v1 <= v2 else 0
-                elif op == ">=":
-                    res = 1 if v1 >= v2 else 0
+                    res = val1 // val2
+                elif op == "EQ":
+                    res = 1 if val1 == val2 else 0
+                elif op == "NE":
+                    res = 1 if val1 != val2 else 0
+                elif op == "LT":
+                    res = 1 if val1 < val2 else 0
+                elif op == "GT":
+                    res = 1 if val1 > val2 else 0
+                elif op == "LE":
+                    res = 1 if val1 <= val2 else 0
+                elif op == "GE":
+                    res = 1 if val1 >= val2 else 0
 
-                self.env[inst.result] = res
-                pc += 1
+                self.memory[inst.result] = res
+                self.pc += 1
 
             elif op == "NEG":
-                val = self._eval_val(inst.arg1)
-                self.env[inst.result] = -val
-                pc += 1
+                val = self._eval_operand(inst.arg1)
+                self.memory[inst.result] = -val
+                self.pc += 1
 
             elif op == "PRINT":
-                val = self._eval_val(inst.arg1)
-                output_str = str(val)
-                self.output_buffer.append(output_str)
-                print(output_str)
-                pc += 1
+                val = self._eval_operand(inst.arg1)
+                self.output.append(val)
+                print(val)
+                self.pc += 1
 
             elif op == "JUMP":
-                target_lbl = inst.result
-                if target_lbl in self.labels:
-                    pc = self.labels[target_lbl]
+                target_label = inst.result
+                if target_label in self.label_map:
+                    self.pc = self.label_map[target_label]
                 else:
-                    raise RuntimeError(f"Jump label '{target_lbl}' not found.")
+                    raise RuntimeError(f"Undefined jump label target '{target_label}'.")
 
             elif op == "JUMP_IF_FALSE":
-                cond_val = self._eval_val(inst.arg1)
-                if cond_val == 0 or cond_val is False:
-                    target_lbl = inst.result
-                    if target_lbl in self.labels:
-                        pc = self.labels[target_lbl]
+                cond_val = self._eval_operand(inst.arg1)
+                if cond_val == 0:
+                    target_label = inst.result
+                    if target_label in self.label_map:
+                        self.pc = self.label_map[target_label]
                     else:
-                        raise RuntimeError(f"Jump label '{target_lbl}' not found.")
+                        raise RuntimeError(f"Undefined jump label target '{target_label}'.")
                 else:
-                    pc += 1
+                    self.pc += 1
 
             elif op == "LABEL":
-                pc += 1
+                self.pc += 1
 
             else:
-                raise RuntimeError(f"Unknown TAC operation '{op}'")
+                raise RuntimeError(f"Invalid instruction '{op}'.")
 
-        return self.output_buffer
+        return self.output
