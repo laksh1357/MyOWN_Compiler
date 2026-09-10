@@ -1,0 +1,97 @@
+%PDF-1.4
+%����
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+3 0 obj
+<< /Type /Pages /Count 1 /Kids [8 0 R] >>
+endobj
+7 0 obj
+<< /Length 4560 >>
+stream
+0.2 0.2 0.2 RG 0.5 w
+40 807 m 555 807 l S
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
+BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (REVIEW 1: PROJECT PROPOSAL & DESIGN REVIEW DEFENSE GUIDE) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Course: Compiler Design Laboratory | Review 1 Evaluation \(20 Marks\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Project Title: MiniLang — Compiler & Interpreter for a Simple Imperative Language) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (Repository: https://github.com/laksh1357/MyOWN_Compiler) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 691 Td (1. Review 1 Marks Breakdown \(20/20 Marks\)) Tj ET
+0.13 0.31 0.55 RG 1 w
+40 686 m 555 686 l S
+0.95 0.95 0.96 rg 40 522 515 154 re f
+0.8 0.8 0.85 RG 0.5 w 40 522 515 154 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 663 Td (Criteria                       What Evaluators Look For            Marks) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 651 Td (-------------------------------------------------------------------------) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 639 Td (1. Topic Selection             Compiler Design Relevance           3 / 3) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 627 Td (2. Problem Statement           Clarity & Significance              3 / 3) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 615 Td (3. Objectives                  Clearly Defined Objectives          2 / 2) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 603 Td (4. Technical Feasibility       Implementation Feasibility          4 / 4) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 591 Td (5. Compiler Concepts           Appropriate Concepts Identified     3 / 3) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 579 Td (6. System Architecture         Quality of Design & Data Flow       4 / 4) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 567 Td (7. Innovation                  Originality \(Optimization/DCE\)      2 / 2) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 555 Td (8. Prototype                   Initial Working Implementation      3 / 3) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 543 Td (-------------------------------------------------------------------------) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 531 Td (TOTAL MARKS                                                       20 / 20) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 501 Td (2. Panel Presentation Script & System Architecture) Tj ET
+0.13 0.31 0.55 RG 1 w
+40 496 m 555 496 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 481 Td (Problem Statement: Production compilers \(GCC, Clang\) are black boxes comprising millions of lines.) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 468 Td (MiniLang provides a transparent, zero-dependency 5-phase compiler pipeline in Python 3.) Tj ET
+0.95 0.95 0.96 rg 40 290 515 166 re f
+0.8 0.8 0.85 RG 0.5 w 40 290 515 166 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 443 Td (Source Code \(.mini\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 431 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 419 Td (Phase 1: Lexical Analysis \(lexer.py\)              ──► Token Stream \(Line/Col info\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 407 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 395 Td (Phase 2: Syntax Analysis \(parser.py & ast_nodes.py\) ──► Abstract Syntax Tree \(AST\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 383 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 371 Td (Phase 3: Semantic Analysis \(semantic.py\)          ──► Scoped Symbol Table) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 359 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 347 Td (Phase 4: Intermediate Code Generator \(tac.py\)     ──► 3-Address Code Quadruples) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 335 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 323 Td (Phase 4b: Code Optimization Pass \(tac_opt.py\)     ──► Constant Folding & DCE) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 311 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 299 Td (Phase 5: Virtual Machine Interpreter \(interpreter.py\) ──► Code Execution & Output) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 269 Td (3. Working Prototype Demonstration) Tj ET
+0.13 0.31 0.55 RG 1 w
+40 264 m 555 264 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 249 Td (Demonstrate live CLI in terminal during Review 1:) Tj ET
+0.95 0.95 0.96 rg 40 203 515 34 re f
+0.8 0.8 0.85 RG 0.5 w 40 203 515 34 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 224 Td (cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 212 Td (./minilang examples/valid.mini --all) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 7 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000323 00000 n 
+0000000110 00000 n 
+0000000180 00000 n 
+0000000255 00000 n 
+0000000380 00000 n 
+0000004992 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+5138
+%%EOF
