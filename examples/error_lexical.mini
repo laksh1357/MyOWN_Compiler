@@ -1,6 +1,6 @@
 // Lexical Error Test Program
 // Demonstrates: invalid character (@) detection
-// Expected Result: LexerError at line 5, column 9
+// Expected Result: LexerError at line 6, column 9
 
 int a = 5;
 int b = @ 10;
