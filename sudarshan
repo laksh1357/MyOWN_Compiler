@@ -1,12 +1,2 @@
-#!/usr/bin/env bash
-# Sudarshan Compiler CLI Executable Wrapper
-
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-if [ -f "$SCRIPT_DIR/.venv/bin/python" ]; then
-    PYTHON_BIN="$SCRIPT_DIR/.venv/bin/python"
-else
-    PYTHON_BIN="python3"
-fi
-
-"$PYTHON_BIN" "$SCRIPT_DIR/main.py" "$@"
+#!/bin/bash
+python3 "$(dirname "$0")/main.py" "$@"
