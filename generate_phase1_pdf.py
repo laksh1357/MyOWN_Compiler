@@ -12,6 +12,7 @@ def generate_phase1_pdf():
     # Header & Title
     pdf.add_title("PHASE 1 REPORT: PROBLEM DEFINITION & SYSTEM DESIGN")
     pdf.add_paragraph("Course: Compiler Design Laboratory | Review 1 Submission")
+    pdf.add_paragraph("Student Name: Lakshya Singh | Reg No.: 24BDS0054")
     pdf.add_paragraph("Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine")
     pdf.add_paragraph("Repository: https://github.com/laksh1357/MyOWN_Compiler")
 

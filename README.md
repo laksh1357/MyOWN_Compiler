@@ -1,6 +1,7 @@
 # Sudarshan — An End-to-End Compiler and Virtual Machine
 
-**Compiler Design Laboratory Individual Project**
+**Compiler Design Laboratory Individual Project**  
+**Student Name**: Lakshya Singh | **Reg No.**: 24BDS0054  
 
 ---
 

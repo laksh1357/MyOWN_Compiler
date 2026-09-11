@@ -74,7 +74,7 @@ def create_document(output_filename: str):
 
     p_meta = doc.add_paragraph()
     p_meta.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run_meta = p_meta.add_run("GitHub Repository: https://github.com/laksh1357/MyOWN_Compiler\nStudent Individual Project | Academic Year 2026")
+    run_meta = p_meta.add_run("Student Name: Lakshya Singh | Reg No.: 24BDS0054\nGitHub Repository: https://github.com/laksh1357/MyOWN_Compiler\nStudent Individual Project | Academic Year 2026")
     run_meta.font.size = Pt(10)
     run_meta.font.italic = True
 

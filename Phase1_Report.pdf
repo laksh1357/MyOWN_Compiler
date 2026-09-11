@@ -19,7 +19,7 @@ endobj
 << /Type /Pages /Count 2 /Kids [8 0 R 10 0 R] >>
 endobj
 7 0 obj
-<< /Length 5329 >>
+<< /Length 5364 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
@@ -27,95 +27,96 @@ BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Docum
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
 BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (PHASE 1 REPORT: PROBLEM DEFINITION & SYSTEM DESIGN) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Course: Compiler Design Laboratory | Review 1 Submission) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (Repository: https://github.com/laksh1357/MyOWN_Compiler) Tj ET
-BT /F2 14 Tf 0.13 0.31 0.55 rg 40 691 Td (1. Abstract & Problem Statement) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Student Name: Lakshya Singh | Reg No.: 24BDS0054) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 701 Td (Repository: https://github.com/laksh1357/MyOWN_Compiler) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 674 Td (1. Abstract & Problem Statement) Tj ET
 0.13 0.31 0.55 RG 1 w
-40 686 m 555 686 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 671 Td (Sudarshan is an individual Compiler Design Laboratory project implementing a modular 5-phase) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 658 Td (compiler and virtual machine execution engine. Production compilers like GCC or Clang are millions) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 645 Td (of lines long, making it difficult for students to inspect intermediate phase transformations.) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 632 Td (Sudarshan solves this problem by offering a transparent, zero-dependency 5-phase compiler pipeline) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 619 Td (in Python 3.) Tj ET
-BT /F2 14 Tf 0.13 0.31 0.55 rg 40 592 Td (2. Objectives & Scope) Tj ET
+40 669 m 555 669 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 654 Td (Sudarshan is an individual Compiler Design Laboratory project implementing a modular 5-phase) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 641 Td (compiler and virtual machine execution engine. Production compilers like GCC or Clang are millions) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 628 Td (of lines long, making it difficult for students to inspect intermediate phase transformations.) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 615 Td (Sudarshan solves this problem by offering a transparent, zero-dependency 5-phase compiler pipeline) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 602 Td (in Python 3.) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 575 Td (2. Objectives & Scope) Tj ET
 0.13 0.31 0.55 RG 1 w
-40 587 m 555 587 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 572 Td (Objectives: \(1\) Specify formal BNF syntax for imperative constructs; \(2\) Implement linear scanner) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 559 Td (with line/col tracking; \(3\) Construct LL\(1\) Recursive Descent Parser for AST generation; \(4\) Build) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 546 Td (lexically-scoped Symbol Table; \(5\) Linearize syntax trees into 3-Address Code quadruples; \(6\)) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 533 Td (Implement constant folding optimization pass; \(7\) Execute quadruples on a virtual machine model;) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 520 Td (\(8\) Centralize location-aware error handling.) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 503 Td (Scope: Supports integer declarations, assignments, arithmetic/comparison operations, if/else, while) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 490 Td (loops, nested block scoping, and output statements. Non-goals include floating-point, strings,) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 477 Td (arrays, functions, and target assembly.) Tj ET
-BT /F2 14 Tf 0.13 0.31 0.55 rg 40 450 Td (3. Compiler Design Concepts & Technology Stack) Tj ET
+40 570 m 555 570 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 555 Td (Objectives: \(1\) Specify formal BNF syntax for imperative constructs; \(2\) Implement linear scanner) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 542 Td (with line/col tracking; \(3\) Construct LL\(1\) Recursive Descent Parser for AST generation; \(4\) Build) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 529 Td (lexically-scoped Symbol Table; \(5\) Linearize syntax trees into 3-Address Code quadruples; \(6\)) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 516 Td (Implement constant folding optimization pass; \(7\) Execute quadruples on a virtual machine model;) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 503 Td (\(8\) Centralize location-aware error handling.) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 486 Td (Scope: Supports integer declarations, assignments, arithmetic/comparison operations, if/else, while) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 473 Td (loops, nested block scoping, and output statements. Non-goals include floating-point, strings,) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 460 Td (arrays, functions, and target assembly.) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 433 Td (3. Compiler Design Concepts & Technology Stack) Tj ET
 0.13 0.31 0.55 RG 1 w
-40 445 m 555 445 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 430 Td (Technology Stack: Python 3.10+ Standard Library, Git/GitHub, VS Code. Zero external parsing) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 417 Td (libraries.) Tj ET
-0.95 0.95 0.96 rg 40 323 515 82 re f
-0.8 0.8 0.85 RG 0.5 w 40 323 515 82 re s
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 392 Td (Phase 1: Lexical Analysis      ──► Lexer, Tokenizer, Line/Col tracking \(lexer.py\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 380 Td (Phase 2: Syntax Analysis       ──► LL\(1\) Recursive Descent Parser & AST \(parser.py\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 368 Td (Phase 3: Semantic Analysis     ──► Tree-Walk Visitor & Scoped Symbol Table \(semantic.py\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 356 Td (Phase 4: Intermediate Code     ──► Three-Address Code Quadruples \(tac.py\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 344 Td (Phase 4b: Code Optimization    ──► Constant Folding & Dead Code Elimination \(tac_opt.py\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 332 Td (Phase 5: Code Execution        ──► Virtual Machine Interpreter \(interpreter.py\)) Tj ET
-BT /F2 14 Tf 0.13 0.31 0.55 rg 40 302 Td (4. System Architecture & Methodology) Tj ET
+40 428 m 555 428 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 413 Td (Technology Stack: Python 3.10+ Standard Library, Git/GitHub, VS Code. Zero external parsing) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 400 Td (libraries.) Tj ET
+0.95 0.95 0.96 rg 40 306 515 82 re f
+0.8 0.8 0.85 RG 0.5 w 40 306 515 82 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 375 Td (Phase 1: Lexical Analysis      ──► Lexer, Tokenizer, Line/Col tracking \(lexer.py\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 363 Td (Phase 2: Syntax Analysis       ──► LL\(1\) Recursive Descent Parser & AST \(parser.py\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 351 Td (Phase 3: Semantic Analysis     ──► Tree-Walk Visitor & Scoped Symbol Table \(semantic.py\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 339 Td (Phase 4: Intermediate Code     ──► Three-Address Code Quadruples \(tac.py\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 327 Td (Phase 4b: Code Optimization    ──► Constant Folding & Dead Code Elimination \(tac_opt.py\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 315 Td (Phase 5: Code Execution        ──► Virtual Machine Interpreter \(interpreter.py\)) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 285 Td (4. System Architecture & Methodology) Tj ET
 0.13 0.31 0.55 RG 1 w
-40 297 m 555 297 l S
-0.95 0.95 0.96 rg 40 49 515 238 re f
-0.8 0.8 0.85 RG 0.5 w 40 49 515 238 re s
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 274 Td (Source Code \(.mini\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 262 Td (        │) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 250 Td (        ▼) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 238 Td (Lexer \(lexer.py\)              ──► Token Stream \(Line & Column tracking\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 226 Td (        │) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 214 Td (        ▼) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 202 Td (Parser \(parser.py & ast_nodes.py\)──► Abstract Syntax Tree \(AST\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 190 Td (        │) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 178 Td (        ▼) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 166 Td (Semantic Analyzer \(semantic.py\)──► Lexically Scoped Symbol Table) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 154 Td (        │) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 142 Td (        ▼) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 130 Td (TAC Generator \(tac.py\)        ──► Three-Address Code \(Quadruples\)) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 118 Td (        │) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 106 Td (        ▼) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 94 Td (TAC Optimizer \(tac_opt.py\)    ──► Constant Folding Optimization) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 82 Td (        │) Tj ET
+40 280 m 555 280 l S
+0.95 0.95 0.96 rg 40 32 515 238 re f
+0.8 0.8 0.85 RG 0.5 w 40 32 515 238 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 257 Td (Source Code \(.mini\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 245 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 233 Td (        ▼) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 221 Td (Lexer \(lexer.py\)              ──► Token Stream \(Line & Column tracking\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 209 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 197 Td (        ▼) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 185 Td (Parser \(parser.py & ast_nodes.py\)──► Abstract Syntax Tree \(AST\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 173 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 161 Td (        ▼) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 149 Td (Semantic Analyzer \(semantic.py\)──► Lexically Scoped Symbol Table) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 137 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 125 Td (        ▼) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 113 Td (TAC Generator \(tac.py\)        ──► Three-Address Code \(Quadruples\)) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 101 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 89 Td (        ▼) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 77 Td (TAC Optimizer \(tac_opt.py\)    ──► Constant Folding Optimization) Tj ET
 endstream
 endobj
 8 0 obj
 << /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 7 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
 endobj
 9 0 obj
-<< /Length 1616 >>
+<< /Length 1676 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
 BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 2) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 782 Td (        ▼) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 770 Td (Interpreter \(interpreter.py\)  ──► Virtual Machine Execution & Output) Tj ET
-BT /F2 14 Tf 0.13 0.31 0.55 rg 40 740 Td (5. Initial Working Prototype Validation) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 782 Td (        │) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 770 Td (        ▼) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 758 Td (Interpreter \(interpreter.py\)  ──► Virtual Machine Execution & Output) Tj ET
+BT /F2 14 Tf 0.13 0.31 0.55 rg 40 728 Td (5. Initial Working Prototype Validation) Tj ET
 0.13 0.31 0.55 RG 1 w
-40 735 m 555 735 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 720 Td (An initial working prototype has been fully implemented, tested, and validated.) Tj ET
-0.95 0.95 0.96 rg 40 542 515 166 re f
-0.8 0.8 0.85 RG 0.5 w 40 542 515 166 re s
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 695 Td (Prototype Program \(examples/valid.mini\):) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 683 Td (int sum = 0;) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 671 Td (int i = 1;) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 659 Td (while \(i <= 5\) {) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 647 Td (    sum = sum + i;) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 635 Td (    i = i + 1;) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 623 Td (}) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 611 Td (print\(sum\);) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 599 Td () Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 587 Td (Prototype Execution Command:) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 575 Td (./sudarshan examples/valid.mini --all) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 563 Td () Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 551 Td (Verified Prototype Output: 15 \(Status: Execution finished successfully\)) Tj ET
+40 723 m 555 723 l S
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 708 Td (An initial working prototype has been fully implemented, tested, and validated.) Tj ET
+0.95 0.95 0.96 rg 40 530 515 166 re f
+0.8 0.8 0.85 RG 0.5 w 40 530 515 166 re s
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 683 Td (Prototype Program \(examples/valid.mini\):) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 671 Td (int sum = 0;) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 659 Td (int i = 1;) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 647 Td (while \(i <= 5\) {) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 635 Td (    sum = sum + i;) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 623 Td (    i = i + 1;) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 611 Td (}) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 599 Td (print\(sum\);) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 587 Td () Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 575 Td (Prototype Execution Command:) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 563 Td (./sudarshan examples/valid.mini --all) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 551 Td () Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 539 Td (Verified Prototype Output: 15 \(Status: Execution finished successfully\)) Tj ET
 endstream
 endobj
 10 0 obj
@@ -131,11 +132,11 @@ xref
 0000000180 00000 n 
 0000000255 00000 n 
 0000000387 00000 n 
-0000005768 00000 n 
-0000005914 00000 n 
-0000007582 00000 n 
+0000005803 00000 n 
+0000005949 00000 n 
+0000007677 00000 n 
 trailer
 << /Size 11 /Root 1 0 R >>
 startxref
-7729
+7824
 %%EOF

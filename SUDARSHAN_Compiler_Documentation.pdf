@@ -19,7 +19,7 @@ endobj
 << /Type /Pages /Count 4 /Kids [8 0 R 10 0 R 12 0 R 14 0 R] >>
 endobj
 7 0 obj
-<< /Length 4656 >>
+<< /Length 4658 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
@@ -27,7 +27,7 @@ BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Docum
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
 BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (Sudarshan Compiler Design Laboratory) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Comprehensive Technical Specification & Viva Examination Documentation) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Author: Compiler Design Laboratory Project | Repository:) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Author: Lakshya Singh \(Reg No.: 24BDS0054\) | Repository:) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 722 Td (https://github.com/laksh1357/MyOWN_Compiler) Tj ET
 BT /F2 14 Tf 0.13 0.31 0.55 rg 40 695 Td (1. Project Overview & Architecture) Tj ET
 0.13 0.31 0.55 RG 1 w
@@ -244,15 +244,15 @@ xref
 0000000180 00000 n 
 0000000255 00000 n 
 0000000401 00000 n 
-0000005109 00000 n 
-0000005255 00000 n 
-0000009444 00000 n 
-0000009591 00000 n 
-0000014306 00000 n 
-0000014454 00000 n 
-0000016525 00000 n 
+0000005111 00000 n 
+0000005257 00000 n 
+0000009446 00000 n 
+0000009593 00000 n 
+0000014308 00000 n 
+0000014456 00000 n 
+0000016527 00000 n 
 trailer
 << /Size 15 /Root 1 0 R >>
 startxref
-16673
+16675
 %%EOF

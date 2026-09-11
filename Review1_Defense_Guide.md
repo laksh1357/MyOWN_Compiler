@@ -2,6 +2,8 @@
 
 **Project Title**: Sudarshan: An End-to-End Compiler and Virtual Machine  
 **Course**: Compiler Design Laboratory  
+**Student Name**: Lakshya Singh  
+**Registration No.**: 24BDS0054  
 **Evaluation Rubric**: Review 1 (20 Marks Total)  
 
 ---

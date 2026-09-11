@@ -214,7 +214,7 @@ def generate_doc_pdf(output_path: str):
     # Title
     pdf.add_title("Sudarshan Compiler Design Laboratory")
     pdf.add_paragraph("Comprehensive Technical Specification & Viva Examination Documentation")
-    pdf.add_paragraph("Author: Compiler Design Laboratory Project | Repository: https://github.com/laksh1357/MyOWN_Compiler")
+    pdf.add_paragraph("Author: Lakshya Singh (Reg No.: 24BDS0054) | Repository: https://github.com/laksh1357/MyOWN_Compiler")
 
     # Section 1: Overview
     pdf.add_heading1("1. Project Overview & Architecture")
