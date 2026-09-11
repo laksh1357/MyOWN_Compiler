@@ -238,6 +238,13 @@ def generate_doc_pdf(output_path: str):
         "Phase 5: Virtual Machine (interpreter.py)──► Execution & Output"
     )
 
+    pdf.add_heading2("Key Technical Innovations")
+    pdf.add_paragraph("1. Multi-Pass Constant Folding & Propagation: Evaluates math & comparison logic at compile time.")
+    pdf.add_paragraph("2. Static Branch Pruning & DCE: Converts constant branches (IF_FALSE 0 -> JUMP) and eliminates dead quadruples.")
+    pdf.add_paragraph("3. Scope Name Mangling: Preserves block scope isolation (x_s1) in flat register TAC memory.")
+    pdf.add_paragraph("4. AST ASCII Visualizer: Formats syntax tree hierarchies into clean ASCII trees without third-party tools.")
+    pdf.add_paragraph("5. Zero-Dependency Handwritten Pipeline: 100% handwritten scanner, parser, symbol table, TAC IR, VM.")
+
     # Section 2: Complete Walkthrough
     pdf.add_heading1("2. End-to-End Program Transformation Walkthrough")
     pdf.add_paragraph("Sample Sudarshan Program:")
