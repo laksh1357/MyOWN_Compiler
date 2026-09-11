@@ -82,14 +82,14 @@ A review of classical compiler literature (Aho, Lam, Sethi, Ullman — *Compiler
 
 | Phase | Concept / Technique | Implementation in Sudarshan |
 |---|---|---|
-| **Lexical Analysis** | Deterministic Finite Automata (DFA), Scanning, Line/Column Tracking | [`lexer.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/lexer.py) |
-| **Syntax Analysis** | Context-Free Grammar (CFG), LL(1) Recursive Descent Parsing, AST | [`parser.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/parser.py), [`ast_nodes.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/ast_nodes.py) |
-| **Semantic Analysis** | Type Checking, Scope Resolution, Declaration Validation, Visitor Pattern | [`semantic.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/semantic.py) |
-| **Symbol Table** | Lexical Block Scoping, Parent-Pointer Scope Tree, Variable Shadowing | [`symbol_table.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/symbol_table.py) |
-| **Intermediate Code** | Three-Address Code (TAC) Quadruples, Temporary & Label Allocation | [`tac.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/tac.py) |
-| **Code Optimization** | Compile-time Constant Folding, Constant Propagation, Dead Code Elimination | [`tac_opt.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/tac_opt.py) |
-| **Code Execution** | Virtual Machine Model, Program Counter (PC), Memory Register Simulation | [`interpreter.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/interpreter.py) |
-| **Error Management** | Centralized Exception Hierarchy, Location-Aware Error Formatting | [`errors.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/errors.py) |
+| **Lexical Analysis** | Deterministic Finite Automata (DFA), Scanning, Line/Column Tracking | [`lexer.py`](lexer.py) |
+| **Syntax Analysis** | Context-Free Grammar (CFG), LL(1) Recursive Descent Parsing, AST | [`parser.py`](parser.py), [`ast_nodes.py`](ast_nodes.py) |
+| **Semantic Analysis** | Type Checking, Scope Resolution, Declaration Validation, Visitor Pattern | [`semantic.py`](semantic.py) |
+| **Symbol Table** | Lexical Block Scoping, Parent-Pointer Scope Tree, Variable Shadowing | [`symbol_table.py`](symbol_table.py) |
+| **Intermediate Code** | Three-Address Code (TAC) Quadruples, Temporary & Label Allocation | [`tac.py`](tac.py) |
+| **Code Optimization** | Compile-time Constant Folding, Constant Propagation, Dead Code Elimination | [`tac_opt.py`](tac_opt.py) |
+| **Code Execution** | Virtual Machine Model, Program Counter (PC), Memory Register Simulation | [`interpreter.py`](interpreter.py) |
+| **Error Management** | Centralized Exception Hierarchy, Location-Aware Error Formatting | [`errors.py`](errors.py) |
 
 ---
 

@@ -19,7 +19,7 @@ endobj
 << /Type /Pages /Count 1 /Kids [8 0 R] >>
 endobj
 7 0 obj
-<< /Length 4548 >>
+<< /Length 4501 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
@@ -72,7 +72,7 @@ BT /F2 14 Tf 0.13 0.31 0.55 rg 40 269 Td (3. Working Prototype Demonstration) Tj
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 249 Td (Demonstrate live CLI in terminal during Review 1:) Tj ET
 0.95 0.95 0.96 rg 40 203 515 34 re f
 0.8 0.8 0.85 RG 0.5 w 40 203 515 34 re s
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 224 Td (cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 224 Td (cd Sudarshan) Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 212 Td (./sudarshan examples/valid.mini --all) Tj ET
 endstream
 endobj
@@ -89,9 +89,9 @@ xref
 0000000180 00000 n 
 0000000255 00000 n 
 0000000380 00000 n 
-0000004980 00000 n 
+0000004933 00000 n 
 trailer
 << /Size 9 /Root 1 0 R >>
 startxref
-5126
+5079
 %%EOF

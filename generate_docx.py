@@ -304,7 +304,7 @@ def create_document(output_filename: str):
     add_h1("Chapter 7: Initial Prototype Demonstration & Execution")
     add_p("To run the working prototype live in terminal:")
     add_code(
-        "cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang\n"
+        "cd Sudarshan\n"
         "./sudarshan examples/valid.mini --all"
     )
 

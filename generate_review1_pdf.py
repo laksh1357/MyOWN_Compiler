@@ -58,7 +58,7 @@ def generate_review1_pdf():
     pdf.add_heading1("3. Working Prototype Demonstration")
     pdf.add_paragraph("Demonstrate live CLI in terminal during Review 1:")
     pdf.add_code_block(
-        "cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang\n"
+        "cd Sudarshan\n"
         "./sudarshan examples/valid.mini --all"
     )
 

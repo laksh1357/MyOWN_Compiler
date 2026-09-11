@@ -138,7 +138,7 @@ factor     -> NUMBER | ID | '(' expr ')' | '-' factor
 
 ## 7. AST Design
 
-Defined in [`ast_nodes.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/ast_nodes.py):
+Defined in [`ast_nodes.py`](ast_nodes.py):
 - **Base Class**: `ASTNode(line, column)`
 - **Expressions**: `IntegerLiteral`, `Variable`, `UnaryExpr`, `BinaryExpr`
 - **Statements**: `VarDecl`, `Assignment`, `PrintStmt`, `IfStmt`, `WhileStmt`, `Block`
@@ -149,7 +149,7 @@ Defined in [`ast_nodes.py`](file:///Users/lakshyasingh/.gemini/antigravity/scrat
 
 ## 8. Symbol Table and Lexical Scoping
 
-Defined in [`symbol_table.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/symbol_table.py):
+Defined in [`symbol_table.py`](symbol_table.py):
 - **`Symbol`**: Holds `name`, `type_name` (`"int"`), `line`, `column`, `scope_level`.
 - **`Scope`**: Dict of symbols + reference to `parent` scope.
   - `declare(symbol)`: Adds symbol to current scope (detects duplicates).
@@ -160,7 +160,7 @@ Defined in [`symbol_table.py`](file:///Users/lakshyasingh/.gemini/antigravity/sc
 
 ## 9. Semantic Analysis Rules
 
-Enforced in [`semantic.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/semantic.py):
+Enforced in [`semantic.py`](semantic.py):
 1. **Declaration Before Use**: Variables must be declared before assignment or reference.
 2. **Duplicate Declaration**: Declaring the same variable twice in the same scope throws `SemanticError`.
 3. **Variable Shadowing**: Declaring a variable in a child block that shares a name with an outer variable is permitted.
@@ -171,7 +171,7 @@ Enforced in [`semantic.py`](file:///Users/lakshyasingh/.gemini/antigravity/scrat
 
 ## 10. Three-Address Code (TAC) Architecture
 
-Generated in [`tac.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/tac.py):
+Generated in [`tac.py`](tac.py):
 - Quadruple structure: `TACInstruction(op, arg1, arg2, result)`
 - **Temporaries**: `t1`, `t2`, `t3`, ...
 - **Labels**: `L1`, `L2`, `L3`, ...
@@ -181,7 +181,7 @@ Generated in [`tac.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/M
 
 ## 11. TAC Optimization
 
-Implemented in [`tac_opt.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/tac_opt.py):
+Implemented in [`tac_opt.py`](tac_opt.py):
 - **Constant Folding**: Evaluates constant math (`2 + 3 * 4` $\rightarrow$ `14`) and comparisons (`2 < 5` $\rightarrow$ `1`) at compile time.
 - **Constant Propagation**: Substitutes known constants into subsequent instructions.
 - **Dead Code Elimination**: Removes unreachable quadruples following unconditional `GOTO` jumps.
@@ -191,7 +191,7 @@ Implemented in [`tac_opt.py`](file:///Users/lakshyasingh/.gemini/antigravity/scr
 
 ## 12. Interpreter Architecture
 
-Implemented in [`interpreter.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/interpreter.py):
+Implemented in [`interpreter.py`](interpreter.py):
 - **Virtual Machine Model**: Executes linear TAC quadruples.
 - **Components**: Memory map (`self.memory`), Program Counter (`self.pc`), Label map (`self.label_map`).
 - **Runtime Error Detection**: Catches division by zero and undefined variable accesses.
@@ -200,7 +200,7 @@ Implemented in [`interpreter.py`](file:///Users/lakshyasingh/.gemini/antigravity
 
 ## 13. Error Handling Hierarchy
 
-Defined in [`errors.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/errors.py):
+Defined in [`errors.py`](errors.py):
 - `SudarshanError` (with `MiniLangError` alias)
   - `LexerError`
   - `ParserError`

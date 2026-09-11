@@ -98,4 +98,4 @@ Run the following command during Review 1:
 **A**: Through grammar rule hierarchy in recursive descent: `comparison` calls `addExpr` (`+`/`-`), which calls `term` (`*`/`/`), which calls `factor` (literals, variables, parentheses). Higher precedence operators sit deeper in the AST.
 
 ### Q3: What is the deliverable status of Phase 1?
-**A**: Phase 1 is 100% complete. All 12 deliverables specified in Section 8.3 are fully documented in [`Phase1_Report.md`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/Phase1_Report.md) and [`Phase1_Report.pdf`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/Phase1_Report.pdf), and the working prototype is live on GitHub at `https://github.com/laksh1357/MyOWN_Compiler`.
+**A**: Phase 1 is 100% complete. All 12 deliverables specified in Section 8.3 are fully documented in [`Phase1_Report.md`](Phase1_Report.md) and [`Phase1_Report.pdf`](Phase1_Report.pdf), and the working prototype is live on GitHub at `https://github.com/laksh1357/MyOWN_Compiler`.
