@@ -257,6 +257,17 @@ def create_document(output_filename: str):
         "factor     -> NUMBER | ID | '(' expr ')' | '-' factor"
     )
 
+    add_h2("5.3 Key Innovations & Academic Novelty")
+    add_p(
+        "To elevate Sudarshan beyond basic compiler laboratory requirements, six key technical innovations were implemented:\n"
+        "1. Multi-Pass Constant Folding & Propagation: Dynamically evaluates complex arithmetic expressions (e.g. 2 + 3 * 4 -> 14) and comparison operators at compile time prior to virtual machine execution.\n"
+        "2. Static Branch Pruning & Dead Code Elimination: Identifies constant conditional jumps (e.g. IF_FALSE 0 GOTO L1 -> JUMP L1) and eliminates dead quadruples following unconditional jumps.\n"
+        "3. Scope Name Mangling for Register Isolation: Resolves variable shadowing in flat register-based Three-Address Code by appending scope level suffixes (e.g. x_s1), preserving lexical block isolation without stack frame overhead.\n"
+        "4. AST ASCII Visualizer (dump_ast): Automatically formats hierarchical Abstract Syntax Tree structures into clean indented ASCII trees for lab demonstration without third-party graphing software.\n"
+        "5. Zero-Dependency 100% Handwritten Architecture: Fully handwritten scanner, parser, symbol table manager, TAC IR generator, optimizer, and VM interpreter using Python 3 standard library.\n"
+        "6. Educational Interactive CLI Explainer (--explain): Provides real-time transformation analytics across all 5 compiler phases."
+    )
+
     # --- Chapter 6: Review 1 Rubric Mapping ---
     add_h1("Chapter 6: Review 1 Evaluation Rubric & Marks Mapping")
     add_p("Evaluation Breakdown for Review 1 (20 Marks Total):")

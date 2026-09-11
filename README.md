@@ -36,6 +36,17 @@ Designed specifically for Compiler Design Laboratory requirements, the codebase 
 
 ---
 
+## 2.1 Key Innovations & Academic Novelties
+
+1. **Multi-Pass Constant Folding & Propagation**: Evaluates complex compile-time arithmetic (`2 + 3 * 4` $\rightarrow$ `14`) and comparison expressions dynamically before Virtual Machine execution.
+2. **Static Branch Pruning & Dead Code Elimination**: Automatically converts constant conditional jumps (`IF_FALSE 0 GOTO L1` $\rightarrow$ `JUMP L1`) and removes unreachable quadruples following unconditional `GOTO` jumps.
+3. **Scope Name Mangling for Register Isolation**: Resolves variable shadowing in flat register-based Three-Address Code by appending scope depth suffixes (`x_s1`), preserving lexical block isolation without complex stack frame overhead.
+4. **AST ASCII Visualizer (`dump_ast`)**: Generates clean, hierarchical ASCII tree visualizations of Abstract Syntax Trees directly in terminal without third-party graphing dependencies.
+5. **Zero-Dependency 100% Handwritten 5-Phase Architecture**: Fully handwritten scanner, top-down LL(1) parser, symbol table manager, TAC IR generator, optimizer pass, and VM interpreter built strictly with Python 3 standard library.
+6. **Interactive Educational CLI Explainer (`--explain`)**: Built-in CLI flag providing step-by-step educational analysis showing transformation metrics across all 5 compiler phases.
+
+---
+
 ## 3. Compiler Pipeline Architecture
 
 ```text
