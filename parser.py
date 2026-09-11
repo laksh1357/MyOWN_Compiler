@@ -1,7 +1,7 @@
 """
-Parser Module for MiniLang Compiler.
+Parser Module for Sudarshan Compiler.
 
-Implements a recursive-descent parser adhering to the MiniLang BNF grammar,
+Implements a recursive-descent parser adhering to the Sudarshan BNF grammar,
 constructing AST nodes from ast_nodes.py and raising ParserError from errors.py.
 """
 
@@ -16,7 +16,7 @@ from ast_nodes import (
 
 class Parser:
     """
-    Recursive-descent parser for MiniLang source code tokens.
+    Recursive-descent parser for Sudarshan source code tokens.
     """
 
     def __init__(self, tokens: List[Token]):
@@ -56,7 +56,6 @@ class Parser:
         while self._peek_type() != TokenType.EOF:
             statements.append(self._parse_statement())
         
-        eof_token = self._current_token()
         return Program(statements, line=1, column=1)
 
     def _parse_statement(self) -> ASTNode:
@@ -134,7 +133,8 @@ class Parser:
                 else_stmt = self._parse_if()
                 else_branch = Block([else_stmt], line=else_stmt.line, column=else_stmt.column)
             else:
-                else_branch = self._parse_block()
+                else_block = self._parse_block()
+                else_branch = else_block
 
         return IfStmt(condition, then_branch, else_branch, line=if_tok.line, column=if_tok.column)
 

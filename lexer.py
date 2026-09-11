@@ -1,12 +1,12 @@
 """
-Lexer Module for MiniLang Compiler.
+Lexer Module for Sudarshan Compiler.
 
-Converts MiniLang source code into a stream of tokens, tracking line and column numbers.
+Converts Sudarshan source code into a stream of tokens, tracking line and column numbers.
 Raises LexerError from errors.py for unrecognized characters.
 """
 
 from dataclasses import dataclass
-from enum import Enum, auto
+from enum import Enum
 from typing import Any, List
 
 from errors import LexerError
@@ -69,7 +69,7 @@ class Token:
 
 
 class Lexer:
-    """Scans MiniLang source code into a list of Token objects."""
+    """Scans Sudarshan source code into a list of Token objects."""
 
     def __init__(self, source_code: str):
         self.source = source_code

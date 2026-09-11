@@ -1,4 +1,4 @@
-# MiniLang — Compiler & Interpreter for a Simple Imperative Language
+# Sudarshan — An End-to-End Compiler and Virtual Machine
 
 **Compiler Design Laboratory Individual Project**
 
@@ -6,7 +6,7 @@
 
 ## 1. Project Overview
 
-**MiniLang** is a small imperative programming language and a complete, end-to-end compiler pipeline implemented in Python 3.
+**Sudarshan** is a small imperative programming language and a complete, end-to-end compiler pipeline implemented in Python 3.
 
 The project demonstrates all classic compiler construction phases:
 - **Lexical Analysis** (scanning & tokenization)
@@ -64,10 +64,11 @@ Phase 5: Virtual Machine Interpreter (interpreter.py) ──► Code Execution &
 ## 4. Project Directory Structure
 
 ```text
-MiniLang/
+Sudarshan/
 ├── README.md                 # Project documentation & Viva Q&A
 ├── main.py                   # Command-line driver & CLI interface
-├── errors.py                 # Centralized exception hierarchy (MiniLangError)
+├── sudarshan                 # Executable CLI wrapper
+├── errors.py                 # Centralized exception hierarchy (SudarshanError)
 ├── lexer.py                  # Phase 1: Scanner & Tokenizer
 ├── ast_nodes.py              # Phase 2: AST node classes & dump_ast() dumper
 ├── parser.py                 # Phase 2: Recursive Descent Parser
@@ -76,7 +77,7 @@ MiniLang/
 ├── tac.py                    # Phase 4: Three-Address Code Generator
 ├── tac_opt.py                # Phase 4b: TAC Optimizer Pass
 ├── interpreter.py            # Phase 5: TAC Virtual Machine Interpreter
-├── examples/                 # Sample MiniLang programs
+├── examples/                 # Sample Sudarshan programs
 │   ├── valid.mini            # Loops, logic, arithmetic, print
 │   ├── nested_scope.mini     # Nested blocks & variable shadowing
 │   ├── opt_test.mini         # Constant folding optimization test
@@ -96,7 +97,7 @@ MiniLang/
 
 ---
 
-## 5. MiniLang Grammar (BNF Syntax)
+## 5. Sudarshan Grammar (BNF Syntax)
 
 ```ebnf
 program    -> statement*
@@ -200,7 +201,7 @@ Implemented in [`interpreter.py`](file:///Users/lakshyasingh/.gemini/antigravity
 ## 13. Error Handling Hierarchy
 
 Defined in [`errors.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/errors.py):
-- `MiniLangError`
+- `SudarshanError` (with `MiniLangError` alias)
   - `LexerError`
   - `ParserError`
   - `SemanticError`
@@ -221,6 +222,8 @@ Navigate to the project root:
 ```bash
 cd MiniLang
 python3 main.py examples/valid.mini
+# Or using executable CLI wrapper:
+./sudarshan examples/valid.mini --all
 ```
 
 ---
@@ -234,6 +237,7 @@ python3 main.py examples/valid.mini
 | `--symtab` | Display global Symbol Table |
 | `--tac` | Display unoptimized Three-Address Code |
 | `--opt` | Display optimized Three-Address Code |
+| `--explain` | Display detailed educational explanation of all phases |
 | `--all` | Display output from all compiler phases |
 
 ---
@@ -385,11 +389,11 @@ OK
 ### Q17: How is if/else represented in Three-Address Code?
 **A**: `if/else` is represented using a condition evaluation, a `JUMP_IF_FALSE` to the `else` label (`L1`), the `then` branch statements, an unconditional `GOTO` to the end label (`L2`), the `else` label (`L1`), the `else` branch statements, and the end label (`L2`).
 
-### Q18: How is division by zero handled in MiniLang?
+### Q18: How is division by zero handled in Sudarshan?
 **A**: During TAC optimization, division by zero is safely skipped to avoid compile-time crashes. During execution, the Interpreter checks if the divisor is `0` and raises a `RuntimeError`.
 
 ### Q19: How is operator precedence implemented in your parser?
 **A**: Operator precedence is implemented via grammar rule hierarchy: `comparison` methods call `addExpr` (`+`/`-`), which call `term` (`*`/`/`), which call `factor` (literals, variables, parentheses), ensuring higher precedence operators bind tighter in the AST.
 
-### Q20: What are the main limitations of MiniLang?
-**A**: MiniLang supports only integer variables and single-file programs without functions, arrays, floating-point numbers, or target assembly code generation.
+### Q20: What are the main limitations of Sudarshan?
+**A**: Sudarshan supports only integer variables and single-file programs without functions, arrays, floating-point numbers, or target assembly code generation.

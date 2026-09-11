@@ -1,18 +1,18 @@
 # PHASE 1 REPORT: PROBLEM DEFINITION AND SYSTEM DESIGN
 
-**Project Title**: MiniLang — A Compiler & Interpreter for a Simple Imperative Language  
+**Project Title**: Sudarshan: An End-to-End Compiler and Virtual Machine  
 **Course**: Compiler Design Laboratory  
 **Document Type**: Phase 1 Deliverables Report (Review 1)  
 
 ---
 
 ## 1. Project Title
-**MiniLang: An End-to-End Compiler and Virtual Machine Interpreter for a Simple Imperative Language**
+**Sudarshan: An End-to-End Compiler and Virtual Machine**
 
 ---
 
 ## 2. Abstract
-MiniLang is an individual Compiler Design Laboratory project that implements a modular, 5-phase compiler and execution engine for a custom imperative programming language. Built entirely in Python 3 using clean software engineering practices, MiniLang converts human-readable source code into tokens, constructs an Abstract Syntax Tree (AST) using recursive descent parsing, performs static type and scope resolution via a lexically-scoped Symbol Table, linearizes syntax trees into Three-Address Code (TAC) quadruples, performs compile-time constant folding optimization, and executes the resulting IR on a virtual machine environment. The project includes precise error detection with line and column tracking, a comprehensive 22-test automated test suite, and a command-line interface suitable for academic demonstration.
+Sudarshan is an individual Compiler Design Laboratory project that implements a modular, 5-phase compiler and execution engine for a custom imperative programming language. Built entirely in Python 3 using clean software engineering practices, Sudarshan converts human-readable source code into tokens, constructs an Abstract Syntax Tree (AST) using recursive descent parsing, performs static type and scope resolution via a lexically-scoped Symbol Table, linearizes syntax trees into Three-Address Code (TAC) quadruples, performs compile-time constant folding optimization, and executes the resulting IR on a virtual machine environment. The project includes precise error detection with line and column tracking, a comprehensive 22-test automated test suite, and a command-line interface suitable for academic demonstration.
 
 ---
 
@@ -35,7 +35,7 @@ Compiler Design is a foundational computer science discipline that integrates fo
 ---
 
 ## 5. Objectives
-The primary objectives of the MiniLang project are:
+The primary objectives of the Sudarshan project are:
 1. **Design a Formal Grammar**: Specify a clean BNF syntax for an imperative language supporting declarations, assignments, arithmetic/comparison operations, `if/else` conditionals, `while` loops, block scoping, and output statements.
 2. **Implement Lexical Analysis**: Build a scanner to tokenize source text into structured token objects with line and column tracking.
 3. **Implement Syntax Analysis**: Construct an LL(1) Recursive Descent Parser to build a hierarchical Abstract Syntax Tree (AST).
@@ -80,7 +80,7 @@ A review of classical compiler literature (Aho, Lam, Sethi, Ullman — *Compiler
 
 ## 8. Compiler Design Concepts Involved
 
-| Phase | Concept / Technique | Implementation in MiniLang |
+| Phase | Concept / Technique | Implementation in Sudarshan |
 |---|---|---|
 | **Lexical Analysis** | Deterministic Finite Automata (DFA), Scanning, Line/Column Tracking | [`lexer.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/lexer.py) |
 | **Syntax Analysis** | Context-Free Grammar (CFG), LL(1) Recursive Descent Parsing, AST | [`parser.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/parser.py), [`ast_nodes.py`](file:///Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang/ast_nodes.py) |
@@ -93,76 +93,64 @@ A review of classical compiler literature (Aho, Lam, Sethi, Ullman — *Compiler
 
 ---
 
-## 9. Proposed Methodology
+## 9. Language Specification & Grammar Rules
+Sudarshan grammar is specified in Extended Backus-Naur Form (EBNF):
 
-The project follows a structured, iterative implementation methodology:
-
-```text
-Step 1: Formal Grammar Definition & Token Spec
-   │
-   ▼
-Step 2: Lexer & Lexical Error Handling Implementation
-   │
-   ▼
-Step 3: AST Dataclass Hierarchy & Recursive Descent Parser
-   │
-   ▼
-Step 4: Lexically Scoped Symbol Table & Semantic Analyzer
-   │
-   ▼
-Step 5: TAC Quadruple Generator & Scope Name Mangling
-   │
-   ▼
-Step 6: TAC Optimizer Pass (Constant Folding & DCE)
-   │
-   ▼
-Step 7: TAC Virtual Machine Interpreter & Runtime Error Engine
-   │
-   ▼
-Step 8: CLI Driver, Unittest Suite, & Project Documentation
+```ebnf
+program    ::= statement*
+statement  ::= varDecl | assign | printStmt | ifStmt | whileStmt | block
+varDecl    ::= 'int' ID '=' expr ';'
+assign     ::= ID '=' expr ';'
+printStmt  ::= 'print' '(' expr ')' ';'
+ifStmt     ::= 'if' '(' expr ')' block ('else' (ifStmt | block))?
+whileStmt  ::= 'while' '(' expr ')' block
+block      ::= '{' statement* '}'
+expr       ::= comparison
+comparison ::= addExpr (('==' | '!=' | '<' | '>' | '<=' | '>=') addExpr)*
+addExpr    ::= term (('+' | '-') term)*
+term       ::= factor (('*' | '/') factor)*
+factor     ::= NUMBER | ID | '(' expr ')' | '-' factor
 ```
 
 ---
 
-## 10. System Architecture
+## 10. Technology Selection
+- **Programming Language**: Python 3.10+ (Selected for clean OOP, pattern matching, readability, and cross-platform support).
+- **Compiler Construction Tools**: Handwritten scanner and recursive descent parser (0 external dependencies like Flex/Bison or ANTLR to ensure 100% code ownership and transparency).
+- **Development Environment**: Visual Studio Code, Git, GitHub.
+- **Testing Framework**: Python `unittest` framework (22 test cases).
+
+---
+
+## 11. System Architecture & High-Level Design
 
 ```text
-                  Source File (.mini)
+                  Source Code (.mini)
                            │
                            ▼
-Phase 1: Lexical Analyzer (lexer.py & errors.py) ──► Token Stream (Line & Col tracking)
+Phase 1: Lexical Analyzer (lexer.py)          ──► Token Stream
                            │
                            ▼
-Phase 2: Syntax Analyzer (parser.py & ast_nodes.py) ──► Abstract Syntax Tree (AST)
+Phase 2: Syntax Analyzer (parser.py)          ──► Abstract Syntax Tree (AST)
                            │
                            ▼
-Phase 3: Semantic Analyzer (semantic.py & symbol_table.py) ──► Scoped Symbol Table
+Phase 3: Semantic Analyzer (semantic.py)      ──► Lexically Scoped Symbol Table
                            │
                            ▼
 Phase 4: Intermediate Code Generator (tac.py) ──► Three-Address Code (Quadruples)
                            │
                            ▼
-Phase 4b: TAC Optimizer (tac_opt.py) ──► Constant Folding & DCE
+Phase 4b: TAC Optimizer (tac_opt.py)          ──► Constant Folding & DCE
                            │
                            ▼
-Phase 5: Virtual Machine Interpreter (interpreter.py) ──► Code Execution & Output
+Phase 5: Virtual Machine (interpreter.py)     ──► Execution Output
 ```
-
----
-
-## 11. Technology Stack
-
-- **Implementation Language**: Python 3.10+ (Standard Library)
-- **Zero External Dependencies**: Built without third-party parsing/scanning libraries (no Lex, Yacc, PLY, ANTLR).
-- **Unit Testing Framework**: Python `unittest` standard module.
-- **Version Control**: Git & GitHub ([https://github.com/laksh1357/MyOWN_Compiler](https://github.com/laksh1357/MyOWN_Compiler)).
-- **Development Environment**: VS Code / Antigravity IDE on macOS.
 
 ---
 
 ## 12. Initial Prototype & Validation
 
-An initial working prototype of MiniLang has been developed and validated:
+An initial working prototype of Sudarshan has been developed and validated:
 
 ### Sample Prototype Code (`examples/valid.mini`):
 ```mini
@@ -179,7 +167,7 @@ print(sum);
 
 ### Prototype Execution Command:
 ```bash
-./minilang examples/valid.mini --all
+./sudarshan examples/valid.mini --all
 ```
 
 ### Verified Prototype Results:

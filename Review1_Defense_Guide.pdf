@@ -19,15 +19,15 @@ endobj
 << /Type /Pages /Count 1 /Kids [8 0 R] >>
 endobj
 7 0 obj
-<< /Length 4560 >>
+<< /Length 4548 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
 BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (REVIEW 1: PROJECT PROPOSAL & DESIGN REVIEW DEFENSE GUIDE) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Course: Compiler Design Laboratory | Review 1 Evaluation \(20 Marks\)) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Project Title: MiniLang — Compiler & Interpreter for a Simple Imperative Language) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (Repository: https://github.com/laksh1357/MyOWN_Compiler) Tj ET
 BT /F2 14 Tf 0.13 0.31 0.55 rg 40 691 Td (1. Review 1 Marks Breakdown \(20/20 Marks\)) Tj ET
 0.13 0.31 0.55 RG 1 w
@@ -50,7 +50,7 @@ BT /F2 14 Tf 0.13 0.31 0.55 rg 40 501 Td (2. Panel Presentation Script & System 
 0.13 0.31 0.55 RG 1 w
 40 496 m 555 496 l S
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 481 Td (Problem Statement: Production compilers \(GCC, Clang\) are black boxes comprising millions of lines.) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 468 Td (MiniLang provides a transparent, zero-dependency 5-phase compiler pipeline in Python 3.) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 468 Td (Sudarshan provides a transparent, zero-dependency 5-phase compiler pipeline in Python 3.) Tj ET
 0.95 0.95 0.96 rg 40 290 515 166 re f
 0.8 0.8 0.85 RG 0.5 w 40 290 515 166 re s
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 443 Td (Source Code \(.mini\)) Tj ET
@@ -73,7 +73,7 @@ BT /F1 10 Tf 0.1 0.1 0.1 rg 40 249 Td (Demonstrate live CLI in terminal during R
 0.95 0.95 0.96 rg 40 203 515 34 re f
 0.8 0.8 0.85 RG 0.5 w 40 203 515 34 re s
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 224 Td (cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 212 Td (./minilang examples/valid.mini --all) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 212 Td (./sudarshan examples/valid.mini --all) Tj ET
 endstream
 endobj
 8 0 obj
@@ -89,9 +89,9 @@ xref
 0000000180 00000 n 
 0000000255 00000 n 
 0000000380 00000 n 
-0000004992 00000 n 
+0000004980 00000 n 
 trailer
 << /Size 9 /Root 1 0 R >>
 startxref
-5138
+5126
 %%EOF

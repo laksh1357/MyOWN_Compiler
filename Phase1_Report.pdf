@@ -19,23 +19,23 @@ endobj
 << /Type /Pages /Count 2 /Kids [8 0 R 10 0 R] >>
 endobj
 7 0 obj
-<< /Length 5341 >>
+<< /Length 5329 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
 BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (PHASE 1 REPORT: PROBLEM DEFINITION & SYSTEM DESIGN) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Course: Compiler Design Laboratory | Review 1 Submission) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Project Title: MiniLang — Compiler & Interpreter for a Simple Imperative Language) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 718 Td (Repository: https://github.com/laksh1357/MyOWN_Compiler) Tj ET
 BT /F2 14 Tf 0.13 0.31 0.55 rg 40 691 Td (1. Abstract & Problem Statement) Tj ET
 0.13 0.31 0.55 RG 1 w
 40 686 m 555 686 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 671 Td (MiniLang is an individual Compiler Design Laboratory project implementing a modular 5-phase) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 671 Td (Sudarshan is an individual Compiler Design Laboratory project implementing a modular 5-phase) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 658 Td (compiler and virtual machine execution engine. Production compilers like GCC or Clang are millions) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 645 Td (of lines long, making it difficult for students to inspect intermediate phase transformations.) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 632 Td (MiniLang solves this problem by offering a transparent, zero-dependency 5-phase compiler pipeline) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 632 Td (Sudarshan solves this problem by offering a transparent, zero-dependency 5-phase compiler pipeline) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 619 Td (in Python 3.) Tj ET
 BT /F2 14 Tf 0.13 0.31 0.55 rg 40 592 Td (2. Objectives & Scope) Tj ET
 0.13 0.31 0.55 RG 1 w
@@ -89,11 +89,11 @@ endobj
 << /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 7 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
 endobj
 9 0 obj
-<< /Length 1614 >>
+<< /Length 1616 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 2) Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 782 Td (        ▼) Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 770 Td (Interpreter \(interpreter.py\)  ──► Virtual Machine Execution & Output) Tj ET
@@ -113,7 +113,7 @@ BT /F3 9 Tf 0.15 0.15 0.25 rg 48 623 Td (}) Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 611 Td (print\(sum\);) Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 599 Td () Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 587 Td (Prototype Execution Command:) Tj ET
-BT /F3 9 Tf 0.15 0.15 0.25 rg 48 575 Td (./minilang examples/valid.mini --all) Tj ET
+BT /F3 9 Tf 0.15 0.15 0.25 rg 48 575 Td (./sudarshan examples/valid.mini --all) Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 563 Td () Tj ET
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 551 Td (Verified Prototype Output: 15 \(Status: Execution finished successfully\)) Tj ET
 endstream
@@ -131,11 +131,11 @@ xref
 0000000180 00000 n 
 0000000255 00000 n 
 0000000387 00000 n 
-0000005780 00000 n 
-0000005926 00000 n 
-0000007592 00000 n 
+0000005768 00000 n 
+0000005914 00000 n 
+0000007582 00000 n 
 trailer
 << /Size 11 /Root 1 0 R >>
 startxref
-7739
+7729
 %%EOF

@@ -1,7 +1,7 @@
 """
-Abstract Syntax Tree (AST) Nodes Module for MiniLang Compiler.
+Abstract Syntax Tree (AST) Nodes Module for Sudarshan Compiler.
 
-Defines AST nodes for all MiniLang constructs, preserving source location (line, column).
+Defines AST nodes for all Sudarshan constructs, preserving source location (line, column).
 Includes a pretty-printer function dump_ast() for visual inspection during demonstrations.
 """
 
@@ -22,7 +22,7 @@ class ASTNode:
 # --- Root Node ---
 
 class Program(ASTNode):
-    """Root AST node representing an entire MiniLang program."""
+    """Root AST node representing an entire Sudarshan program."""
 
     def __init__(self, statements: Optional[List[ASTNode]] = None, line: Optional[int] = None, column: Optional[int] = None):
         super().__init__(line, column)

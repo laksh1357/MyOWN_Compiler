@@ -1,7 +1,7 @@
 """
-Three-Address Code (TAC) Generator Module for MiniLang Compiler.
+Three-Address Code (TAC) Generator Module for Sudarshan Compiler.
 
-Translates MiniLang AST nodes into a linear sequence of 3-Address Code quadruples
+Translates Sudarshan AST nodes into a linear sequence of 3-Address Code quadruples
 with temporary variable (t1, t2, ...) and jump label (L1, L2, ...) generation.
 Integrates lexical scope variable mangling for accurate variable shadowing.
 """

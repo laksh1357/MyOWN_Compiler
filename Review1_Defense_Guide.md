@@ -1,6 +1,6 @@
 # REVIEW 1: PROJECT PROPOSAL & DESIGN REVIEW DEFENSE GUIDE
 
-**Project Title**: MiniLang — A Compiler & Interpreter for a Simple Imperative Language  
+**Project Title**: Sudarshan: An End-to-End Compiler and Virtual Machine  
 **Course**: Compiler Design Laboratory  
 **Evaluation Rubric**: Review 1 (20 Marks Total)  
 
@@ -8,7 +8,7 @@
 
 ## 📊 Review 1 Evaluation Rubric & Marks Mapping
 
-| Evaluation Criteria | What Evaluators Look For | MiniLang Defense / Proof | Marks |
+| Evaluation Criteria | What Evaluators Look For | Sudarshan Defense / Proof | Marks |
 |---|---|---|---|
 | **1. Topic Selection** | Relevance to Compiler Design | Implements full 5-phase compiler pipeline (Lexer, Parser, Symbol Table, TAC IR, VM Interpreter). | **3 / 3** |
 | **2. Problem Statement** | Clarity and significance | Solves the opacity problem of black-box parser generators by providing a transparent, 100% handwritten pipeline. | **3 / 3** |
@@ -17,7 +17,7 @@
 | **5. Compiler Concepts** | Appropriate concepts identified | DFAs, LL(1) Recursive Descent Parsing, AST Visitor, Lexical Scope Trees, TAC Quadruples, Constant Folding. | **3 / 3** |
 | **6. System Architecture** | Quality of design | Clean modular design with strict single-responsibility files (`lexer.py`, `parser.py`, `semantic.py`, etc.). | **4 / 4** |
 | **7. Innovation** | Originality | **TAC Constant Folding & DCE Optimizer Pass**, **AST Tree Dumper**, and **Scope Name Mangling**. | **2 / 2** |
-| **8. Prototype** | Initial implementation | Working CLI prototype `./minilang` & `python3 main.py` running live programs. | **3 / 3** |
+| **8. Prototype** | Initial implementation | Working CLI prototype `./sudarshan` & `python3 main.py` running live programs. | **3 / 3** |
 | **9. Viva** | Individual understanding | Complete technical understanding and viva preparation questions script. | **Evaluated** |
 | **TOTAL** | | | **20 / 20** |
 
@@ -26,13 +26,13 @@
 ## 🎙️ Step-by-Step Presentation Script for Review 1 Panel
 
 ### 1. Topic Selection & Title (3 Marks)
-> *"Good morning respected faculty panel. My project for the Compiler Design Laboratory is titled **MiniLang: An End-to-End Compiler and Virtual Machine Interpreter for a Simple Imperative Language**. It is a complete, modular compiler implementation written in Python 3 that covers all fundamental concepts of Compiler Design."*
+> *"Good morning respected faculty panel. My project for the Compiler Design Laboratory is titled **Sudarshan: An End-to-End Compiler and Virtual Machine**. It is a complete, modular compiler implementation written in Python 3 that covers all fundamental concepts of Compiler Design."*
 
 ### 2. Problem Statement (3 Marks)
-> *"Industrial compilers like GCC, Clang, or JVM are millions of lines of code and rely on black-box tools like Lex, Yacc, or LLVM. This makes it difficult for students to observe how source code transforms through each intermediate phase. The goal of MiniLang is to create a 100% transparent, self-contained, 5-phase compiler where every single phase—from scanning and recursive descent parsing to Three-Address Code generation, optimization, and virtual machine execution—is handwritten without any third-party dependencies."*
+> *"Industrial compilers like GCC, Clang, or JVM are millions of lines of code and rely on black-box tools like Lex, Yacc, or LLVM. This makes it difficult for students to observe how source code transforms through each intermediate phase. The goal of Sudarshan is to create a 100% transparent, self-contained, 5-phase compiler where every single phase—from scanning and recursive descent parsing to Three-Address Code generation, optimization, and virtual machine execution—is handwritten without any third-party dependencies."*
 
 ### 3. Objectives & Scope (2 Marks)
-> *"The key objectives of MiniLang are:
+> *"The key objectives of Sudarshan are:
 > 1. Design a formal BNF grammar supporting variables, arithmetic/comparison ops, `if/else`, `while` loops, block scoping, and `print`.
 > 2. Build a Lexer with line and column error tracking.
 > 3. Build a Recursive Descent Parser emitting an Abstract Syntax Tree (AST).
@@ -42,7 +42,7 @@
 > 7. Implement a Virtual Machine Interpreter to execute TAC instructions."*
 
 ### 4. Compiler Design Concepts & Technical Feasibility (4 + 3 = 7 Marks)
-> *"MiniLang demonstrates all core compiler concepts:
+> *"Sudarshan demonstrates all core compiler concepts:
 > - **Phase 1 (Lexer)**: DFA-based token scanning with line/col metadata.
 > - **Phase 2 (Parser)**: LL(1) Top-Down Recursive Descent parsing with operator precedence.
 > - **Phase 3 (Semantics)**: Lexical scope resolution via parent-pointer scope trees.
@@ -84,7 +84,7 @@ Phase 5: Virtual Machine Execution (interpreter.py)   ──► Code Execution &
 
 Run the following command during Review 1:
 ```bash
-./minilang examples/valid.mini --all
+./sudarshan examples/valid.mini --all
 ```
 
 ---

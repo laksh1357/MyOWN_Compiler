@@ -1,5 +1,5 @@
 """
-Generates Review1_Defense_Guide.pdf for MiniLang Compiler Project Review 1 Evaluation.
+Generates Review1_Defense_Guide.pdf for Sudarshan Compiler Project Review 1 Evaluation.
 Uses pure Python 3 without external dependencies.
 """
 
@@ -12,7 +12,7 @@ def generate_review1_pdf():
     # Header & Title
     pdf.add_title("REVIEW 1: PROJECT PROPOSAL & DESIGN REVIEW DEFENSE GUIDE")
     pdf.add_paragraph("Course: Compiler Design Laboratory | Review 1 Evaluation (20 Marks)")
-    pdf.add_paragraph("Project Title: MiniLang — Compiler & Interpreter for a Simple Imperative Language")
+    pdf.add_paragraph("Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine")
     pdf.add_paragraph("Repository: https://github.com/laksh1357/MyOWN_Compiler")
 
     # 1. Evaluation Rubric
@@ -36,7 +36,7 @@ def generate_review1_pdf():
     pdf.add_heading1("2. Panel Presentation Script & System Architecture")
     pdf.add_paragraph(
         "Problem Statement: Production compilers (GCC, Clang) are black boxes comprising millions of lines. "
-        "MiniLang provides a transparent, zero-dependency 5-phase compiler pipeline in Python 3."
+        "Sudarshan provides a transparent, zero-dependency 5-phase compiler pipeline in Python 3."
     )
     pdf.add_code_block(
         "Source Code (.mini)\n"
@@ -59,7 +59,7 @@ def generate_review1_pdf():
     pdf.add_paragraph("Demonstrate live CLI in terminal during Review 1:")
     pdf.add_code_block(
         "cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang\n"
-        "./minilang examples/valid.mini --all"
+        "./sudarshan examples/valid.mini --all"
     )
 
     pdf.save()

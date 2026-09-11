@@ -1,5 +1,5 @@
 """
-Three-Address Code (TAC) Optimizer Module for MiniLang Compiler.
+Three-Address Code (TAC) Optimizer Module for Sudarshan Compiler.
 
 Implements optimization passes over linear TAC instructions:
 1. Constant Folding (evaluating constant expressions at compile time)

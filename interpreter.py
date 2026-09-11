@@ -1,5 +1,5 @@
 """
-Interpreter / Virtual Machine Module for MiniLang Compiler.
+Interpreter / Virtual Machine Module for Sudarshan Compiler.
 
 Executes linear Three-Address Code (TAC) instructions sequentially,
 maintaining variable memory, temporary memory, label map, and program counter (PC).

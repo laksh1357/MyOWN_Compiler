@@ -1,5 +1,5 @@
 """
-Main Command-Line Driver for MiniLang Compiler.
+Main Command-Line Driver for Sudarshan Compiler.
 
 Integrates Lexer, Parser, Semantic Analyzer, TAC Generator, TAC Optimizer, and Interpreter.
 Supports phase flags: --tokens, --ast, --symtab, --tac, --opt, --explain, --all.
@@ -10,7 +10,7 @@ import argparse
 import os
 import sys
 
-from errors import LexerError, ParserError, SemanticError, RuntimeError, MiniLangError
+from errors import LexerError, ParserError, SemanticError, RuntimeError, SudarshanError, MiniLangError
 from lexer import Lexer
 from parser import Parser
 from ast_nodes import dump_ast
@@ -23,7 +23,7 @@ from interpreter import Interpreter
 def print_explanation(filename: str, source_code: str, tokens: list, ast, symtab, raw_tac: list, opt_tac: list):
     """Prints a detailed educational explanation of how the compiler processed the program."""
     print("==================================================")
-    print("      MINILANG COMPILER PIPELINE EXPLANATION      ")
+    print("      SUDARSHAN COMPILER PIPELINE EXPLANATION     ")
     print("==================================================")
     print(f"File: {filename}\n")
 
@@ -55,7 +55,7 @@ def print_explanation(filename: str, source_code: str, tokens: list, ast, symtab
 
 def main():
     cli_parser = argparse.ArgumentParser(
-        description="MiniLang Compiler & Interpreter CLI Driver",
+        description="Sudarshan Compiler & Interpreter CLI Driver",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

@@ -1,5 +1,5 @@
 """
-Centralized Error Handling Module for MiniLang Compiler.
+Centralized Error Handling Module for Sudarshan Compiler.
 
 Defines a clean hierarchy of compiler exceptions with line, column,
 and optional source code context tracking across all pipeline phases.
@@ -8,8 +8,8 @@ and optional source code context tracking across all pipeline phases.
 from typing import Optional
 
 
-class MiniLangError(Exception):
-    """Base class for all MiniLang compiler and interpreter errors."""
+class SudarshanError(Exception):
+    """Base class for all Sudarshan compiler and interpreter errors."""
 
     def __init__(
         self,
@@ -41,21 +41,25 @@ class MiniLangError(Exception):
         return base_msg
 
 
-class LexerError(MiniLangError):
+# Alias for backward compatibility if needed
+MiniLangError = SudarshanError
+
+
+class LexerError(SudarshanError):
     """Raised when an unrecognized character or malformed token is scanned."""
     pass
 
 
-class ParserError(MiniLangError):
-    """Raised when source tokens violate MiniLang syntax/grammar rules."""
+class ParserError(SudarshanError):
+    """Raised when source tokens violate Sudarshan syntax/grammar rules."""
     pass
 
 
-class SemanticError(MiniLangError):
+class SemanticError(SudarshanError):
     """Raised on scope violations, undeclared variables, or type mismatches."""
     pass
 
 
-class RuntimeError(MiniLangError):
+class RuntimeError(SudarshanError):
     """Raised during TAC execution (e.g. division by zero, undefined access)."""
     pass

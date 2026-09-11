@@ -66,7 +66,7 @@ def create_document(output_filename: str):
     # Project Title Box
     p_box = doc.add_paragraph()
     p_box.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run_box = p_box.add_run("PROJECT TITLE:\nMiniLang — A Compiler & Interpreter for a Simple Imperative Language")
+    run_box = p_box.add_run("PROJECT TITLE:\nSudarshan: An End-to-End Compiler and Virtual Machine")
     run_box.font.name = 'Calibri'
     run_box.font.size = Pt(13)
     run_box.font.bold = True
@@ -121,9 +121,9 @@ def create_document(output_filename: str):
     # --- Chapter 1: Introduction ---
     add_h1("Chapter 1: Introduction & Executive Summary")
     add_p(
-        "MiniLang is an individual Compiler Design Laboratory project that implements a fully modular, 5-phase compiler "
+        "Sudarshan is an individual Compiler Design Laboratory project that implements a fully modular, 5-phase compiler "
         "and virtual machine execution engine for a custom imperative programming language. Developed entirely in Python 3 "
-        "without external parsing frameworks (such as Lex, Yacc, PLY, or ANTLR), MiniLang translates human-readable source code "
+        "without external parsing frameworks (such as Lex, Yacc, PLY, or ANTLR), Sudarshan translates human-readable source code "
         "into formal tokens, constructs an Abstract Syntax Tree (AST) using an LL(1) Recursive Descent Parser, performs static "
         "semantics validation using a tree-structured Symbol Table, generates Three-Address Code (TAC) quadruples, applies compile-time "
         "constant folding optimizations, and executes the resulting intermediate code on a virtual machine environment."
@@ -136,7 +136,7 @@ def create_document(output_filename: str):
         "Production compilers (such as GCC, Clang, or JVM) are industrial software systems comprising millions of lines of C/C++ code. "
         "For students learning Compiler Design, observing how source constructs transform through scanning, parsing, semantic validation, "
         "intermediate representation, optimization, and execution is often obscured by black-box parser generators or complex framework APIs. "
-        "MiniLang addresses this challenge by providing a transparent, 100% handwritten, zero-dependency 5-phase compiler pipeline where every "
+        "Sudarshan addresses this challenge by providing a transparent, 100% handwritten, zero-dependency 5-phase compiler pipeline where every "
         "intermediate phase output can be inspected, debugged, and explained step-by-step."
     )
 
@@ -284,7 +284,7 @@ def create_document(output_filename: str):
         ("Compiler Concepts", "DFAs, Recursive Descent, AST, Symbol Table, TAC, VM", "3 / 3"),
         ("System Architecture", "Modular single-responsibility design", "4 / 4"),
         ("Innovation", "TAC Constant Folding & DCE Optimizer + AST Dumper", "2 / 2"),
-        ("Prototype", "Working CLI executable ./minilang & python3 main.py", "3 / 3"),
+        ("Prototype", "Working CLI executable ./sudarshan & python3 main.py", "3 / 3"),
     ]
 
     for row_idx, (c1, c2, c3) in enumerate(r_data):
@@ -305,7 +305,7 @@ def create_document(output_filename: str):
     add_p("To run the working prototype live in terminal:")
     add_code(
         "cd /Users/lakshyasingh/.gemini/antigravity/scratch/MiniLang\n"
-        "./minilang examples/valid.mini --all"
+        "./sudarshan examples/valid.mini --all"
     )
 
     add_p("Sample Program (`examples/valid.mini`):")

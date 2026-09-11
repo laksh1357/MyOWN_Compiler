@@ -1,5 +1,5 @@
 """
-Generates Phase1_Report.pdf for MiniLang Compiler Project Phase 1 Submission.
+Generates Phase1_Report.pdf for Sudarshan Compiler Project Phase 1 Submission.
 Uses pure Python 3 without external dependencies.
 """
 
@@ -12,15 +12,15 @@ def generate_phase1_pdf():
     # Header & Title
     pdf.add_title("PHASE 1 REPORT: PROBLEM DEFINITION & SYSTEM DESIGN")
     pdf.add_paragraph("Course: Compiler Design Laboratory | Review 1 Submission")
-    pdf.add_paragraph("Project Title: MiniLang — Compiler & Interpreter for a Simple Imperative Language")
+    pdf.add_paragraph("Project Title: Sudarshan: An End-to-End Compiler and Virtual Machine")
     pdf.add_paragraph("Repository: https://github.com/laksh1357/MyOWN_Compiler")
 
     # 1. Project Title & Abstract
     pdf.add_heading1("1. Abstract & Problem Statement")
     pdf.add_paragraph(
-        "MiniLang is an individual Compiler Design Laboratory project implementing a modular 5-phase compiler "
+        "Sudarshan is an individual Compiler Design Laboratory project implementing a modular 5-phase compiler "
         "and virtual machine execution engine. Production compilers like GCC or Clang are millions of lines long, "
-        "making it difficult for students to inspect intermediate phase transformations. MiniLang solves this problem "
+        "making it difficult for students to inspect intermediate phase transformations. Sudarshan solves this problem "
         "by offering a transparent, zero-dependency 5-phase compiler pipeline in Python 3."
     )
 
@@ -88,7 +88,7 @@ def generate_phase1_pdf():
         "}\n"
         "print(sum);\n\n"
         "Prototype Execution Command:\n"
-        "./minilang examples/valid.mini --all\n\n"
+        "./sudarshan examples/valid.mini --all\n\n"
         "Verified Prototype Output: 15 (Status: Execution finished successfully)"
     )
 

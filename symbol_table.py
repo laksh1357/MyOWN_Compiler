@@ -1,5 +1,5 @@
 """
-Symbol Table Module for MiniLang Compiler.
+Symbol Table Module for Sudarshan Compiler.
 
 Implements a lexically-scoped Symbol Table supporting nested scopes, block entry/exit,
 variable declaration checks, parent scope resolution, and shadowing.
@@ -9,7 +9,7 @@ from typing import Dict, Optional
 
 
 class Symbol:
-    """Represents a declared symbol (variable) in MiniLang."""
+    """Represents a declared symbol (variable) in Sudarshan."""
 
     def __init__(
         self,

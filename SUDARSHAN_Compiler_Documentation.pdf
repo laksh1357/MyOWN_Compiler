@@ -19,20 +19,20 @@ endobj
 << /Type /Pages /Count 4 /Kids [8 0 R 10 0 R 12 0 R 14 0 R] >>
 endobj
 7 0 obj
-<< /Length 4652 >>
+<< /Length 4656 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 1) Tj ET
-BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (MiniLang Compiler Design Laboratory) Tj ET
+BT /F2 20 Tf 0.1 0.2 0.5 rg 40 782 Td (Sudarshan Compiler Design Laboratory) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 752 Td (Comprehensive Technical Specification & Viva Examination Documentation) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 735 Td (Author: Compiler Design Laboratory Project | Repository:) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 722 Td (https://github.com/laksh1357/MyOWN_Compiler) Tj ET
 BT /F2 14 Tf 0.13 0.31 0.55 rg 40 695 Td (1. Project Overview & Architecture) Tj ET
 0.13 0.31 0.55 RG 1 w
 40 690 m 555 690 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 675 Td (MiniLang is a clean, modular imperative programming language implemented in Python 3. The compiler) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 675 Td (Sudarshan is a clean, modular imperative programming language implemented in Python 3. The compiler) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 662 Td (architecture strictly implements all 5 classic compiler pipeline phases: Lexical Analysis, Syntax) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 649 Td (Analysis \(AST\), Semantic Analysis \(Symbol Table\), Three-Address Code \(TAC\) Generation &) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 636 Td (Optimization, and Virtual Machine Execution.) Tj ET
@@ -52,7 +52,7 @@ BT /F3 9 Tf 0.15 0.15 0.25 rg 48 491 Td (Phase 5: Virtual Machine \(interpreter.
 BT /F2 14 Tf 0.13 0.31 0.55 rg 40 461 Td (2. End-to-End Program Transformation Walkthrough) Tj ET
 0.13 0.31 0.55 RG 1 w
 40 456 m 555 456 l S
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 441 Td (Sample MiniLang Program:) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 441 Td (Sample Sudarshan Program:) Tj ET
 0.95 0.95 0.96 rg 40 359 515 70 re f
 0.8 0.8 0.85 RG 0.5 w 40 359 515 70 re s
 BT /F3 9 Tf 0.15 0.15 0.25 rg 48 416 Td (int x = 5;) Tj ET
@@ -82,11 +82,11 @@ endobj
 << /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 7 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
 endobj
 9 0 obj
-<< /Length 4136 >>
+<< /Length 4137 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 2) Tj ET
 0.95 0.95 0.96 rg 40 585 515 202 re f
 0.8 0.8 0.85 RG 0.5 w 40 585 515 202 re s
@@ -152,11 +152,11 @@ endobj
 << /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 9 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
 endobj
 11 0 obj
-<< /Length 4661 >>
+<< /Length 4662 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 3) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 782 Td (Lexical analysis is the first compiler phase. It converts raw source characters into meaningful) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 769 Td (tokens while tracking line/column information and stripping comments/whitespace.) Tj ET
@@ -206,11 +206,11 @@ endobj
 << /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] /Contents 11 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>
 endobj
 13 0 obj
-<< /Length 2015 >>
+<< /Length 2018 >>
 stream
 0.2 0.2 0.2 RG 0.5 w
 40 807 m 555 807 l S
-BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (MiniLang Compiler Design Laboratory Documentation) Tj ET
+BT /F1 9 Tf 0.3 0.3 0.3 rg 40 812 Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET
 BT /F1 9 Tf 0.3 0.3 0.3 rg 480 812 Td (Page 4) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 782 Td (Compile-time errors \(lexical, syntax, semantic\) are caught before execution. Runtime errors \(e.g.) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 769 Td (division by zero\) occur during VM execution.) Tj ET
@@ -226,8 +226,8 @@ BT /F1 10 Tf 0.1 0.1 0.1 rg 40 616 Td (by raising a clean RuntimeError.) Tj ET
 BT /F2 11 Tf 0.2 0.2 0.2 rg 40 594 Td (Q19: How is operator precedence implemented?) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 578 Td (Through grammar method hierarchy: comparison -> addExpr \(+/-\) -> term \(*//\) -> factor, ensuring) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 565 Td (higher precedence operators bind deeper in AST.) Tj ET
-BT /F2 11 Tf 0.2 0.2 0.2 rg 40 543 Td (Q20: What are the main limitations of MiniLang?) Tj ET
-BT /F1 10 Tf 0.1 0.1 0.1 rg 40 527 Td (MiniLang supports only integer variables and single-file programs without functions, arrays,) Tj ET
+BT /F2 11 Tf 0.2 0.2 0.2 rg 40 543 Td (Q20: What are the main limitations of Sudarshan?) Tj ET
+BT /F1 10 Tf 0.1 0.1 0.1 rg 40 527 Td (Sudarshan supports only integer variables and single-file programs without functions, arrays,) Tj ET
 BT /F1 10 Tf 0.1 0.1 0.1 rg 40 514 Td (floats, or target assembly code generation.) Tj ET
 endstream
 endobj
@@ -244,15 +244,15 @@ xref
 0000000180 00000 n 
 0000000255 00000 n 
 0000000401 00000 n 
-0000005105 00000 n 
-0000005251 00000 n 
-0000009439 00000 n 
-0000009586 00000 n 
-0000014300 00000 n 
-0000014448 00000 n 
-0000016516 00000 n 
+0000005109 00000 n 
+0000005255 00000 n 
+0000009444 00000 n 
+0000009591 00000 n 
+0000014306 00000 n 
+0000014454 00000 n 
+0000016525 00000 n 
 trailer
 << /Size 15 /Root 1 0 R >>
 startxref
-16664
+16673
 %%EOF

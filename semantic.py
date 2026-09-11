@@ -1,5 +1,5 @@
 """
-Semantic Analyzer Module for MiniLang Compiler.
+Semantic Analyzer Module for Sudarshan Compiler.
 
 Performs static semantics validation on the AST including:
 - Declaration before use validation

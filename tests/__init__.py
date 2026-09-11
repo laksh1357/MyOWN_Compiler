@@ -1,3 +1,3 @@
 """
-MiniLang Compiler Unit Test Package.
+Sudarshan Compiler Unit Test Package.
 """

@@ -34,7 +34,7 @@ class SimplePDFWriter:
         # Draw header / line
         self.current_stream.append("0.2 0.2 0.2 RG 0.5 w")
         self.current_stream.append(f"40 {self.page_height - 35} m 555 {self.page_height - 35} l S")
-        self.current_stream.append("BT /F1 9 Tf 0.3 0.3 0.3 rg 40 " + str(self.page_height - 30) + " Td (MiniLang Compiler Design Laboratory Documentation) Tj ET")
+        self.current_stream.append("BT /F1 9 Tf 0.3 0.3 0.3 rg 40 " + str(self.page_height - 30) + " Td (Sudarshan Compiler Design Laboratory Documentation) Tj ET")
         self.current_stream.append("BT /F1 9 Tf 0.3 0.3 0.3 rg 480 " + str(self.page_height - 30) + " Td (Page " + str(self.page_number) + ") Tj ET")
 
     def add_title(self, text: str):
@@ -212,14 +212,14 @@ def generate_doc_pdf(output_path: str):
     pdf.new_page()
 
     # Title
-    pdf.add_title("MiniLang Compiler Design Laboratory")
+    pdf.add_title("Sudarshan Compiler Design Laboratory")
     pdf.add_paragraph("Comprehensive Technical Specification & Viva Examination Documentation")
     pdf.add_paragraph("Author: Compiler Design Laboratory Project | Repository: https://github.com/laksh1357/MyOWN_Compiler")
 
     # Section 1: Overview
     pdf.add_heading1("1. Project Overview & Architecture")
     pdf.add_paragraph(
-        "MiniLang is a clean, modular imperative programming language implemented in Python 3. "
+        "Sudarshan is a clean, modular imperative programming language implemented in Python 3. "
         "The compiler architecture strictly implements all 5 classic compiler pipeline phases: "
         "Lexical Analysis, Syntax Analysis (AST), Semantic Analysis (Symbol Table), Three-Address Code (TAC) Generation & Optimization, and Virtual Machine Execution."
     )
@@ -240,7 +240,7 @@ def generate_doc_pdf(output_path: str):
 
     # Section 2: Complete Walkthrough
     pdf.add_heading1("2. End-to-End Program Transformation Walkthrough")
-    pdf.add_paragraph("Sample MiniLang Program:")
+    pdf.add_paragraph("Sample Sudarshan Program:")
     pdf.add_code_block("int x = 5;\nwhile (x < 10) {\n    print(x);\n    x = x + 1;\n}")
 
     pdf.add_heading2("Phase 1: Lexical Analysis (lexer.py)")
@@ -325,7 +325,7 @@ def generate_doc_pdf(output_path: str):
         ("Q17: How is if/else represented in TAC?", "Condition evaluation, IF_FALSE GOTO L1 (else), then-branch quadruples, GOTO L2 (end), label L1, else-branch quadruples, label L2."),
         ("Q18: How is division by zero handled?", "Skipped during compile-time constant folding to avoid compiler crashes; caught during VM execution by raising a clean RuntimeError."),
         ("Q19: How is operator precedence implemented?", "Through grammar method hierarchy: comparison -> addExpr (+/-) -> term (*//) -> factor, ensuring higher precedence operators bind deeper in AST."),
-        ("Q20: What are the main limitations of MiniLang?", "MiniLang supports only integer variables and single-file programs without functions, arrays, floats, or target assembly code generation.")
+        ("Q20: What are the main limitations of Sudarshan?", "Sudarshan supports only integer variables and single-file programs without functions, arrays, floats, or target assembly code generation.")
     ]
 
     for q, a in viva_qas:
@@ -335,5 +335,5 @@ def generate_doc_pdf(output_path: str):
     pdf.save()
 
 if __name__ == "__main__":
-    out_file = "MiniLang_Compiler_Documentation.pdf"
+    out_file = "SUDARSHAN_Compiler_Documentation.pdf"
     generate_doc_pdf(out_file)
