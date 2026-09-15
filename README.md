@@ -159,73 +159,7 @@ python3 -m unittest discover -s tests
 
 ---
 
----
-
-## 8. Viva Examination Questions & Answers (20 Key Questions)
-
-### Q1: What is lexical analysis?
-**A**: Lexical analysis is the first compiler phase. It converts raw source characters into meaningful tokens while tracking line/column information and stripping comments/whitespace.
-
-### Q2: What is parsing?
-**A**: Parsing (syntax analysis) takes the token stream from the lexer and verifies whether it conforms to the formal BNF grammar, constructing an Abstract Syntax Tree (AST).
-
-### Q3: Why recursive descent parsing?
-**A**: Recursive descent parsing is a top-down technique where each non-terminal grammar rule is written as a clean, deterministic Python function. It requires zero external tools.
-
-### Q4: What is an AST?
-**A**: An Abstract Syntax Tree (AST) is a hierarchical tree representation of source code logic, omitting syntactic noise like semicolons and parentheses.
-
-### Q5: What is semantic analysis?
-**A**: Semantic analysis checks static rules that context-free grammars cannot capture, such as declaration before use, block scope visibility, and type consistency.
-
-### Q6: What is a symbol table?
-**A**: A symbol table is a data structure storing identifier metadata (name, type, scope level, declaration location) during compilation.
-
-### Q7: What is lexical scope?
-**A**: Lexical scope means variable visibility is determined by physical position in block structures (`{ ... }`). Child blocks access parent variables, but not vice-versa.
-
-### Q8: What is variable shadowing?
-**A**: Variable shadowing occurs when an inner block declares a variable with the same name as an outer variable, temporarily hiding the outer declaration.
-
-### Q9: What is Three-Address Code (TAC)?
-**A**: TAC is an intermediate representation where each quadruple has at most 3 operands, breaking complex logic into flat, register-like hardware steps.
-
-### Q10: Why use temporary variables in TAC?
-**A**: Temporary variables (`t1`, `t2`, ...) break down nested AST expressions into linear step-by-step instructions.
-
-### Q11: What is constant folding?
-**A**: Constant folding evaluates constant expressions (e.g. `2 + 3 * 4` $\rightarrow$ `14`) at compile time to save runtime computation.
-
-### Q12: What is dead code elimination?
-**A**: Dead code elimination removes unreachable instructions (e.g. quadruples following an unconditional `GOTO` jump).
-
-### Q13: Why interpret TAC instead of AST directly?
-**A**: Interpreting TAC proves that intermediate code generation works correctly and demonstrates a complete 5-phase compiler pipeline.
-
-### Q14: Difference between syntax and semantic errors?
-**A**: Syntax errors violate grammar rules (e.g. missing semicolon). Semantic errors violate static logic rules (e.g. using an undeclared variable).
-
-### Q15: Difference between compile-time and runtime errors?
-**A**: Compile-time errors (lexical, syntax, semantic) are caught before execution. Runtime errors (e.g. division by zero) occur during VM execution.
-
-### Q16: How are while loops represented in TAC?
-**A**: Using two labels and jumps: a start label `L1`, condition evaluation, `IF_FALSE GOTO L2`, body quadruples, `GOTO L1`, and end label `L2`.
-
-### Q17: How is if/else represented in TAC?
-**A**: Condition evaluation, `IF_FALSE GOTO L1` (else), then-branch quadruples, `GOTO L2` (end), label `L1`, else-branch quadruples, label `L2`.
-
-### Q18: How is division by zero handled?
-**A**: Skipped during compile-time constant folding to avoid compiler crashes; caught during VM execution by raising a clean `RuntimeError`.
-
-### Q19: How is operator precedence implemented?
-**A**: Through grammar method hierarchy: comparison $\rightarrow$ addExpr (`+`/`-`) $\rightarrow$ term (`*`/`/`) $\rightarrow$ factor, ensuring higher precedence operators bind deeper in AST.
-
-### Q20: What are the main limitations of Sudarshan?
-**A**: Sudarshan supports only integer variables and single-file programs without functions, arrays, floats, or target assembly code generation.
-
----
-
-## 9. Documentation & Reports
+## 7. Documentation & Reports
 
 Generated documentation reports are available in the [`docs/`](docs/) directory:
 - [`docs/SUDARSHAN_Compiler_Documentation.pdf`](docs/SUDARSHAN_Compiler_Documentation.pdf) — Complete technical specification & viva documentation
@@ -235,6 +169,6 @@ Generated documentation reports are available in the [`docs/`](docs/) directory:
 
 ---
 
-## 10. License
+## 8. License
 
 This project is open-source under the MIT License.
