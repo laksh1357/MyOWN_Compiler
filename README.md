@@ -159,16 +159,6 @@ python3 -m unittest discover -s tests
 
 ---
 
-## 7. Documentation & Reports
-
-Generated documentation reports are available in the [`docs/`](docs/) directory:
-- [`docs/SUDARSHAN_Compiler_Documentation.pdf`](docs/SUDARSHAN_Compiler_Documentation.pdf) — Complete technical specification & viva documentation
-- [`docs/Phase1_Report.pdf`](docs/Phase1_Report.pdf) — Executive phase 1 summary report
-- [`docs/Review1_Defense_Guide.pdf`](docs/Review1_Defense_Guide.pdf) — Panel presentation & defense guide
-- [`docs/Phase1_Project_Report.docx`](docs/Phase1_Project_Report.docx) — Formal Microsoft Word laboratory submission report
-
----
-
-## 8. License
+## 7. License
 
 This project is open-source under the MIT License.
