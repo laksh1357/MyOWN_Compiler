@@ -13,10 +13,10 @@ import sys
 # Ensure current directory is in Python path for module imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from errors import LexerError, ParserError, SemanticError, RuntimeError, SudarshanError, MiniLangError
+from errors import LexerError, ParserError, SemanticError, TACError, CompilerRuntimeError, SudarshanError, MiniLangError, CompilerError
 from lexer import Lexer
 from parser import Parser
-from ast_nodes import dump_ast
+from ast_nodes import dump_ast, render_ast_graph
 from semantic import SemanticAnalyzer
 from tac import TACGenerator, dump_tac
 from tac_opt import optimize_tac, compare_optimization
@@ -65,18 +65,22 @@ Examples:
   ./sudarshan examples/valid.mini
   ./sudarshan examples/valid.mini --all
   ./sudarshan examples/valid.mini --explain
-  ./sudarshan examples/valid.mini --tokens --ast
+  ./sudarshan examples/valid.mini --tokens --ast --viz
   ./sudarshan examples/error_syntax.mini
 """
     )
     cli_parser.add_argument("filename", help="Path to the .mini source code file")
     cli_parser.add_argument("--tokens", action="store_true", help="Display token stream from Lexer")
     cli_parser.add_argument("--ast", action="store_true", help="Display Abstract Syntax Tree (AST)")
+    cli_parser.add_argument("--viz", action="store_true", help="Render AST to image file (ast_tree.png) using Graphviz if available")
     cli_parser.add_argument("--symtab", action="store_true", help="Display Symbol Table and scopes")
+
     cli_parser.add_argument("--tac", action="store_true", help="Display generated Three-Address Code (TAC)")
     cli_parser.add_argument("--opt", action="store_true", help="Display optimized Three-Address Code")
     cli_parser.add_argument("--explain", action="store_true", help="Display detailed educational explanation of all phases")
     cli_parser.add_argument("--all", action="store_true", help="Display all compiler pipeline phases and execution output")
+    cli_parser.add_argument("--debug", action="store_true", help="Preserve full Python tracebacks for compiler debugging")
+
 
     args = cli_parser.parse_args()
 
@@ -117,12 +121,16 @@ Examples:
     try:
         parser = Parser(tokens)
         ast = parser.parse()
-        if args.ast:
+        if args.ast or args.viz:
             print("==================================================")
             print("        PHASE 2: SYNTAX ANALYSIS (AST TREE)       ")
             print("==================================================")
-            print(dump_ast(ast))
+            if args.ast:
+                print(dump_ast(ast))
+            if args.viz:
+                render_ast_graph(ast)
             print()
+
     except ParserError as err:
         print(f"\n❌ SYNTAX ERROR: {err}", file=sys.stderr)
         sys.exit(1)
@@ -141,24 +149,29 @@ Examples:
         print(f"\n❌ SEMANTIC ERROR: {err}", file=sys.stderr)
         sys.exit(1)
 
-    # --- Phase 4: Intermediate Code Generation (TAC) ---
-    tac_gen = TACGenerator()
-    raw_tac = tac_gen.generate(ast)
-    if args.tac:
-        print("==================================================")
-        print("     PHASE 4: THREE-ADDRESS CODE (UNOPTIMIZED)    ")
-        print("==================================================")
-        print(dump_tac(raw_tac))
-        print()
+    # --- Phase 4: Intermediate Code Generation (TAC) & Optimization ---
+    try:
+        tac_gen = TACGenerator()
+        raw_tac = tac_gen.generate(ast)
+        if args.tac:
+            print("==================================================")
+            print("     PHASE 4: THREE-ADDRESS CODE (UNOPTIMIZED)    ")
+            print("==================================================")
+            print(dump_tac(raw_tac))
+            print()
 
-    # --- Phase 4b: TAC Optimization ---
-    opt_tac = optimize_tac(raw_tac)
-    if args.opt:
-        print("==================================================")
-        print("     PHASE 4b: THREE-ADDRESS CODE (OPTIMIZED)     ")
-        print("==================================================")
-        print(dump_tac(opt_tac))
-        print()
+        opt_tac = optimize_tac(raw_tac)
+        if args.opt:
+            print("==================================================")
+            print("     PHASE 4b: THREE-ADDRESS CODE (OPTIMIZED)     ")
+            print("==================================================")
+            print(dump_tac(opt_tac))
+            print()
+    except TACError as err:
+        if args.debug:
+            raise
+        print(f"\n❌ TAC GENERATION ERROR: {err}", file=sys.stderr)
+        sys.exit(1)
 
     # --- Phase 5: Virtual Machine Execution / Interpretation ---
     try:
@@ -175,12 +188,17 @@ Examples:
             vm = Interpreter(opt_tac)
             vm.run()
             print("\n✅ Execution finished successfully.")
-    except RuntimeError as err:
+    except CompilerRuntimeError as err:
+        if args.debug:
+            raise
         print(f"\n❌ RUNTIME ERROR: {err}", file=sys.stderr)
         sys.exit(1)
     except SudarshanError as err:
+        if args.debug:
+            raise
         print(f"\n❌ COMPILER ERROR: {err}", file=sys.stderr)
         sys.exit(1)
+
 
 
 if __name__ == "__main__":

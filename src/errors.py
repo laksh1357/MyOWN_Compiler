@@ -41,8 +41,9 @@ class SudarshanError(Exception):
         return base_msg
 
 
-# Alias for backward compatibility if needed
+# Base Aliases for backward compatibility
 MiniLangError = SudarshanError
+CompilerError = SudarshanError
 
 
 class LexerError(SudarshanError):
@@ -60,6 +61,13 @@ class SemanticError(SudarshanError):
     pass
 
 
-class RuntimeError(SudarshanError):
+class TACError(SudarshanError):
+    """Raised during intermediate code generation or IR optimization."""
+    pass
+
+
+class CompilerRuntimeError(SudarshanError):
     """Raised during TAC execution (e.g. division by zero, undefined access)."""
     pass
+
+

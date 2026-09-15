@@ -7,6 +7,7 @@ Integrates lexical scope variable mangling for accurate variable shadowing.
 """
 
 from typing import Any, List, Optional
+from errors import TACError
 from symbol_table import SymbolTable
 from ast_nodes import (
     ASTNode, Program, VarDecl, Assignment, PrintStmt, IfStmt,
@@ -101,7 +102,8 @@ class TACGenerator:
         return visitor(node)
 
     def _generic_visit(self, node: ASTNode):
-        raise NotImplementedError(f"No TAC generator defined for AST node '{type(node).__name__}'")
+        raise TACError(f"Unsupported AST node '{type(node).__name__}' during TAC generation.", line=node.line, column=node.column)
+
 
     def _visit_Program(self, node: Program):
         for stmt in node.statements:

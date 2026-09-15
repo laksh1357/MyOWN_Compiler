@@ -1,4 +1,23 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-.DS_Store
+*.py[cod]
+*$py.class
+
+# Caches and testing artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment and OS files
 .venv/
+env/
+venv/
+ENV/
+.DS_Store
+
+# Generated AST visualizations
+*.png
+*.dot
+

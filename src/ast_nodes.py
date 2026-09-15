@@ -191,3 +191,121 @@ def dump_ast(node: ASTNode, indent: int = 0) -> str:
 
     else:
         return f"{prefix}{node.__class__.__name__}\n"
+
+
+# --- AST Graphviz Visualization (Optional Engine) ---
+
+def export_ast_dot(node: ASTNode) -> str:
+    """
+    Generates Graphviz DOT syntax representation of the AST node tree.
+    Pure python string formatting with zero external dependencies.
+    """
+    lines = ["digraph AST {", "  node [shape=box, style=filled, fillcolor=lightyellow, fontname=\"Courier\"];"]
+    node_counter = 0
+
+    def _visit(n: ASTNode) -> int:
+        nonlocal node_counter
+        curr_id = node_counter
+        node_counter += 1
+
+        label = n.__class__.__name__
+        if isinstance(n, IntegerLiteral):
+            label += f"({n.value})"
+        elif isinstance(n, Variable):
+            label += f"({n.name})"
+        elif isinstance(n, VarDecl):
+            label += f"({n.var_type} {n.name})"
+        elif isinstance(n, (BinaryExpr, UnaryExpr)):
+            label += f"('{n.operator}')"
+        elif isinstance(n, Assignment):
+            label += f"({n.name}=)"
+
+        escaped_label = label.replace('"', '\\"')
+        lines.append(f'  node_{curr_id} [label="{escaped_label}"];')
+
+        children = []
+        if isinstance(n, Program):
+            children = n.statements
+        elif isinstance(n, VarDecl):
+            children = [n.initializer]
+        elif isinstance(n, Assignment):
+            children = [n.value]
+        elif isinstance(n, PrintStmt):
+            children = [n.expression]
+        elif isinstance(n, IfStmt):
+            children = [n.condition, n.then_branch] + ([n.else_branch] if n.else_branch else [])
+        elif isinstance(n, WhileStmt):
+            children = [n.condition, n.body]
+        elif isinstance(n, Block):
+            children = n.statements
+        elif isinstance(n, BinaryExpr):
+            children = [n.left, n.right]
+        elif isinstance(n, UnaryExpr):
+            children = [n.operand]
+
+        for child in children:
+            if child:
+                child_id = _visit(child)
+                lines.append(f"  node_{curr_id} -> node_{child_id};")
+
+        return curr_id
+
+    _visit(node)
+    lines.append("}")
+    return "\n".join(lines)
+
+
+def render_ast_graph(node: ASTNode, output_path: str = "ast_tree") -> bool:
+    """
+    Safely renders the AST to an image file using Graphviz dot engine.
+    Gracefully handles missing python-graphviz package, missing 'dot' binary,
+    file permission errors, or rendering failures without crashing the compiler.
+    """
+    dot_code = export_ast_dot(node)
+
+    # 1. Try python graphviz library
+    try:
+        import graphviz
+        try:
+            src = graphviz.Source(dot_code)
+            src.render(output_path, cleanup=True, format="png")
+            print(f"📷 AST image rendered to '{output_path}.png'")
+            return True
+        except (graphviz.backend.ExecutableNotFound, FileNotFoundError):
+            print("Graphviz not installed. Skipping AST image generation.")
+            return False
+        except Exception as err:
+            if "dot" in str(err).lower() or "executable" in str(err).lower():
+                print("Graphviz not installed. Skipping AST image generation.")
+                return False
+            print(f"Graphviz rendering failed: {err}. Skipping AST image generation.")
+            return False
+    except (ImportError, ModuleNotFoundError):
+        pass  # Fall through to subprocess dot check
+
+    # 2. Try subprocess dot executable directly
+    try:
+        import shutil
+        import subprocess
+        if not shutil.which("dot"):
+            print("Graphviz not installed. Skipping AST image generation.")
+            return False
+
+        process = subprocess.run(
+            ["dot", "-Tpng", "-o", f"{output_path}.png"],
+            input=dot_code.encode("utf-8"),
+            capture_output=True,
+            check=True
+        )
+        print(f"📷 AST image rendered to '{output_path}.png'")
+        return True
+    except (FileNotFoundError, shutil.ExecError):
+        print("Graphviz not installed. Skipping AST image generation.")
+        return False
+    except subprocess.CalledProcessError as err:
+        print(f"Graphviz 'dot' execution failed with error code {err.returncode}. Skipping AST image generation.")
+        return False
+    except (OSError, PermissionError) as err:
+        print(f"Could not write AST image file: {err}. Skipping AST image generation.")
+        return False
+

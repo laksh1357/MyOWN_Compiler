@@ -6,6 +6,7 @@ variable declaration checks, parent scope resolution, and shadowing.
 """
 
 from typing import Dict, Optional
+from errors import CompilerRuntimeError
 
 
 class Symbol:
@@ -94,9 +95,10 @@ class SymbolTable:
     def exit_scope(self) -> Scope:
         """Exits the current nested scope, returning to its parent scope."""
         if self._current_scope.parent is None:
-            raise RuntimeError("Cannot exit global scope.")
+            raise CompilerRuntimeError("Cannot exit global scope.")
         self._current_scope = self._current_scope.parent
         return self._current_scope
+
 
     def declare(
         self,

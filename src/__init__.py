@@ -4,18 +4,24 @@ Sudarshan Compiler Source Package.
 
 from .errors import (
     SudarshanError,
+    CompilerError,
     MiniLangError,
     LexerError,
     ParserError,
     SemanticError,
-    RuntimeError,
+    TACError,
+    CompilerRuntimeError,
 )
 
 __all__ = [
     "SudarshanError",
+    "CompilerError",
     "MiniLangError",
     "LexerError",
     "ParserError",
     "SemanticError",
-    "RuntimeError",
+    "TACError",
+    "CompilerRuntimeError",
 ]
+
+

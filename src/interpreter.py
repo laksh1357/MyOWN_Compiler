@@ -3,11 +3,11 @@ Interpreter / Virtual Machine Module for Sudarshan Compiler.
 
 Executes linear Three-Address Code (TAC) instructions sequentially,
 maintaining variable memory, temporary memory, label map, and program counter (PC).
-Raises RuntimeError from errors.py for runtime errors such as division by zero.
+Raises CompilerRuntimeError from errors.py for runtime errors such as division by zero.
 """
 
 from typing import Any, Dict, List
-from errors import RuntimeError
+from errors import CompilerRuntimeError
 from tac import TACInstruction
 
 
@@ -32,7 +32,7 @@ class Interpreter:
     def _eval_operand(self, operand: Any) -> int:
         """Evaluates an operand which can be an integer literal, variable, or temporary."""
         if operand is None:
-            raise RuntimeError("Attempted to evaluate None operand.")
+            raise CompilerRuntimeError("Attempted to evaluate None operand.")
 
         if isinstance(operand, int):
             return operand
@@ -40,9 +40,9 @@ class Interpreter:
         if isinstance(operand, str):
             if operand in self.memory:
                 return self.memory[operand]
-            raise RuntimeError(f"Undefined variable or temporary '{operand}' accessed before initialization.")
+            raise CompilerRuntimeError(f"Undefined variable or temporary '{operand}' accessed before initialization.")
 
-        raise RuntimeError(f"Invalid operand type '{type(operand).__name__}'.")
+        raise CompilerRuntimeError(f"Invalid operand type '{type(operand).__name__}'.")
 
     def run(self) -> List[int]:
         """
@@ -74,7 +74,7 @@ class Interpreter:
                     res = val1 * val2
                 elif op == "DIV":
                     if val2 == 0:
-                        raise RuntimeError("Division by zero.")
+                        raise CompilerRuntimeError("Division by zero.")
                     res = val1 // val2
                 elif op == "EQ":
                     res = 1 if val1 == val2 else 0
@@ -108,7 +108,7 @@ class Interpreter:
                 if target_label in self.label_map:
                     self.pc = self.label_map[target_label]
                 else:
-                    raise RuntimeError(f"Undefined jump label target '{target_label}'.")
+                    raise CompilerRuntimeError(f"Undefined jump label target '{target_label}'.")
 
             elif op == "JUMP_IF_FALSE":
                 cond_val = self._eval_operand(inst.arg1)
@@ -117,7 +117,7 @@ class Interpreter:
                     if target_label in self.label_map:
                         self.pc = self.label_map[target_label]
                     else:
-                        raise RuntimeError(f"Undefined jump label target '{target_label}'.")
+                        raise CompilerRuntimeError(f"Undefined jump label target '{target_label}'.")
                 else:
                     self.pc += 1
 
@@ -125,6 +125,7 @@ class Interpreter:
                 self.pc += 1
 
             else:
-                raise RuntimeError(f"Invalid instruction '{op}'.")
+                raise CompilerRuntimeError(f"Invalid instruction '{op}'.")
 
         return self.output
+

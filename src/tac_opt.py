@@ -49,7 +49,7 @@ class TACOptimizer:
             arg1 = constants.get(inst.arg1, inst.arg1) if isinstance(inst.arg1, str) else inst.arg1
             arg2 = constants.get(inst.arg2, inst.arg2) if isinstance(inst.arg2, str) else inst.arg2
 
-            # Constant Folding for binary opcodes (ADD, SUB, MUL, DIV, EQ, NE, LT, GT, LE, GE)
+            # 1. Full Numeric Constant Folding (when both operands are numbers)
             if inst.op in ("ADD", "SUB", "MUL", "DIV", "EQ", "NE", "LT", "GT", "LE", "GE"):
                 if isinstance(arg1, (int, float)) and isinstance(arg2, (int, float)):
                     folded_val: Any = None
@@ -85,6 +85,67 @@ class TACOptimizer:
                             constants[inst.result] = folded_val
                         continue
 
+            # 2. Algebraic & Identity Simplifications (when one operand is an identity constant or operands are identical)
+            if inst.op == "ADD":
+                if arg1 == 0:  # 0 + x -> x
+                    res.append(TACInstruction("ASSIGN", arg2, None, inst.result))
+                    continue
+                elif arg2 == 0:  # x + 0 -> x
+                    res.append(TACInstruction("ASSIGN", arg1, None, inst.result))
+                    continue
+
+            elif inst.op == "SUB":
+                if arg2 == 0:  # x - 0 -> x
+                    res.append(TACInstruction("ASSIGN", arg1, None, inst.result))
+                    continue
+                elif arg1 == arg2 and isinstance(arg1, str):  # x - x -> 0
+                    new_inst = TACInstruction("CONST", 0, None, inst.result)
+                    res.append(new_inst)
+                    if inst.result:
+                        constants[inst.result] = 0
+                    continue
+
+            elif inst.op == "MUL":
+                if arg1 == 1:  # 1 * x -> x
+                    res.append(TACInstruction("ASSIGN", arg2, None, inst.result))
+                    continue
+                elif arg2 == 1:  # x * 1 -> x
+                    res.append(TACInstruction("ASSIGN", arg1, None, inst.result))
+                    continue
+                elif arg1 == 0 or arg2 == 0:  # x * 0 or 0 * x -> 0
+                    new_inst = TACInstruction("CONST", 0, None, inst.result)
+                    res.append(new_inst)
+                    if inst.result:
+                        constants[inst.result] = 0
+                    continue
+
+            elif inst.op == "DIV":
+                if arg2 == 1:  # x / 1 -> x
+                    res.append(TACInstruction("ASSIGN", arg1, None, inst.result))
+                    continue
+                elif arg1 == 0 and arg2 != 0:  # 0 / x (where x != 0) -> 0
+                    new_inst = TACInstruction("CONST", 0, None, inst.result)
+                    res.append(new_inst)
+                    if inst.result:
+                        constants[inst.result] = 0
+                    continue
+
+            elif inst.op == "EQ":
+                if arg1 == arg2 and isinstance(arg1, str):  # x == x -> 1
+                    new_inst = TACInstruction("CONST", 1, None, inst.result)
+                    res.append(new_inst)
+                    if inst.result:
+                        constants[inst.result] = 1
+                    continue
+
+            elif inst.op == "NE":
+                if arg1 == arg2 and isinstance(arg1, str):  # x != x -> 0
+                    new_inst = TACInstruction("CONST", 0, None, inst.result)
+                    res.append(new_inst)
+                    if inst.result:
+                        constants[inst.result] = 0
+                    continue
+
             elif inst.op == "NEG" and isinstance(arg1, (int, float)):
                 folded_val = -arg1
                 new_inst = TACInstruction("CONST", folded_val, None, inst.result)
@@ -99,6 +160,7 @@ class TACOptimizer:
                         constants[inst.result] = arg1
 
             res.append(TACInstruction(inst.op, arg1, arg2, inst.result))
+
 
         return res
 
