@@ -159,20 +159,6 @@ python3 -m unittest discover -s tests
 
 ---
 
-## 7. Review 1 Evaluation Rubric (20/20 Marks)
-
-| Criteria | Evaluator Focus & Project Alignment | Marks |
-|---|---|---|
-| **1. Topic Selection** | Compiler Design Lab Relevance (Full 5-phase pipeline) | 3 / 3 |
-| **2. Problem Statement** | Solves opaque black-box compiler limitations | 3 / 3 |
-| **3. Objectives** | 8 clearly defined functional/technical goals | 2 / 2 |
-| **4. Technical Feasibility** | 100% complete working implementation + 22 unittests | 4 / 4 |
-| **5. Compiler Concepts** | Lexer, Recursive Descent, AST, Symbol Table, TAC, VM | 3 / 3 |
-| **6. System Architecture** | Single-responsibility modular layout (`src/`, `tests/`) | 4 / 4 |
-| **7. Innovation** | Constant Folding & DCE Optimizer + Scope Mangling + AST Dumper | 2 / 2 |
-| **8. Prototype** | Live CLI executable (`./sudarshan examples/valid.mini --all`) | 3 / 3 |
-| **TOTAL MARKS** | | **20 / 20** |
-
 ---
 
 ## 8. Viva Examination Questions & Answers (20 Key Questions)
