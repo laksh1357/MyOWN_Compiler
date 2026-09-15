@@ -10,6 +10,9 @@ import argparse
 import os
 import sys
 
+# Ensure current directory is in Python path for module imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from errors import LexerError, ParserError, SemanticError, RuntimeError, SudarshanError, MiniLangError
 from lexer import Lexer
 from parser import Parser
@@ -59,11 +62,11 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python3 main.py examples/valid.mini
-  python3 main.py examples/valid.mini --all
-  python3 main.py examples/valid.mini --explain
-  python3 main.py examples/valid.mini --tokens --ast
-  python3 main.py examples/error_syntax.mini
+  ./sudarshan examples/valid.mini
+  ./sudarshan examples/valid.mini --all
+  ./sudarshan examples/valid.mini --explain
+  ./sudarshan examples/valid.mini --tokens --ast
+  ./sudarshan examples/error_syntax.mini
 """
     )
     cli_parser.add_argument("filename", help="Path to the .mini source code file")
@@ -175,7 +178,7 @@ Examples:
     except RuntimeError as err:
         print(f"\n❌ RUNTIME ERROR: {err}", file=sys.stderr)
         sys.exit(1)
-    except MiniLangError as err:
+    except SudarshanError as err:
         print(f"\n❌ COMPILER ERROR: {err}", file=sys.stderr)
         sys.exit(1)
 

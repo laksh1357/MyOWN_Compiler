@@ -3,10 +3,15 @@ Generates Phase1_Report.pdf for Sudarshan Compiler Project Phase 1 Submission.
 Uses pure Python 3 without external dependencies.
 """
 
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(__file__))
 from generate_pdf import SimplePDFWriter
 
 def generate_phase1_pdf():
-    pdf = SimplePDFWriter("Phase1_Report.pdf")
+    out_path = os.path.join(os.path.dirname(__file__), "Phase1_Report.pdf")
+    pdf = SimplePDFWriter(out_path)
     pdf.new_page()
 
     # Header & Title

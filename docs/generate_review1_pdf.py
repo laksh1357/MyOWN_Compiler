@@ -3,10 +3,15 @@ Generates Review1_Defense_Guide.pdf for Sudarshan Compiler Project Review 1 Eval
 Uses pure Python 3 without external dependencies.
 """
 
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(__file__))
 from generate_pdf import SimplePDFWriter
 
 def generate_review1_pdf():
-    pdf = SimplePDFWriter("Review1_Defense_Guide.pdf")
+    out_path = os.path.join(os.path.dirname(__file__), "Review1_Defense_Guide.pdf")
+    pdf = SimplePDFWriter(out_path)
     pdf.new_page()
 
     # Header & Title
@@ -59,7 +64,6 @@ def generate_review1_pdf():
     pdf.add_heading1("3. Working Prototype Demonstration")
     pdf.add_paragraph("Demonstrate live CLI in terminal during Review 1:")
     pdf.add_code_block(
-        "cd Sudarshan\n"
         "./sudarshan examples/valid.mini --all"
     )
 

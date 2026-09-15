@@ -61,7 +61,7 @@ OPCODE_MAP = {
 
 class TACGenerator:
     """
-    AST Visitor that translates MiniLang AST nodes into linear TAC instructions.
+    AST Visitor that translates Sudarshan AST nodes into linear TAC instructions.
     Uses SymbolTable to handle scope-based variable name mangling for shadowing.
     """
 

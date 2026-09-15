@@ -1,6 +1,6 @@
 """
 Python Script to Generate a Formal Microsoft Word Document (.docx)
-for MiniLang Phase 1 / Review 1 Compiler Design Laboratory Submission.
+for Sudarshan Phase 1 / Review 1 Compiler Design Laboratory Submission.
 """
 
 import os
@@ -162,7 +162,7 @@ def create_document(output_filename: str):
         "5. Implement a Three-Address Code (TAC) Generator producing quadruples.\n"
         "6. Implement a TAC Optimizer pass performing compile-time Constant Folding.\n"
         "7. Implement a Virtual Machine Interpreter to execute TAC quadruples.\n"
-        "8. Implement a centralized location-aware error handling module (`errors.py`)."
+        "8. Implement a centralized location-aware error handling module (`src/errors.py`)."
     )
 
     add_h2("3.2 Scope of the Project")
@@ -180,7 +180,7 @@ def create_document(output_filename: str):
 
     # --- Chapter 4: Compiler Concepts ---
     add_h1("Chapter 4: Compiler Design Concepts Involved")
-    add_p("The project directly applies 8 core Compiler Design concepts across 10 modular Python files:")
+    add_p("The project directly applies 8 core Compiler Design concepts across 11 modular Python files in `src/`:")
 
     table = doc.add_table(rows=1, cols=3)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -198,14 +198,14 @@ def create_document(output_filename: str):
                 r.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
 
     data = [
-        ("Phase 1: Lexical Analysis", "DFA Scanning, Tokenization, Line & Column Metadata", "lexer.py, errors.py"),
-        ("Phase 2: Syntax Analysis", "LL(1) Recursive Descent Parsing, BNF Precedence", "parser.py"),
-        ("Abstract Syntax Tree", "Hierarchical AST Node Data Structures, Tree Dumper", "ast_nodes.py"),
-        ("Phase 3: Semantic Analysis", "Static Type Checking, Declaration Checking, Visitor Pattern", "semantic.py"),
-        ("Symbol Table", "Lexical Block Scoping, Scope Tree Parent Pointers, Shadowing", "symbol_table.py"),
-        ("Phase 4: Intermediate Code", "Three-Address Code (TAC) Quadruples, Temp/Label Allocation", "tac.py"),
-        ("Phase 4b: Code Optimization", "Compile-Time Constant Folding, Constant Propagation, DCE", "tac_opt.py"),
-        ("Phase 5: Execution Engine", "Von Neumann Virtual Machine, Program Counter, Memory Map", "interpreter.py"),
+        ("Phase 1: Lexical Analysis", "DFA Scanning, Tokenization, Line & Column Metadata", "src/lexer.py, src/errors.py"),
+        ("Phase 2: Syntax Analysis", "LL(1) Recursive Descent Parsing, BNF Precedence", "src/parser.py"),
+        ("Abstract Syntax Tree", "Hierarchical AST Node Data Structures, Tree Dumper", "src/ast_nodes.py"),
+        ("Phase 3: Semantic Analysis", "Static Type Checking, Declaration Checking, Visitor Pattern", "src/semantic.py"),
+        ("Symbol Table", "Lexical Block Scoping, Scope Tree Parent Pointers, Shadowing", "src/symbol_table.py"),
+        ("Phase 4: Intermediate Code", "Three-Address Code (TAC) Quadruples, Temp/Label Allocation", "src/tac.py"),
+        ("Phase 4b: Code Optimization", "Compile-Time Constant Folding, Constant Propagation, DCE", "src/tac_opt.py"),
+        ("Phase 5: Execution Engine", "Von Neumann Virtual Machine, Program Counter, Memory Map", "src/interpreter.py"),
     ]
 
     for row_idx, (c1, c2, c3) in enumerate(data):
@@ -227,17 +227,17 @@ def create_document(output_filename: str):
     add_code(
         "Source Code (.mini)\n"
         "        │\n"
-        "Phase 1: Lexical Analyzer (lexer.py & errors.py) ──► Token Stream (Line & Col tracking)\n"
+        "Phase 1: Lexical Analyzer (src/lexer.py)              ──► Token Stream (Line & Col tracking)\n"
         "        │\n"
-        "Phase 2: Syntax Analyzer (parser.py & ast_nodes.py) ──► Abstract Syntax Tree (AST)\n"
+        "Phase 2: Syntax Analyzer (src/parser.py & ast_nodes) ──► Abstract Syntax Tree (AST)\n"
         "        │\n"
-        "Phase 3: Semantic Analyzer (semantic.py & symbol_table.py) ──► Scoped Symbol Table\n"
+        "Phase 3: Semantic Analyzer (src/semantic.py)          ──► Scoped Symbol Table\n"
         "        │\n"
-        "Phase 4: Intermediate Code Generator (tac.py) ──► Three-Address Code (Quadruples)\n"
+        "Phase 4: Intermediate Code Generator (src/tac.py)     ──► Three-Address Code (Quadruples)\n"
         "        │\n"
-        "Phase 4b: TAC Optimizer Pass (tac_opt.py) ──► Constant Folding & DCE\n"
+        "Phase 4b: TAC Optimizer Pass (src/tac_opt.py)         ──► Constant Folding & DCE\n"
         "        │\n"
-        "Phase 5: Virtual Machine Interpreter (interpreter.py) ──► Code Execution & Output"
+        "Phase 5: Virtual Machine Interpreter (src/interpreter.py) ──► Code Execution & Output"
     )
 
     add_h2("5.2 Formal Grammar (BNF Syntax)")
@@ -295,7 +295,7 @@ def create_document(output_filename: str):
         ("Compiler Concepts", "DFAs, Recursive Descent, AST, Symbol Table, TAC, VM", "3 / 3"),
         ("System Architecture", "Modular single-responsibility design", "4 / 4"),
         ("Innovation", "TAC Constant Folding & DCE Optimizer + AST Dumper", "2 / 2"),
-        ("Prototype", "Working CLI executable ./sudarshan & python3 main.py", "3 / 3"),
+        ("Prototype", "Working CLI executable ./sudarshan & python3 src/main.py", "3 / 3"),
     ]
 
     for row_idx, (c1, c2, c3) in enumerate(r_data):
@@ -315,7 +315,6 @@ def create_document(output_filename: str):
     add_h1("Chapter 7: Initial Prototype Demonstration & Execution")
     add_p("To run the working prototype live in terminal:")
     add_code(
-        "cd Sudarshan\n"
         "./sudarshan examples/valid.mini --all"
     )
 
@@ -349,5 +348,5 @@ def create_document(output_filename: str):
 
 
 if __name__ == "__main__":
-    out_docx = "Phase1_Project_Report.docx"
+    out_docx = os.path.join(os.path.dirname(__file__), "Phase1_Project_Report.docx")
     create_document(out_docx)

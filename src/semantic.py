@@ -149,7 +149,7 @@ class SemanticAnalyzer:
                 node.column
             )
 
-        # In MiniLang, both arithmetic (+, -, *, /) and comparison (==, !=, <, >, <=, >=) return int (0 or 1 for bool)
+        # In Sudarshan, both arithmetic (+, -, *, /) and comparison (==, !=, <, >, <=, >=) return int (0 or 1 for bool)
         return "int"
 
     def _visit_UnaryExpr(self, node: UnaryExpr) -> str:

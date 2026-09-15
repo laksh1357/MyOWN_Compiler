@@ -1,5 +1,5 @@
 """
-Pure Python 3 PDF Generator for MiniLang Compiler Project Documentation.
+Pure Python 3 PDF Generator for Sudarshan Compiler Project Documentation.
 No external dependencies or pip packages required. Generates standard PDF 1.4 file.
 """
 
@@ -27,10 +27,11 @@ class SimplePDFWriter:
 
     def new_page(self):
         if self.current_stream:
-            self.content_streams.append("\n".join(self.current_stream))
-            self.current_stream = []
+            self._finalize_current_page()
         self.page_number += 1
-        self.y_cursor = self.page_height - self.margin - 20
+        self.current_stream = []
+        self.y_cursor = self.page_height - self.margin
+
         # Draw header / line
         self.current_stream.append("0.2 0.2 0.2 RG 0.5 w")
         self.current_stream.append(f"40 {self.page_height - 35} m 555 {self.page_height - 35} l S")
@@ -38,170 +39,120 @@ class SimplePDFWriter:
         self.current_stream.append("BT /F1 9 Tf 0.3 0.3 0.3 rg 480 " + str(self.page_height - 30) + " Td (Page " + str(self.page_number) + ") Tj ET")
 
     def add_title(self, text: str):
-        self._check_space(50)
-        self.current_stream.append("BT /F2 20 Tf 0.1 0.2 0.5 rg 40 " + str(self.y_cursor) + " Td (" + self._escape(text) + ") Tj ET")
-        self.y_cursor -= 30
+        self._check_space(40)
+        self.y_cursor -= 28
+        clean = self._clean_text(text)
+        self.current_stream.append(f"BT /F2 20 Tf 0.1 0.2 0.5 rg 40 {self.y_cursor} Td ({clean}) Tj ET")
 
     def add_heading1(self, text: str):
-        self._check_space(35)
-        self.y_cursor -= 10
-        self.current_stream.append("BT /F2 14 Tf 0.13 0.31 0.55 rg 40 " + str(self.y_cursor) + " Td (" + self._escape(text) + ") Tj ET")
-        self.y_cursor -= 20
-        # Underline
-        self.current_stream.append("0.13 0.31 0.55 RG 1 w")
-        self.current_stream.append(f"40 {self.y_cursor + 15} m 555 {self.y_cursor + 15} l S")
+        self._check_space(30)
+        self.y_cursor -= 22
+        clean = self._clean_text(text)
+        self.current_stream.append(f"BT /F2 14 Tf 0.1 0.3 0.6 rg 40 {self.y_cursor} Td ({clean}) Tj ET")
 
     def add_heading2(self, text: str):
         self._check_space(25)
-        self.y_cursor -= 5
-        self.current_stream.append("BT /F2 11 Tf 0.2 0.2 0.2 rg 40 " + str(self.y_cursor) + " Td (" + self._escape(text) + ") Tj ET")
-        self.y_cursor -= 16
+        self.y_cursor -= 18
+        clean = self._clean_text(text)
+        self.current_stream.append(f"BT /F2 11 Tf 0.2 0.2 0.2 rg 40 {self.y_cursor} Td ({clean}) Tj ET")
 
     def add_paragraph(self, text: str):
-        lines = self._wrap_text(text, font_size=10, max_width=515)
-        for line in lines:
-            self._check_space(14)
-            self.current_stream.append("BT /F1 10 Tf 0.1 0.1 0.1 rg 40 " + str(self.y_cursor) + " Td (" + self._escape(line) + ") Tj ET")
-            self.y_cursor -= 13
-        self.y_cursor -= 4
+        words = text.split(" ")
+        line = ""
+        for w in words:
+            test = line + (" " if line else "") + w
+            if len(test) > 90:
+                self._draw_text_line(line)
+                line = w
+            else:
+                line = test
+        if line:
+            self._draw_text_line(line)
+
+    def _draw_text_line(self, line: str):
+        self._check_space(14)
+        self.y_cursor -= 14
+        clean = self._clean_text(line)
+        self.current_stream.append(f"BT /F1 10 Tf 0.1 0.1 0.1 rg 40 {self.y_cursor} Td ({clean}) Tj ET")
 
     def add_code_block(self, code_text: str):
-        lines = code_text.strip().split("\n")
-        block_height = len(lines) * 12 + 12
-        self._check_space(min(block_height, 200))
+        lines = code_text.split("\n")
+        block_height = len(lines) * 12 + 10
+        self._check_space(block_height)
 
-        start_y = self.y_cursor
-        # Background box
-        box_top = self.y_cursor + 5
-        box_bottom = self.y_cursor - (len(lines) * 12) - 5
-        self.current_stream.append(f"0.95 0.95 0.96 rg 40 {box_bottom} 515 {box_top - box_bottom} re f")
-        self.current_stream.append(f"0.8 0.8 0.85 RG 0.5 w 40 {box_bottom} 515 {box_top - box_bottom} re s")
+        top_y = self.y_cursor - 5
+        bot_y = self.y_cursor - block_height
 
-        self.y_cursor -= 8
+        self.current_stream.append(f"0.95 0.95 0.97 rg 40 {bot_y} 515 {block_height} re f")
+        self.current_stream.append(f"0.8 0.8 0.85 RG 0.5 w 40 {bot_y} 515 {block_height} re S")
+
+        self.y_cursor -= 10
         for line in lines:
-            self._check_space(12)
-            self.current_stream.append("BT /F3 9 Tf 0.15 0.15 0.25 rg 48 " + str(self.y_cursor) + " Td (" + self._escape(line) + ") Tj ET")
             self.y_cursor -= 12
-        self.y_cursor -= 8
+            clean = self._clean_text(line)
+            self.current_stream.append(f"BT /F3 9 Tf 0.15 0.15 0.25 rg 48 {self.y_cursor} Td ({clean}) Tj ET")
+        self.y_cursor -= 10
 
-    def _check_space(self, needed: float):
+    def _check_space(self, needed: int):
         if self.y_cursor - needed < self.margin + 20:
             self.new_page()
 
-    def _wrap_text(self, text: str, font_size: int, max_width: int) -> list[str]:
-        words = text.split(" ")
-        lines = []
-        current_line = []
-        # Rough char width estimate: 0.5 * font_size
-        char_width = font_size * 0.52
-        max_chars = int(max_width / char_width)
+    def _clean_text(self, text: str) -> str:
+        text = text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+        return "".join(c if 32 <= ord(c) <= 126 else " " for c in text)
 
-        for word in words:
-            test_line = " ".join(current_line + [word])
-            if len(test_line) <= max_chars:
-                current_line.append(word)
-            else:
-                if current_line:
-                    lines.append(" ".join(current_line))
-                current_line = [word]
-        if current_line:
-            lines.append(" ".join(current_line))
-        return lines
+    def _finalize_current_page(self):
+        stream_data = "\n".join(self.current_stream)
+        stream_bytes = stream_data.encode("utf-8")
+        obj_content = f"<< /Length {len(stream_bytes)} >>\nstream\n{stream_data}\nendstream"
+        stream_id = self._add_object(obj_content)
 
-    def _escape(self, text: str) -> str:
-        return text.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+        page_content = f"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents {stream_id} 0 R /Resources 3 0 R >>"
+        page_id = self._add_object(page_content)
+        self.pages.append(page_id)
 
     def save(self):
         if self.current_stream:
-            self.content_streams.append("\n".join(self.current_stream))
+            self._finalize_current_page()
 
-        # Build PDF structure
-        # Obj 1: Catalog
-        # Obj 2: Outlines
-        # Obj 3: Pages
-        # Obj 4: Font F1 (Helvetica)
-        # Obj 5: Font F2 (Helvetica-Bold)
-        # Obj 6: Font F3 (Courier)
-        # Obj 7..N: Content streams & Page objects
+        total_objs = len(self.objects) + 4
+        num_pages = len(self.pages)
 
-        num_pages = len(self.content_streams)
+        page_kids = " ".join(f"{p} 0 R" for p in self.pages)
 
-        pdf_bytes = bytearray()
-        pdf_bytes.extend(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+        # Base structural objects
+        catalog_obj = "<< /Type /Catalog /Pages 2 0 R >>"
+        pages_obj = f"<< /Type /Pages /Kids [{page_kids}] /Count {num_pages} >>"
+        resources_obj = (
+            "<< /Font << "
+            "/F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> "
+            "/F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> "
+            "/F3 << /Type /Font /Subtype /Type1 /BaseFont /Courier >> "
+            ">> >>"
+        )
 
-        offsets = {}
+        all_objs = [catalog_obj, pages_obj, resources_obj] + self.objects
 
-        # 1. Catalog
-        offsets[1] = len(pdf_bytes)
-        pdf_bytes.extend(b"1 0 obj\n<< /Type /Catalog /Pages 3 0 R >>\nendobj\n")
+        pdf_bytes = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+        offsets = []
 
-        # 2. Outlines
-        offsets[2] = len(pdf_bytes)
-        pdf_bytes.extend(b"2 0 obj\n<< /Type /Outlines /Count 0 >>\nendobj\n")
+        for idx, obj in enumerate(all_objs, start=1):
+            offsets.append(len(pdf_bytes))
+            pdf_bytes.extend(f"{idx} 0 obj\n{obj}\nendobj\n".encode("utf-8"))
 
-        # Fonts
-        offsets[4] = len(pdf_bytes)
-        pdf_bytes.extend(b"4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n")
-
-        offsets[5] = len(pdf_bytes)
-        pdf_bytes.extend(b"5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>\nendobj\n")
-
-        offsets[6] = len(pdf_bytes)
-        pdf_bytes.extend(b"6 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>\nendobj\n")
-
-        # Page object IDs start after fonts + streams
-        page_obj_ids = []
-        stream_obj_ids = []
-
-        next_obj_id = 7
-        for i in range(num_pages):
-            stream_obj_ids.append(next_obj_id)
-            next_obj_id += 1
-            page_obj_ids.append(next_obj_id)
-            next_obj_id += 1
-
-        # 3. Pages object
-        offsets[3] = len(pdf_bytes)
-        pages_kids = " ".join(f"{pid} 0 R" for pid in page_obj_ids)
-        pdf_bytes.extend(f"3 0 obj\n<< /Type /Pages /Count {num_pages} /Kids [{pages_kids}] >>\nendobj\n".encode("utf-8"))
-
-        # Streams and Pages
-        for i in range(num_pages):
-            sid = stream_obj_ids[i]
-            pid = page_obj_ids[i]
-            stream_content = self.content_streams[i].encode("utf-8")
-
-            # Stream object
-            offsets[sid] = len(pdf_bytes)
-            stream_header = f"{sid} 0 obj\n<< /Length {len(stream_content)} >>\nstream\n".encode("utf-8")
-            pdf_bytes.extend(stream_header)
-            pdf_bytes.extend(stream_content)
-            pdf_bytes.extend(b"\nendstream\nendobj\n")
-
-            # Page object
-            offsets[pid] = len(pdf_bytes)
-            page_dict = (
-                f"{pid} 0 obj\n"
-                f"<< /Type /Page /Parent 3 0 R /MediaBox [0 0 595 842] "
-                f"/Contents {sid} 0 R /Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> >> >>\n"
-                f"endobj\n"
-            ).encode("utf-8")
-            pdf_bytes.extend(page_dict)
-
-        # XRef table
         xref_offset = len(pdf_bytes)
-        total_objs = max(offsets.keys()) + 1
-        pdf_bytes.extend(f"xref\n0 {total_objs}\n0000000000 65535 f \n".encode("utf-8"))
-        for oid in range(1, total_objs):
-            off = offsets.get(oid, 0)
+        pdf_bytes.extend(f"xref\n0 {len(all_objs) + 1}\n".encode("utf-8"))
+        pdf_bytes.extend(b"0000000000 65535 f \n")
+
+        for off in offsets:
             pdf_bytes.extend(f"{off:010d} 00000 n \n".encode("utf-8"))
 
-        # Trailer
         pdf_bytes.extend(
-            f"trailer\n<< /Size {total_objs} /Root 1 0 R >>\n"
+            f"trailer\n<< /Size {len(all_objs) + 1} /Root 1 0 R >>\n"
             f"startxref\n{xref_offset}\n%%EOF\n".encode("utf-8")
         )
 
+        os.makedirs(os.path.dirname(self.filename), exist_ok=True)
         with open(self.filename, "wb") as f:
             f.write(pdf_bytes)
         print(f"✅ Generated PDF document: {self.filename} ({len(pdf_bytes)} bytes, {num_pages} pages)")
@@ -342,5 +293,5 @@ def generate_doc_pdf(output_path: str):
     pdf.save()
 
 if __name__ == "__main__":
-    out_file = "SUDARSHAN_Compiler_Documentation.pdf"
+    out_file = os.path.join(os.path.dirname(__file__), "SUDARSHAN_Compiler_Documentation.pdf")
     generate_doc_pdf(out_file)

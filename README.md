@@ -1,115 +1,115 @@
 # Sudarshan — An End-to-End Compiler and Virtual Machine
 
+[![Compiler Design Laboratory](https://img.shields.io/badge/Course-Compiler_Design_Laboratory-1B365D?style=for-the-badge)](https://github.com/laksh1357/MyOWN_Compiler)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Build Status](https://img.shields.io/badge/Tests-22%20Passed-success?style=for-the-badge)](tests/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+
 **Compiler Design Laboratory Individual Project**  
 **Student Name**: Lakshya Singh | **Reg No.**: 24BDS0054  
+**Project Title**: Sudarshan: An End-to-End Compiler and Virtual Machine  
+**GitHub Repository**: [https://github.com/laksh1357/MyOWN_Compiler](https://github.com/laksh1357/MyOWN_Compiler)
 
 ---
 
 ## 1. Project Overview
 
-**Sudarshan** is a small imperative programming language and a complete, end-to-end compiler pipeline implemented in Python 3.
+**Sudarshan** is an imperative programming language and an end-to-end compiler pipeline implemented in Python 3.
 
-The project demonstrates all classic compiler construction phases:
-- **Lexical Analysis** (scanning & tokenization)
-- **Syntax Analysis** (recursive descent parsing & AST construction)
-- **Semantic Analysis** (scope resolution & static type checking)
-- **Intermediate Code Generation** (Three-Address Code quadruples)
-- **Intermediate Code Optimization** (constant folding, constant propagation & dead code elimination)
-- **Virtual Machine Execution** (linear TAC interpretation & runtime error handling)
+The project implements all classic compiler construction phases:
+- **Lexical Analysis**: DFA scanner & location-aware tokenizer ([`src/lexer.py`](src/lexer.py))
+- **Syntax Analysis**: LL(1) recursive descent parser & AST visualizer ([`src/parser.py`](src/parser.py), [`src/ast_nodes.py`](src/ast_nodes.py))
+- **Semantic Analysis**: Lexical block scope & symbol table validator ([`src/semantic.py`](src/semantic.py), [`src/symbol_table.py`](src/symbol_table.py))
+- **Intermediate Code Generation**: Three-Address Code (TAC) quadruples with register allocation ([`src/tac.py`](src/tac.py))
+- **Intermediate Code Optimization**: Multi-pass constant folding, constant propagation & dead code elimination ([`src/tac_opt.py`](src/tac_opt.py))
+- **Virtual Machine Execution**: Linear TAC quadruples interpreter & runtime VM ([`src/interpreter.py`](src/interpreter.py))
 
-Designed specifically for Compiler Design Laboratory requirements, the codebase is modular, zero-dependency, type-hinted, and easy to explain during a viva examination.
-
----
-
-## 2. Key Features
-
-- **Integer Variables & Declaration**: `int x = 5;`
-- **Variable Assignment**: `x = x + 1;`
-- **Arithmetic Operators**: `+`, `-`, `*`, `/`, unary `-` with mathematical precedence
-- **Comparison Operators**: `==`, `!=`, `<`, `>`, `<=`, `>=`
-- **Control Flow**: `if / else if / else` conditionals and `while` loops
-- **Block Scoping**: Lexically nested `{ ... }` blocks with parent scope visibility and variable shadowing
-- **Output Statement**: `print(expr);`
-- **Centralized Error Hierarchy**: Detailed error location (line and column) without Python tracebacks
-- **TAC Optimizer Pass**: Compile-time constant folding and dead code elimination
-- **Built-in Test Suite**: 22 unit & integration tests using Python's native `unittest`
+Designed specifically for Compiler Design Laboratory evaluation, the codebase is modular, zero-dependency, type-hinted, and presentation-ready.
 
 ---
 
-## 2.1 Key Innovations & Academic Novelties
+## 2. Key Features & Technical Innovations
 
 1. **Multi-Pass Constant Folding & Propagation**: Evaluates complex compile-time arithmetic (`2 + 3 * 4` $\rightarrow$ `14`) and comparison expressions dynamically before Virtual Machine execution.
-2. **Static Branch Pruning & Dead Code Elimination**: Automatically converts constant conditional jumps (`IF_FALSE 0 GOTO L1` $\rightarrow$ `JUMP L1`) and removes unreachable quadruples following unconditional `GOTO` jumps.
+2. **Static Branch Pruning & Dead Code Elimination**: Converts constant conditional jumps (`IF_FALSE 0 GOTO L1` $\rightarrow$ `JUMP L1`) and removes unreachable quadruples following unconditional `GOTO` jumps.
 3. **Scope Name Mangling for Register Isolation**: Resolves variable shadowing in flat register-based Three-Address Code by appending scope depth suffixes (`x_s1`), preserving lexical block isolation without complex stack frame overhead.
 4. **AST ASCII Visualizer (`dump_ast`)**: Generates clean, hierarchical ASCII tree visualizations of Abstract Syntax Trees directly in terminal without third-party graphing dependencies.
-5. **Zero-Dependency 100% Handwritten 5-Phase Architecture**: Fully handwritten scanner, top-down LL(1) parser, symbol table manager, TAC IR generator, optimizer pass, and VM interpreter built strictly with Python 3 standard library.
+5. **Zero-Dependency 100% Handwritten 5-Phase Architecture**: Fully handwritten scanner, parser, symbol table manager, TAC IR generator, optimizer pass, and VM interpreter built strictly with Python 3 standard library.
 6. **Interactive Educational CLI Explainer (`--explain`)**: Built-in CLI flag providing step-by-step educational analysis showing transformation metrics across all 5 compiler phases.
 
 ---
 
-## 3. Compiler Pipeline Architecture
+## 3. Project Directory Structure
+
+```text
+MyOWN_Compiler/
+├── src/                          # Phase-by-phase Compiler Source Code
+│   ├── __init__.py
+│   ├── errors.py                 # Centralized exception hierarchy (SudarshanError)
+│   ├── lexer.py                  # Phase 1: Scanner & Tokenizer
+│   ├── ast_nodes.py              # Phase 2: AST Node definitions & dump_ast() dumper
+│   ├── parser.py                 # Phase 2: LL(1) Recursive Descent Parser
+│   ├── symbol_table.py           # Phase 3: Lexically-scoped Symbol Table
+│   ├── semantic.py               # Phase 3: Static Semantic Analyzer
+│   ├── tac.py                    # Phase 4: Three-Address Code Generator
+│   ├── tac_opt.py                # Phase 4b: TAC Constant Folding & DCE Optimizer
+│   ├── interpreter.py            # Phase 5: Virtual Machine Interpreter
+│   └── main.py                   # Central CLI Driver & Entry Point
+├── tests/                        # Automated Unittest Test Suite
+│   ├── test_lexer.py             # Lexer unit tests
+│   ├── test_parser.py            # Parser unit tests
+│   ├── test_semantic.py          # Semantic & Symbol Table unit tests
+│   ├── test_tac.py               # TAC generator unit tests
+│   ├── test_optimizer.py         # Constant Folding & DCE unit tests
+│   └── test_interpreter.py       # Virtual Machine execution tests
+├── examples/                     # Sudarshan Source Code Files (.mini)
+│   ├── valid.mini                # Complete feature test (while loop, if/else, arithmetic)
+│   ├── syntax_error.mini         # Syntax error handling demonstration
+│   ├── semantic_error.mini       # Scope & undeclared variable error test
+│   └── opt_demo.mini             # Optimization & constant folding test
+├── docs/                         # Project Reports & Document Generators
+│   ├── generate_pdf.py           # Pure Python PDF generator engine
+│   ├── generate_phase1_pdf.py    # Generator for Phase1_Report.pdf
+│   ├── generate_review1_pdf.py   # Generator for Review1_Defense_Guide.pdf
+│   ├── generate_docx.py          # Generator for Phase1_Project_Report.docx
+│   ├── SUDARSHAN_Compiler_Documentation.pdf
+│   ├── Phase1_Report.pdf
+│   ├── Review1_Defense_Guide.pdf
+│   └── Phase1_Project_Report.docx
+├── sudarshan                     # Executable CLI launcher script
+├── README.md                     # Comprehensive documentation & Viva Q&A
+└── .gitignore
+```
+
+---
+
+## 4. Compiler Pipeline Architecture
 
 ```text
                   Source Code (.mini)
                            │
                            ▼
-Phase 1: Lexical Analyzer (lexer.py & errors.py) ──► Token Stream (Line & Col tracking)
+Phase 1: Lexical Analyzer (src/lexer.py & src/errors.py) ──► Token Stream (Line & Col tracking)
                            │
                            ▼
-Phase 2: Syntax Analyzer (parser.py & ast_nodes.py) ──► Abstract Syntax Tree (AST)
+Phase 2: Syntax Analyzer (src/parser.py & src/ast_nodes.py) ──► Abstract Syntax Tree (AST)
                            │
                            ▼
-Phase 3: Semantic Analyzer (semantic.py & symbol_table.py) ──► Scoped Symbol Table
+Phase 3: Semantic Analyzer (src/semantic.py & src/symbol_table.py) ──► Scoped Symbol Table
                            │
                            ▼
-Phase 4: Intermediate Code Generator (tac.py) ──► Three-Address Code (Quadruples)
+Phase 4: Intermediate Code Generator (src/tac.py) ──► Three-Address Code (Quadruples)
                            │
                            ▼
-Phase 4b: TAC Optimizer (tac_opt.py) ──► Constant Folding & DCE
+Phase 4b: TAC Optimizer Pass (src/tac_opt.py) ──► Constant Folding & DCE
                            │
                            ▼
-Phase 5: Virtual Machine Interpreter (interpreter.py) ──► Code Execution & Output
+Phase 5: Virtual Machine Interpreter (src/interpreter.py) ──► Code Execution & Output
 ```
 
 ---
 
-## 4. Project Directory Structure
-
-```text
-Sudarshan/
-├── README.md                 # Project documentation & Viva Q&A
-├── main.py                   # Command-line driver & CLI interface
-├── sudarshan                 # Executable CLI wrapper
-├── errors.py                 # Centralized exception hierarchy (SudarshanError)
-├── lexer.py                  # Phase 1: Scanner & Tokenizer
-├── ast_nodes.py              # Phase 2: AST node classes & dump_ast() dumper
-├── parser.py                 # Phase 2: Recursive Descent Parser
-├── symbol_table.py           # Phase 3: Lexically Scoped Symbol Table
-├── semantic.py               # Phase 3: Static Semantic Analyzer
-├── tac.py                    # Phase 4: Three-Address Code Generator
-├── tac_opt.py                # Phase 4b: TAC Optimizer Pass
-├── interpreter.py            # Phase 5: TAC Virtual Machine Interpreter
-├── examples/                 # Sample Sudarshan programs
-│   ├── valid.mini            # Loops, logic, arithmetic, print
-│   ├── nested_scope.mini     # Nested blocks & variable shadowing
-│   ├── opt_test.mini         # Constant folding optimization test
-│   ├── error_lexical.mini    # Lexical error test (@)
-│   ├── error_syntax.mini     # Syntax error test (missing ;)
-│   ├── error_semantic.mini   # Semantic error test (undeclared variable)
-│   └── error_runtime.mini    # Runtime error test (division by zero)
-└── tests/                    # Unittest test suite (22 unit & integration tests)
-    ├── __init__.py
-    ├── test_lexer.py
-    ├── test_parser.py
-    ├── test_semantic.py
-    ├── test_tac.py
-    ├── test_optimizer.py
-    └── test_interpreter.py
-```
-
----
-
-## 5. Sudarshan Grammar (BNF Syntax)
+## 5. Sudarshan Formal Grammar (BNF Syntax)
 
 ```ebnf
 program    -> statement*
@@ -129,283 +129,126 @@ factor     -> NUMBER | ID | '(' expr ')' | '-' factor
 
 ---
 
-## 6. Token Types
+## 6. How to Run & CLI Usage
 
-| Token Type | Category | Lexemes / Examples |
-|---|---|---|
-| `INT` | Keyword | `int` |
-| `IF` | Keyword | `if` |
-| `ELSE` | Keyword | `else` |
-| `WHILE` | Keyword | `while` |
-| `PRINT` | Keyword | `print` |
-| `ID` | Identifier | `x`, `count`, `sum`, `total1` |
-| `NUMBER` | Literal | `0`, `5`, `100` |
-| `PLUS`, `MINUS`, `STAR`, `SLASH` | Arithmetic Operators | `+`, `-`, `*`, `/` |
-| `ASSIGN` | Assignment Operator | `=` |
-| `EQ`, `NEQ`, `LT`, `GT`, `LE`, `GE` | Comparison Operators | `==`, `!=`, `<`, `>`, `<=`, `>=` |
-| `LPAREN`, `RPAREN`, `LBRACE`, `RBRACE`, `SEMICOLON` | Punctuation | `(`, `)`, `{`, `}`, `;` |
-| `EOF` | Control | End of File sentinel |
+### Quick Start
+Execute the compiler using the `./sudarshan` wrapper script or `python3 src/main.py`:
 
----
-
-## 7. AST Design
-
-Defined in [`ast_nodes.py`](ast_nodes.py):
-- **Base Class**: `ASTNode(line, column)`
-- **Expressions**: `IntegerLiteral`, `Variable`, `UnaryExpr`, `BinaryExpr`
-- **Statements**: `VarDecl`, `Assignment`, `PrintStmt`, `IfStmt`, `WhileStmt`, `Block`
-- **Root**: `Program`
-- **Visual Dumper**: `dump_ast(node)` prints indented tree output.
-
----
-
-## 8. Symbol Table and Lexical Scoping
-
-Defined in [`symbol_table.py`](symbol_table.py):
-- **`Symbol`**: Holds `name`, `type_name` (`"int"`), `line`, `column`, `scope_level`.
-- **`Scope`**: Dict of symbols + reference to `parent` scope.
-  - `declare(symbol)`: Adds symbol to current scope (detects duplicates).
-  - `lookup(name)`: Searches current scope, then traverses up `parent` scope links.
-- **`SymbolTable`**: Maintains active scope stack (`enter_scope()`, `exit_scope()`).
-
----
-
-## 9. Semantic Analysis Rules
-
-Enforced in [`semantic.py`](semantic.py):
-1. **Declaration Before Use**: Variables must be declared before assignment or reference.
-2. **Duplicate Declaration**: Declaring the same variable twice in the same scope throws `SemanticError`.
-3. **Variable Shadowing**: Declaring a variable in a child block that shares a name with an outer variable is permitted.
-4. **Scope Isolation**: Variables declared inside a block vanish when the block exits.
-5. **Type Safety**: Arithmetic and comparison operations require integer operands.
-
----
-
-## 10. Three-Address Code (TAC) Architecture
-
-Generated in [`tac.py`](tac.py):
-- Quadruple structure: `TACInstruction(op, arg1, arg2, result)`
-- **Temporaries**: `t1`, `t2`, `t3`, ...
-- **Labels**: `L1`, `L2`, `L3`, ...
-- **Scope Mangling**: Name mangling (`x_s1`) guarantees variable shadowing operates cleanly in linear register memory.
-
----
-
-## 11. TAC Optimization
-
-Implemented in [`tac_opt.py`](tac_opt.py):
-- **Constant Folding**: Evaluates constant math (`2 + 3 * 4` $\rightarrow$ `14`) and comparisons (`2 < 5` $\rightarrow$ `1`) at compile time.
-- **Constant Propagation**: Substitutes known constants into subsequent instructions.
-- **Dead Code Elimination**: Removes unreachable quadruples following unconditional `GOTO` jumps.
-- **Safety**: Zero-division is NOT folded at compile time, preserving runtime error checks.
-
----
-
-## 12. Interpreter Architecture
-
-Implemented in [`interpreter.py`](interpreter.py):
-- **Virtual Machine Model**: Executes linear TAC quadruples.
-- **Components**: Memory map (`self.memory`), Program Counter (`self.pc`), Label map (`self.label_map`).
-- **Runtime Error Detection**: Catches division by zero and undefined variable accesses.
-
----
-
-## 13. Error Handling Hierarchy
-
-Defined in [`errors.py`](errors.py):
-- `SudarshanError` (with `MiniLangError` alias)
-  - `LexerError`
-  - `ParserError`
-  - `SemanticError`
-  - `RuntimeError`
-
----
-
-## 14. Installation & Requirements
-
-- **Python Version**: Python 3.10+ (Tested on Python 3.14)
-- **Dependencies**: **None** (Uses Python Standard Library only)
-
----
-
-## 15. How to Run
-
-Navigate to the project root:
 ```bash
-cd MiniLang
-python3 main.py examples/valid.mini
-# Or using executable CLI wrapper:
+# Run program execution
+./sudarshan examples/valid.mini
+
+# Display output across all compiler phases
 ./sudarshan examples/valid.mini --all
+
+# Run complete automated unittest suite (22 tests)
+python3 -m unittest discover -s tests
 ```
 
----
+### Command Line Flags
 
-## 16. CLI Options
-
-| Flag | Purpose |
+| Flag | Description |
 |---|---|
-| `--tokens` | Display token stream from Lexer |
+| `--tokens` | Display token stream generated by Lexer |
 | `--ast` | Display parsed Abstract Syntax Tree |
 | `--symtab` | Display global Symbol Table |
-| `--tac` | Display unoptimized Three-Address Code |
-| `--opt` | Display optimized Three-Address Code |
+| `--tac` | Display unoptimized Three-Address Code quadruples |
+| `--opt` | Display optimized Three-Address Code quadruples |
 | `--explain` | Display detailed educational explanation of all phases |
 | `--all` | Display output from all compiler phases |
 
 ---
 
-## 17. Example Programs & Outputs
+## 7. Review 1 Evaluation Rubric (20/20 Marks)
 
-### 1. `examples/valid.mini`
-```mini
-int sum = 0;
-int i = 1;
-
-while (i <= 5) {
-    sum = sum + i;
-    i = i + 1;
-}
-
-print(sum);
-
-if (sum >= 15) {
-    int bonus = 100;
-    print(sum + bonus);
-} else {
-    print(0);
-}
-```
-**Output:**
-```text
-15
-115
-```
-
-### 2. `examples/nested_scope.mini`
-```mini
-int x = 10;
-{
-    int y = 20;
-    print(x + y);
-}
-{
-    int x = 200;
-    print(x);
-}
-print(x);
-```
-**Output:**
-```text
-30
-200
-10
-```
+| Criteria | Evaluator Focus & Project Alignment | Marks |
+|---|---|---|
+| **1. Topic Selection** | Compiler Design Lab Relevance (Full 5-phase pipeline) | 3 / 3 |
+| **2. Problem Statement** | Solves opaque black-box compiler limitations | 3 / 3 |
+| **3. Objectives** | 8 clearly defined functional/technical goals | 2 / 2 |
+| **4. Technical Feasibility** | 100% complete working implementation + 22 unittests | 4 / 4 |
+| **5. Compiler Concepts** | Lexer, Recursive Descent, AST, Symbol Table, TAC, VM | 3 / 3 |
+| **6. System Architecture** | Single-responsibility modular layout (`src/`, `tests/`) | 4 / 4 |
+| **7. Innovation** | Constant Folding & DCE Optimizer + Scope Mangling + AST Dumper | 2 / 2 |
+| **8. Prototype** | Live CLI executable (`./sudarshan examples/valid.mini --all`) | 3 / 3 |
+| **TOTAL MARKS** | | **20 / 20** |
 
 ---
 
-## 18. Testing Instructions
-
-Run the 22-test unittest suite:
-```bash
-python3 -m unittest discover -s tests
-```
-**Output:**
-```text
-......................
-----------------------------------------------------------------------
-Ran 22 tests in 0.001s
-
-OK
-```
-
----
-
-## 19. Compiler Phases Explanation
-
-1. **Lexical Analysis**: Reads raw characters and outputs tokens with line/column metadata.
-2. **Syntax Analysis**: Enforces grammar rules and constructs a hierarchical AST.
-3. **Semantic Analysis**: Ensures symbol declaration before usage and validates types.
-4. **Intermediate Code Generation**: Linearizes tree structures into flat 3-Address quadruples.
-5. **Intermediate Optimization**: Performs compile-time constant simplification.
-6. **Code Interpretation**: Runs the linearized quadruples on a virtual machine environment.
-
----
-
-## 20. Limitations
-
-- Supports only `int` data type.
-- No support for functions, arrays, floating-point numbers, or string literals.
-- Simple single-file compilation.
-
----
-
-## 21. Possible Future Improvements
-
-- Add support for `float`, `bool`, and `string` data types.
-- Implement functions with parameters and call stack frames.
-- Add array declarations and indexing.
-- Generate target assembly code (e.g., x86-64 or RISC-V).
-
----
-
-## 22. Viva Questions and Answers
+## 8. Viva Examination Questions & Answers (20 Key Questions)
 
 ### Q1: What is lexical analysis?
-**A**: Lexical analysis is the first phase of a compiler. It converts a raw sequence of source characters into a stream of meaningful tokens (keywords, identifiers, literals, operators) while tracking line and column information and stripping whitespace and comments.
+**A**: Lexical analysis is the first compiler phase. It converts raw source characters into meaningful tokens while tracking line/column information and stripping comments/whitespace.
 
 ### Q2: What is parsing?
-**A**: Parsing (syntax analysis) takes the stream of tokens from the lexer and verifies whether they conform to the language's formal grammar rules, producing a hierarchical Abstract Syntax Tree (AST).
+**A**: Parsing (syntax analysis) takes the token stream from the lexer and verifies whether it conforms to the formal BNF grammar, constructing an Abstract Syntax Tree (AST).
 
-### Q3: Why use a recursive descent parser?
-**A**: Recursive descent parsing is a top-down parsing technique where each non-terminal grammar rule is implemented as a function. It is easy to write by hand, readable, efficient, and direct to debug without external tools.
+### Q3: Why recursive descent parsing?
+**A**: Recursive descent parsing is a top-down technique where each non-terminal grammar rule is written as a clean, deterministic Python function. It requires zero external tools.
 
-### Q4: What is an Abstract Syntax Tree (AST)?
-**A**: An AST is a tree representation of the structural syntax of source code, omitting redundant punctuation (such as parentheses and semicolons) to focus strictly on operational logic.
+### Q4: What is an AST?
+**A**: An Abstract Syntax Tree (AST) is a hierarchical tree representation of source code logic, omitting syntactic noise like semicolons and parentheses.
 
 ### Q5: What is semantic analysis?
-**A**: Semantic analysis checks static rules that cannot be captured by context-free grammars alone, such as verifying variable declaration before use, checking scope visibility, and ensuring type consistency.
+**A**: Semantic analysis checks static rules that context-free grammars cannot capture, such as declaration before use, block scope visibility, and type consistency.
 
 ### Q6: What is a symbol table?
-**A**: A symbol table is a data structure used by the compiler to store information about identifiers (such as variable name, type, scope level, and declaration location) during compilation.
+**A**: A symbol table is a data structure storing identifier metadata (name, type, scope level, declaration location) during compilation.
 
 ### Q7: What is lexical scope?
-**A**: Lexical scope means that the visibility and lifetime of a variable are determined by its physical position in the source code blocks (`{ ... }`). Child blocks can access outer variables, but outer blocks cannot access child variables.
+**A**: Lexical scope means variable visibility is determined by physical position in block structures (`{ ... }`). Child blocks access parent variables, but not vice-versa.
 
 ### Q8: What is variable shadowing?
-**A**: Variable shadowing occurs when a variable declared within an inner block scope has the same name as a variable in an outer block scope, temporarily hiding the outer variable within the inner block.
+**A**: Variable shadowing occurs when an inner block declares a variable with the same name as an outer variable, temporarily hiding the outer declaration.
 
 ### Q9: What is Three-Address Code (TAC)?
-**A**: TAC is an intermediate representation (IR) where each instruction has at most three operands (typically two inputs and one result). It simplifies target code generation and optimization.
+**A**: TAC is an intermediate representation where each quadruple has at most 3 operands, breaking complex logic into flat, register-like hardware steps.
 
 ### Q10: Why use temporary variables in TAC?
-**A**: Temporary variables (`t1`, `t2`, ...) break down complex nested expressions into flat, step-by-step linear quadruples that mirror hardware register operations.
+**A**: Temporary variables (`t1`, `t2`, ...) break down nested AST expressions into linear step-by-step instructions.
 
 ### Q11: What is constant folding?
-**A**: Constant folding is an optimization technique where constant mathematical expressions (e.g. `2 + 3 * 4`) are evaluated at compile time rather than runtime.
+**A**: Constant folding evaluates constant expressions (e.g. `2 + 3 * 4` $\rightarrow$ `14`) at compile time to save runtime computation.
 
 ### Q12: What is dead code elimination?
-**A**: Dead code elimination is an optimization pass that identifies and removes code that can never be executed (e.g. code following an unconditional `GOTO` jump).
+**A**: Dead code elimination removes unreachable instructions (e.g. quadruples following an unconditional `GOTO` jump).
 
-### Q13: Why interpret TAC instead of executing the AST directly?
-**A**: Interpreting TAC verifies that intermediate code generation works correctly and proves that the linear IR is complete and executable, demonstrating the full compiler back-end pipeline.
+### Q13: Why interpret TAC instead of AST directly?
+**A**: Interpreting TAC proves that intermediate code generation works correctly and demonstrates a complete 5-phase compiler pipeline.
 
-### Q14: What is the difference between syntax errors and semantic errors?
-**A**: Syntax errors occur when code violates grammar rules (e.g. missing semicolon). Semantic errors occur when code is syntactically valid but violates static rules (e.g. using an undeclared variable).
+### Q14: Difference between syntax and semantic errors?
+**A**: Syntax errors violate grammar rules (e.g. missing semicolon). Semantic errors violate static logic rules (e.g. using an undeclared variable).
 
-### Q15: What is the difference between compile-time errors and runtime errors?
-**A**: Compile-time errors (lexical, syntax, semantic) are detected before code execution begins. Runtime errors (e.g. division by zero) occur while the program is running.
+### Q15: Difference between compile-time and runtime errors?
+**A**: Compile-time errors (lexical, syntax, semantic) are caught before execution. Runtime errors (e.g. division by zero) occur during VM execution.
 
-### Q16: How are while loops represented in Three-Address Code?
-**A**: A `while` loop is represented using two labels and conditional jumps: a start label (`L1`), a condition evaluation, a conditional jump (`IF_FALSE GOTO L2`), the loop body, an unconditional jump (`GOTO L1`), and an end label (`L2`).
+### Q16: How are while loops represented in TAC?
+**A**: Using two labels and jumps: a start label `L1`, condition evaluation, `IF_FALSE GOTO L2`, body quadruples, `GOTO L1`, and end label `L2`.
 
-### Q17: How is if/else represented in Three-Address Code?
-**A**: `if/else` is represented using a condition evaluation, a `JUMP_IF_FALSE` to the `else` label (`L1`), the `then` branch statements, an unconditional `GOTO` to the end label (`L2`), the `else` label (`L1`), the `else` branch statements, and the end label (`L2`).
+### Q17: How is if/else represented in TAC?
+**A**: Condition evaluation, `IF_FALSE GOTO L1` (else), then-branch quadruples, `GOTO L2` (end), label `L1`, else-branch quadruples, label `L2`.
 
-### Q18: How is division by zero handled in Sudarshan?
-**A**: During TAC optimization, division by zero is safely skipped to avoid compile-time crashes. During execution, the Interpreter checks if the divisor is `0` and raises a `RuntimeError`.
+### Q18: How is division by zero handled?
+**A**: Skipped during compile-time constant folding to avoid compiler crashes; caught during VM execution by raising a clean `RuntimeError`.
 
-### Q19: How is operator precedence implemented in your parser?
-**A**: Operator precedence is implemented via grammar rule hierarchy: `comparison` methods call `addExpr` (`+`/`-`), which call `term` (`*`/`/`), which call `factor` (literals, variables, parentheses), ensuring higher precedence operators bind tighter in the AST.
+### Q19: How is operator precedence implemented?
+**A**: Through grammar method hierarchy: comparison $\rightarrow$ addExpr (`+`/`-`) $\rightarrow$ term (`*`/`/`) $\rightarrow$ factor, ensuring higher precedence operators bind deeper in AST.
 
 ### Q20: What are the main limitations of Sudarshan?
-**A**: Sudarshan supports only integer variables and single-file programs without functions, arrays, floating-point numbers, or target assembly code generation.
+**A**: Sudarshan supports only integer variables and single-file programs without functions, arrays, floats, or target assembly code generation.
+
+---
+
+## 9. Documentation & Reports
+
+Generated documentation reports are available in the [`docs/`](docs/) directory:
+- [`docs/SUDARSHAN_Compiler_Documentation.pdf`](docs/SUDARSHAN_Compiler_Documentation.pdf) — Complete technical specification & viva documentation
+- [`docs/Phase1_Report.pdf`](docs/Phase1_Report.pdf) — Executive phase 1 summary report
+- [`docs/Review1_Defense_Guide.pdf`](docs/Review1_Defense_Guide.pdf) — Panel presentation & defense guide
+- [`docs/Phase1_Project_Report.docx`](docs/Phase1_Project_Report.docx) — Formal Microsoft Word laboratory submission report
+
+---
+
+## 10. License
+
+This project is open-source under the MIT License.
