@@ -17,7 +17,11 @@ venv/
 ENV/
 .DS_Store
 
-# Generated AST visualizations
+# Generated AST visualizations & output directory
+output/
+out/
+build/
 *.png
 *.dot
+
 

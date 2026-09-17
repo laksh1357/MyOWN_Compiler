@@ -1,3 +1,23 @@
-#!/bin/bash
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-python3 "$SCRIPT_DIR/src/main.py" "$@"
+#!/usr/bin/env python3
+"""
+Cross-Platform CLI Launcher for Sudarshan Compiler.
+
+Executes the compiler pipeline portably across macOS, Linux, and Windows
+without hardcoded bash or environment assumptions.
+"""
+
+import os
+import sys
+from pathlib import Path
+
+# Compute absolute path to repository root / src directory portably
+ROOT_DIR = Path(__file__).resolve().parent
+SRC_DIR = ROOT_DIR / "src"
+
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+from main import main
+
+if __name__ == "__main__":
+    main()

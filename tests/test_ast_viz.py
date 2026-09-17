@@ -71,5 +71,18 @@ class TestASTVisualization(unittest.TestCase):
         self.assertEqual(output, [200])
 
 
+    def test_render_ast_graph_uses_output_directory(self):
+        """Verifies that render_ast_graph routes output files to a dedicated directory."""
+        from pathlib import Path
+        ast = Program([VarDecl("int", "x", IntegerLiteral(10))])
+
+        with patch("shutil.which", return_value=None):
+            with patch("sys.modules", {**sys.modules, "graphviz": None}):
+                with patch.object(Path, "mkdir") as mock_mkdir:
+                    render_ast_graph(ast, "my_ast")
+                    mock_mkdir.assert_called()
+
+
 if __name__ == "__main__":
     unittest.main()
+

@@ -255,21 +255,37 @@ def export_ast_dot(node: ASTNode) -> str:
     return "\n".join(lines)
 
 
-def render_ast_graph(node: ASTNode, output_path: str = "ast_tree") -> bool:
+def render_ast_graph(node: ASTNode, output_path: str = "output/ast_tree") -> bool:
     """
     Safely renders the AST to an image file using Graphviz dot engine.
+    Places generated artifacts cleanly inside a dedicated output directory.
     Gracefully handles missing python-graphviz package, missing 'dot' binary,
     file permission errors, or rendering failures without crashing the compiler.
     """
+    from pathlib import Path
+
+    # Ensure output path uses dedicated directory to keep root working directory clean
+    target_path = Path(output_path)
+    if target_path.parent == Path("."):
+        target_path = Path("output") / target_path
+
+    # Create parent output directory if it does not exist
+    try:
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+    except (OSError, PermissionError) as err:
+        print(f"Could not create AST output directory '{target_path.parent}': {err}. Skipping AST image generation.")
+        return False
+
     dot_code = export_ast_dot(node)
+    str_path = str(target_path)
 
     # 1. Try python graphviz library
     try:
         import graphviz
         try:
             src = graphviz.Source(dot_code)
-            src.render(output_path, cleanup=True, format="png")
-            print(f"📷 AST image rendered to '{output_path}.png'")
+            src.render(str_path, cleanup=True, format="png")
+            print(f"📷 AST image rendered to '{str_path}.png'")
             return True
         except (graphviz.backend.ExecutableNotFound, FileNotFoundError):
             print("Graphviz not installed. Skipping AST image generation.")
@@ -292,12 +308,12 @@ def render_ast_graph(node: ASTNode, output_path: str = "ast_tree") -> bool:
             return False
 
         process = subprocess.run(
-            ["dot", "-Tpng", "-o", f"{output_path}.png"],
+            ["dot", "-Tpng", "-o", f"{str_path}.png"],
             input=dot_code.encode("utf-8"),
             capture_output=True,
             check=True
         )
-        print(f"📷 AST image rendered to '{output_path}.png'")
+        print(f"📷 AST image rendered to '{str_path}.png'")
         return True
     except (FileNotFoundError, shutil.ExecError):
         print("Graphviz not installed. Skipping AST image generation.")
@@ -308,4 +324,5 @@ def render_ast_graph(node: ASTNode, output_path: str = "ast_tree") -> bool:
     except (OSError, PermissionError) as err:
         print(f"Could not write AST image file: {err}. Skipping AST image generation.")
         return False
+
 

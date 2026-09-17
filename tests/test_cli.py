@@ -119,6 +119,24 @@ class TestCLIDriver(unittest.TestCase):
             output = captured_stdout.getvalue()
             self.assertIn("Graphviz not installed. Skipping AST image generation.", output)
 
+    def test_portability_and_relative_paths(self):
+        """Regression test: Verifies launcher portability, relative paths, and lack of hard-coded local paths in AST output."""
+        import subprocess
+        from pathlib import Path
+
+        launcher_path = Path(__file__).resolve().parent.parent / "sudarshan"
+        result = subprocess.run(
+            [sys.executable, str(launcher_path), self.valid_file, "--ast"],
+            capture_output=True,
+            text=True
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("Program:", result.stdout)
+        self.assertNotIn("/Users/", result.stdout)
+        self.assertNotIn("/home/", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()
+
+
